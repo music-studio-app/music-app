@@ -1,0 +1,412 @@
+
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Music App</title>
+<style>
+:root {
+  --bg:#101827;
+  --card:#1d2a3e;
+  --text:#ffffff;
+  --accent:#52dfb5;
+}
+* {box-sizing:border-box}
+body {
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  font-family:Arial,sans-serif;
+}
+header {
+  padding:22px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+h1 {font-size:25px}
+button,input,select {
+  font:inherit;
+  border-radius:12px;
+  padding:12px;
+}
+button {
+  border:0;
+  cursor:pointer;
+}
+main {
+  max-width:700px;
+  margin:auto;
+  padding:15px 18px 100px;
+}
+.card {
+  background:var(--card);
+  padding:20px;
+  border-radius:18px;
+  margin-bottom:14px;
+}
+.card p {opacity:.75}
+.primary {
+  background:var(--accent);
+  color:#10201d;
+  font-weight:bold;
+}
+.secondary {
+  background:var(--bg);
+  color:var(--text);
+  border:1px solid #66758a;
+}
+.grid {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+}
+.tile {
+  background:var(--card);
+  color:var(--text);
+  min-height:95px;
+  text-align:left;
+  font-weight:bold;
+}
+input {
+  width:100%;
+  background:var(--card);
+  color:var(--text);
+  border:1px solid #66758a;
+  margin-bottom:12px;
+}
+nav {
+  position:fixed;
+  bottom:0;
+  width:100%;
+  background:var(--card);
+  display:flex;
+  justify-content:space-around;
+  padding:12px 4px;
+}
+nav button {
+  background:transparent;
+  color:var(--text);
+  font-size:12px;
+  padding:8px 3px;
+}
+section {display:none}
+section.active {display:block}
+.song {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+}
+.song button {flex-shrink:0}
+#stageTitle {font-size:30px}
+#stageBody {
+  min-height:220px;
+  line-height:1.7;
+  padding-top:20px;
+}
+.themeButtons {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <h1>♫ Music App</h1>
+    <small>Müzik senin, sahne senin.</small>
+  </div>
+  <button onclick="show('settings')">⚙</button>
+</header>
+
+<main>
+<section id="home" class="active">
+  <div class="card">
+    <h2>Sahneye hazır mısın?</h2>
+    <p>Repertuvarını oluştur, şarkılarını düzenle ve sahneye çık.</p>
+    <button class="primary" onclick="show('reps')">
+      Repertuvarlarım →
+    </button>
+  </div>
+
+  <h2>Hızlı Erişim</h2>
+  <div class="grid">
+    <button class="tile" onclick="show('songs')">♫ Tüm Şarkılar</button>
+    <button class="tile" onclick="show('reps')">▤ Repertuvarlarım</button>
+    <button class="tile" onclick="show('stage')">▶ Sahne Modu</button>
+    <button class="tile" onclick="show('tools')">♩ Müzik Araçları</button>
+  </div>
+</section>
+
+<section id="songs">
+  <h2>Tüm Şarkılar</h2>
+  <input id="search" placeholder="Şarkı ara..." oninput="renderSongs()">
+  <div id="songList"></div>
+</section>
+
+<section id="reps">
+  <h2>Repertuvarlarım</h2>
+  <div class="card">
+    <input id="repName" placeholder="Repertuvar adı">
+    <button class="primary" onclick="createRep()">+ Oluştur</button>
+  </div>
+  <div id="repList"></div>
+</section>
+
+<section id="stage">
+  <h2>Sahne Modu</h2>
+  <div class="card">
+    <small id="stageRep"></small>
+    <h2 id="stageTitle">Şarkı seçilmedi</h2>
+    <p id="stageMeta"></p>
+    <div id="stageBody">
+      Repertuvarından şarkı ekleyerek başlayabilirsin.
+    </div>
+    <div class="grid">
+      <button class="secondary" onclick="move(-1)">← Önceki</button>
+      <button class="secondary" onclick="move(1)">Sonraki →</button>
+    </div>
+  </div>
+</section>
+
+<section id="tools">
+  <h2>Müzik Araçları</h2>
+  <div class="card">
+    <h3>♩ Metronom</h3>
+    <p>Tempo: <b id="bpmText">100</b> BPM</p>
+    <input type="range" min="40" max="220" value="100"
+      id="bpm" oninput="changeBpm()">
+    <button class="primary" id="metroButton" onclick="toggleMetro()">
+      ▶ Başlat
+    </button>
+  </div>
+  <div class="card">
+    <h3>🎼 Akort Cihazı</h3>
+    <p>Gitar, bağlama ve akordiyon akort özellikleri
+       sonraki aşamada eklenecek.</p>
+  </div>
+</section>
+
+<section id="settings">
+  <h2>Görünüm Ayarları</h2>
+  <div class="card">
+    <h3>Renk Teması</h3>
+    <div class="themeButtons">
+      <button onclick="theme('dark')">Siyah</button>
+      <button onclick="theme('light')">Beyaz</button>
+      <button onclick="theme('navy')">Lacivert</button>
+      <button onclick="theme('cream')">Krem</button>
+    </div>
+  </div>
+</section>
+</main>
+
+<nav>
+  <button onclick="show('home')">⌂ Ana Sayfa</button>
+  <button onclick="show('songs')">♫ Şarkılar</button>
+  <button onclick="show('reps')">▤ Listelerim</button>
+  <button onclick="show('stage')">▶ Sahne</button>
+  <button onclick="show('tools')">♩ Araçlar</button>
+</nav>
+
+<script>
+const songs = [
+  {id:1,title:"Misket",artist:"Ankara Yöresi"},
+  {id:2,title:"Hüdayda",artist:"Ankara Yöresi"},
+  {id:3,title:"Çökertme",artist:"Bodrum Yöresi"},
+  {id:4,title:"Drama Köprüsü",artist:"Rumeli Yöresi"},
+  {id:5,title:"Çayelinden Öteye",artist:"Rize Yöresi"}
+];
+
+let reps = JSON.parse(localStorage.getItem("reps") || "[]");
+let activeRep = 0;
+let stageIndex = 0;
+
+function save(){
+  localStorage.setItem("reps",JSON.stringify(reps));
+}
+
+function show(id){
+  document.querySelectorAll("main section").forEach(s=>{
+    s.classList.remove("active");
+  });
+  document.getElementById(id).classList.add("active");
+  if(id==="songs") renderSongs();
+  if(id==="reps") renderReps();
+  if(id==="stage") renderStage();
+}
+
+function renderSongs(){
+  const q=document.getElementById("search").value.toLocaleLowerCase("tr");
+  const box=document.getElementById("songList");
+  box.innerHTML="";
+  songs.filter(s=>s.title.toLocaleLowerCase("tr").includes(q))
+    .forEach(s=>{
+      const div=document.createElement("div");
+      div.className="card song";
+      const info=document.createElement("div");
+      const title=document.createElement("strong");
+      title.textContent=s.title;
+      const artist=document.createElement("p");
+      artist.textContent=s.artist;
+      info.append(title,artist);
+      const btn=document.createElement("button");
+      btn.className="primary";
+      btn.textContent="+ Ekle";
+      btn.onclick=()=>addSong(s.id);
+      div.append(info,btn);
+      box.appendChild(div);
+    });
+}
+
+function createRep(){
+  const input=document.getElementById("repName");
+  const name=input.value.trim();
+  if(!name){alert("Repertuvar adı yaz.");return;}
+  reps.push({name,songIds:[]});
+  activeRep=reps.length-1;
+  input.value="";
+  save();
+  renderReps();
+}
+
+function addSong(id){
+  if(!reps.length){
+    alert("Önce repertuvar oluştur.");
+    show("reps");
+    return;
+  }
+  if(!reps[activeRep].songIds.includes(id)){
+    reps[activeRep].songIds.push(id);
+    save();
+    alert("Şarkı repertuvara eklendi.");
+  }else{
+    alert("Bu şarkı zaten repertuvarda.");
+  }
+}
+
+function renderReps(){
+  const box=document.getElementById("repList");
+  box.innerHTML="";
+  reps.forEach((r,i)=>{
+    const card=document.createElement("div");
+    card.className="card";
+    const heading=document.createElement("h3");
+    heading.textContent=r.name+(i===activeRep?" ✓":"");
+    const count=document.createElement("p");
+    count.textContent=r.songIds.length+" şarkı";
+    const select=document.createElement("button");
+    select.className="secondary";
+    select.textContent="Aktif Seç";
+    select.onclick=()=>{activeRep=i;renderReps();};
+    const open=document.createElement("button");
+    open.className="primary";
+    open.textContent="Sahnede Aç";
+    open.style.marginLeft="8px";
+    open.onclick=()=>{
+      activeRep=i;
+      stageIndex=0;
+      show("stage");
+    };
+    card.append(heading,count,select,open);
+    r.songIds.forEach(id=>{
+      const s=songs.find(x=>x.id===id);
+      if(s){
+        const p=document.createElement("p");
+        p.textContent="♫ "+s.title;
+        card.appendChild(p);
+      }
+    });
+    box.appendChild(card);
+  });
+}
+
+function renderStage(){
+  const r=reps[activeRep];
+  const ids=r?.songIds || [];
+  if(stageIndex>=ids.length)stageIndex=0;
+  const s=songs.find(x=>x.id===ids[stageIndex]);
+  document.getElementById("stageRep").textContent=r?.name||"";
+  document.getElementById("stageTitle").textContent=
+    s?.title||"Şarkı seçilmedi";
+  document.getElementById("stageMeta").textContent=
+    s?.artist||"";
+  document.getElementById("stageBody").textContent=s
+    ?"Bu şarkının temel bilgileri gösteriliyor. Telif izni olmayan şarkı sözleri sunulmaz."
+    :"Repertuvarına şarkı ekleyerek başlayabilirsin.";
+}
+
+function move(step){
+  const n=reps[activeRep]?.songIds.length||0;
+  if(!n)return;
+  stageIndex=(stageIndex+step+n)%n;
+  renderStage();
+}
+
+const themes={
+  dark:["#101827","#1d2a3e","#ffffff","#52dfb5"],
+  light:["#f3f5fa","#ffffff","#152033","#007d67"],
+  navy:["#071d35","#102e4d","#ffffff","#7cd9ff"],
+  cream:["#f7f0df","#fffaf0","#31291f","#926220"]
+};
+
+function theme(name){
+  const t=themes[name];
+  document.documentElement.style.setProperty("--bg",t[0]);
+  document.documentElement.style.setProperty("--card",t[1]);
+  document.documentElement.style.setProperty("--text",t[2]);
+  document.documentElement.style.setProperty("--accent",t[3]);
+  localStorage.setItem("theme",name);
+}
+
+let audioContext=null;
+let metroTimer=null;
+
+function changeBpm(){
+  document.getElementById("bpmText").textContent=
+    document.getElementById("bpm").value;
+  if(metroTimer){
+    clearInterval(metroTimer);
+    metroTimer=setInterval(tick,60000/Number(document.getElementById("bpm").value));
+  }
+}
+
+function tick(){
+  if(!audioContext)return;
+  const osc=audioContext.createOscillator();
+  const gain=audioContext.createGain();
+  const now=audioContext.currentTime;
+  osc.frequency.value=850;
+  gain.gain.setValueAtTime(0.15,now);
+  gain.gain.exponentialRampToValueAtTime(0.001,now+0.07);
+  osc.connect(gain);
+  gain.connect(audioContext.destination);
+  osc.start(now);
+  osc.stop(now+0.08);
+}
+
+function toggleMetro(){
+  const btn=document.getElementById("metroButton");
+  if(metroTimer){
+    clearInterval(metroTimer);
+    metroTimer=null;
+    btn.textContent="▶ Başlat";
+    return;
+  }
+  audioContext=audioContext||new AudioContext();
+  audioContext.resume();
+  tick();
+  metroTimer=setInterval(tick,60000/Number(document.getElementById("bpm").value));
+  btn.textContent="■ Durdur";
+}
+
+theme(localStorage.getItem("theme")||"dark");
+renderSongs();
+renderReps();
+</script>
+</body>
+</html>
