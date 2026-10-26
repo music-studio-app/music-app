@@ -1,1050 +1,142 @@
-
-<!doctype html>
-<html lang="tr">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Music App V4 PRO</title>
-<style>
-:root{
-  font-family:system-ui,Arial,sans-serif;
-  color-scheme:dark;
-  --bg:#101827;--panel:#1b273a;--text:#f7fafc;
-  --muted:#aab8cc;--accent:#51dfb5;--line:#33445b
-}
-body[data-theme=light]{
-  color-scheme:light;--bg:#f4f6fb;--panel:#fff;
-  --text:#162034;--muted:#5c6b80;
-  --accent:#007e68;--line:#d9e0e9
-}
-body[data-theme=navy]{
-  --bg:#071d35;--panel:#102e4d;--text:#fff;
-  --muted:#b1c6dc;--accent:#7cd9ff;--line:#31516e
-}
-body[data-theme=cream]{
-  color-scheme:light;--bg:#f7f0df;--panel:#fffaf0;
-  --text:#31291f;--muted:#776d5e;
-  --accent:#926220;--line:#ded2bc
-}
-*{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--text)}
-button,input,select,textarea{font:inherit}
-button{cursor:pointer}
-.shell{max-width:800px;margin:auto;padding:20px 16px 110px}
-.top,.section,.song,.actions,.stage-controls{
-  display:flex;align-items:center;justify-content:space-between;gap:10px
-}
-.brand{font-size:25px;font-weight:800;cursor:pointer}
-.muted,.sub,.notice{color:var(--muted)}
-.sub,.notice{font-size:12px}
-.hero,.card{
-  background:var(--panel);border:1px solid var(--line);
-  border-radius:18px;padding:18px;margin:15px 0
-}
-.hero{padding:28px;margin-top:28px}
-.hero h1{margin-top:0}
-.primary,.secondary,.chip{
-  padding:12px;border-radius:12px;border:1px solid var(--line)
-}
-.primary{background:var(--accent);color:var(--bg);font-weight:800}
-.secondary,.chip{background:transparent;color:var(--text)}
-.field{
-  display:block;width:100%;padding:12px;margin:9px 0;
-  border-radius:12px;border:1px solid var(--line);
-  background:var(--panel);color:var(--text)
-}
-.grid,.tuner-grid{
-  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px
-}
-.tile{
-  text-align:left;min-height:90px;padding:18px;
-  background:var(--panel);color:var(--text);
-  border:1px solid var(--line);border-radius:15px;font-weight:750
-}
-.tile span{display:block;color:var(--muted);font-size:12px;margin-top:8px}
-.nav{
-  position:fixed;bottom:0;left:0;right:0;z-index:10;
-  background:var(--panel);border-top:1px solid var(--line);
-  display:flex;justify-content:center;padding:10px
-}
-.nav-inner{display:flex;width:min(800px,100%)}
-.nav button{
-  flex:1;border:0;background:transparent;
-  color:var(--muted);padding:10px 2px;font-size:12px
-}
-.nav button span{display:block;font-size:20px}
-.nav button.active{color:var(--accent);font-weight:800}
-.hidden{display:none!important}
-.section{margin-top:25px}
-.section h2{font-size:20px}
-.actions{justify-content:flex-start;flex-wrap:wrap;margin-top:12px}
-.song{align-items:center}
-.song h3{margin:0}
-.song p{color:var(--muted);margin:5px 0}
-.empty{padding:20px;color:var(--muted);text-align:center}
-.stage{min-height:60vh;display:flex;flex-direction:column;justify-content:space-between}
-.stage h1{font-size:36px}
-.stage-meta{color:var(--accent)}
-.stage-body{
-  font-size:var(--stage-font-size,20px);
-  white-space:pre-wrap;line-height:1.7;min-height:180px
-}
-.stage-controls button{flex:1}
-.modal{
-  position:fixed;inset:0;background:#000b;z-index:30;
-  display:flex;align-items:center;justify-content:center;padding:15px
-}
-.modal-box{
-  background:var(--panel);border:1px solid var(--line);
-  border-radius:18px;padding:22px;width:min(450px,100%);
-  max-height:90vh;overflow:auto
-}
-.reorder-item{
-  display:flex;align-items:center;gap:8px;
-  padding:10px 0;border-top:1px solid var(--line)
-}
-.reorder-item .song-label{flex:1;cursor:pointer}
-.drag-handle{touch-action:none;cursor:grab;font-size:22px}
-.reorder-item:not(.editing) .drag-handle{display:none}
-.reorder-item.dragging{opacity:.4}
-.reorder-item.drop-target{border-top:3px solid var(--accent)}
-.tuner-note{
-  background:var(--bg);color:var(--text);border:1px solid var(--line);
-  border-radius:12px;padding:12px;text-align:left
-}
-.tuner-note.selected{border:2px solid var(--accent)}
-.tuner-note strong,.tuner-note small{display:block}
-.tuner-note small{color:var(--muted);margin-top:5px}
-.tuner-options{
-  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px
-}
-.tuner-options label{font-size:13px;color:var(--muted)}
-.tuner-readout{
-  background:var(--bg);border-radius:16px;
-  text-align:center;padding:20px;margin:15px 0
-}
-.tuner-readout.good{outline:2px solid var(--accent)}
-.tuner-pitch{font-size:44px;font-weight:850}
-.tuner-cents{font-size:23px;font-weight:750;margin:12px 0}
-.tuner-meter{
-  position:relative;height:14px;border-radius:20px;margin:25px 4px;
-  background:linear-gradient(90deg,#a85b52,#caa045 35%,#277c68 50%,#caa045 65%,#a85b52)
-}
-.tuner-meter:before{
-  content:"";position:absolute;left:50%;top:-6px;
-  height:26px;border-left:2px solid var(--accent)
-}
-.tuner-needle{
-  position:absolute;left:50%;top:-6px;width:4px;height:26px;
-  background:#fff;border-radius:4px;transform:translateX(-50%);
-  transition:left .12s
-}
-.tuner-labels,.tuner-buttons{display:flex;justify-content:space-between;gap:8px}
-.tuner-labels{font-size:12px;color:var(--muted)}
-.tuner-buttons{flex-wrap:wrap}
-.tuner-buttons button{flex:1}
-@media(min-width:650px){.grid{grid-template-columns:repeat(3,1fr)}}
-</style>
-</head>
-<body data-theme="dark">
-<div class="shell">
-<header class="top">
-<div>
-<div class="brand" id="brandHome">♫ Music App</div>
-<div class="sub">Müzik senin, sahne senin.</div>
-</div>
-<button class="chip" id="themeQuick">◐ Tema</button>
-</header>
-
-<main>
-<section id="home">
-<div class="hero">
-<h1>Sahneye hazır mısın?</h1>
-<p>Şarkılarını düzenle, repertuvarını hazırla ve sahnede tek dokunuşla aç.</p>
-<button class="primary" data-go="reps">Repertuvarlarım →</button>
-</div>
-<div class="section"><h2>Hızlı erişim</h2></div>
-<div class="grid">
-<button class="tile" data-go="songs">♫ Tüm Şarkılar<span>Arşiv ve arama</span></button>
-<button class="tile" data-go="reps">▤ Repertuvarlarım<span>Kendi listelerim</span></button>
-<button class="tile" data-go="stage">▶ Sahne Modu<span>Canlı performans</span></button>
-<button class="tile" data-go="tools">♩ Müzik Araçları<span>Metronom • PRO Akort</span></button>
-<button class="tile" id="themeTile">⚙ Ayarlar<span>Renk temaları</span></button>
-</div>
-</section>
-
-<section id="songs" class="hidden">
-<div class="section"><h2>Tüm Şarkılar</h2><span id="songCount"></span></div>
-<input class="field" id="search" placeholder="Şarkı veya sanatçı ara">
-<div id="songList"></div>
-<p class="notice">Örnek şarkı arşivi. Telifli şarkı sözleri sunulmaz.</p>
-</section>
-
-<section id="reps" class="hidden">
-<div class="section"><h2>Repertuvarlarım</h2></div>
-<div class="card">
-<input class="field" id="repName" maxlength="60" placeholder="Yeni repertuvar adı">
-<button class="primary" id="createRep">+ Oluştur</button>
-</div>
-<div id="repList"></div>
-</section>
-
-<section id="stage" class="hidden">
-<div class="stage">
-<div>
-<div class="muted" id="stagePosition">Sahne modu</div>
-<h1 id="stageTitle">Henüz şarkı seçilmedi</h1>
-<div class="stage-meta" id="stageMeta">—</div>
-<div class="actions">
-<button class="secondary" id="fontMinus">A−</button>
-<button class="secondary" id="fontPlus">A+</button>
-<button class="secondary" id="stageDetails">✎ Bilgiler</button>
-</div>
-<div class="stage-body" id="stageBody"></div>
-</div>
-<div class="stage-controls">
-<button class="secondary" id="prevSong">← Önceki</button>
-<button class="secondary" id="nextSong">Sonraki →</button>
-</div>
-</div>
-</section>
-
-<section id="tools" class="hidden">
-<div class="section"><h2>Müzik Araçları</h2></div>
-
-<div class="card">
-<h3>♩ Metronom</h3>
-<label>Tempo: <strong id="bpmText">100</strong> BPM</label>
-<input class="field" id="bpm" type="range" min="40" max="220" value="100">
-<button class="primary" id="metroBtn">▶ Başlat</button>
-</div>
-
-<div class="card">
-<h3>🎼 PRO Akort Cihazı</h3>
-<p class="muted">Kromatik akort, bağlama düzenleri, hassas cent göstergesi.</p>
-
-<label>Enstrüman</label>
-<select class="field" id="tunerInstrument">
-<option value="short">Kısa sap bağlama</option>
-<option value="long">Uzun sap bağlama</option>
-<option value="divan">Divan bağlama</option>
-<option value="guitar">Gitar</option>
-<option value="bass">Bas gitar</option>
-<option value="violin">Keman</option>
-<option value="ukulele">Ukulele</option>
-<option value="accordion">Akordiyon • Do / Re</option>
-</select>
-
-<label>Akort düzeni</label>
-<select class="field" id="tunerTuning"></select>
-
-<div class="tuner-options">
-<div>
-<label>Ölçüm modu</label>
-<select class="field" id="tunerMode">
-<option value="auto">Otomatik • Kromatik</option>
-<option value="manual">Manuel • Seçili nota</option>
-</select>
-</div>
-<div>
-<label>La4 referansı (Hz)</label>
-<input class="field" id="tunerA4" type="number" min="415" max="466" value="440">
-</div>
-<div>
-<label>Mikrofon hassasiyeti</label>
-<input class="field" id="tunerSensitivity" type="range" min="1" max="10" value="5">
-</div>
-<div>
-<label>Akort toleransı</label>
-<select class="field" id="tunerTolerance">
-<option value="3">±3 cent</option>
-<option value="5" selected>±5 cent</option>
-<option value="10">±10 cent</option>
-</select>
-</div>
-</div>
-
-<p class="muted">Tel grubu veya referans notası seç:</p>
-<div class="tuner-grid" id="tunerNotes"></div>
-
-<div class="tuner-readout" id="tunerReadout">
-<div class="muted">Algılanan nota</div>
-<div class="tuner-pitch" id="tunerPitch">—</div>
-<div class="muted" id="tunerFrequency">— Hz</div>
-<div class="tuner-cents" id="tunerCents">— cent</div>
-<div class="tuner-meter"><div class="tuner-needle" id="tunerNeedle"></div></div>
-<div class="tuner-labels"><span>♭ Pes</span><span>0</span><span>Tiz ♯</span></div>
-<h3 id="tunerStatus">Ölçüm başlatılmadı</h3>
-</div>
-
-<div class="tuner-buttons">
-<button class="primary" id="tunerMic">🎙 Mikrofonu Aç</button>
-<button class="secondary" id="tunerTone">♪ Referans Sesi Çal</button>
-<button class="secondary" id="tunerStopTone">■ Sesi Durdur</button>
-</div>
-<p class="notice">
-Mikrofon için HTTPS veya localhost gerekir. Tek tel grubunu ayrı çal.
-Bağlama akort düzenleri ve oktavlar icracıya göre değişebilir.
-</p>
-</div>
-</section>
-</main>
-</div>
-
-<div class="modal hidden" id="themeModal">
-<div class="modal-box">
-<h2>🎨 Görünüm Ayarları</h2>
-<div class="grid">
-<button class="secondary" data-theme-choice="dark">Siyah</button>
-<button class="secondary" data-theme-choice="light">Beyaz</button>
-<button class="secondary" data-theme-choice="navy">Lacivert</button>
-<button class="secondary" data-theme-choice="cream">Krem</button>
-</div>
-<button class="primary" id="closeTheme">Kapat</button>
-</div>
-</div>
-
-<div class="modal hidden" id="detailModal">
-<div class="modal-box">
-<h2 id="detailTitle">Şarkı Bilgileri</h2>
-<p id="detailContext" class="muted"></p>
-<label>Ton</label>
-<input class="field" id="detailKey" maxlength="40">
-<label>BPM</label>
-<input class="field" id="detailBpm" type="number" min="40" max="220">
-<label>Kişisel sahne notu</label>
-<textarea class="field" id="detailNote" maxlength="3000" rows="5"></textarea>
-<div class="actions">
-<button class="primary" id="saveDetails">Kaydet</button>
-<button class="secondary" id="closeDetails">Kapat</button>
-</div>
-</div>
-</div>
-
-<nav class="nav">
-<div class="nav-inner">
-<button data-go="home" class="active"><span>⌂</span>Ana Sayfa</button>
-<button data-go="songs"><span>♫</span>Şarkılar</button>
-<button data-go="reps"><span>▤</span>Listelerim</button>
-<button data-go="stage"><span>▶</span>Sahne</button>
-<button data-go="tools"><span>♩</span>Araçlar</button>
-</div>
-</nav>
-
 <script>
-"use strict";
-
-const $=id=>document.getElementById(id);
-
-const songs=[
-{id:"s1",title:"Ankara'nın Bağları",artist:"Geleneksel / yöresel",key:"—",bpm:null},
-{id:"s2",title:"Misket",artist:"Ankara yöresi",key:"—",bpm:null},
-{id:"s3",title:"Hüdayda",artist:"Ankara yöresi",key:"—",bpm:null},
-{id:"s4",title:"Çökertme",artist:"Bodrum yöresi",key:"—",bpm:null},
-{id:"s5",title:"Çayelinden Öteye",artist:"Rize yöresi",key:"—",bpm:null},
-{id:"s6",title:"Drama Köprüsü",artist:"Rumeli yöresi",key:"—",bpm:null}
-];
-
-function read(key,fallback){
-try{return JSON.parse(localStorage.getItem(key))??fallback}
-catch{return fallback}
-}
-
-let reps=read("musicapp_reps_v1",[]);
-if(!Array.isArray(reps))reps=[];
-
-let currentRep=read("musicapp_currentrep_v1",null);
-let theme=read("musicapp_theme_v1","dark");
-let lastPage=read("musicapp_page_v3","home");
-let stageFont=Number(read("musicapp_stage_font_v3",20));
-let stageIndex=0;
-let editingRep=null;
-let detailTarget=null;
-
-if(!["dark","light","navy","cream"].includes(theme))theme="dark";
-if(!["home","songs","reps","stage","tools"].includes(lastPage))lastPage="home";
-if(!Number.isFinite(stageFont)||stageFont<14||stageFont>40)stageFont=20;
-
-function save(){
-localStorage.setItem("musicapp_reps_v1",JSON.stringify(reps));
-localStorage.setItem("musicapp_currentrep_v1",JSON.stringify(currentRep));
-}
-
-function esc(s){
-return String(s).replace(/[&<>"']/g,c=>({
-"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
-}[c]));
-}
-
-function setTheme(t){
-theme=t;
-document.body.dataset.theme=t;
-localStorage.setItem("musicapp_theme_v1",JSON.stringify(t));
-}
-
-function go(id){
-if(!["home","songs","reps","stage","tools"].includes(id))id="home";
-localStorage.setItem("musicapp_page_v3",JSON.stringify(id));
-$("themeModal").classList.add("hidden");
-$("detailModal").classList.add("hidden");
-
-document.querySelectorAll("main > section").forEach(s=>{
-s.classList.toggle("hidden",s.id!==id);
-});
-document.querySelectorAll("[data-go]").forEach(b=>{
-b.classList.toggle("active",b.dataset.go===id);
-});
-
-if(id==="songs")renderSongs();
-if(id==="reps")renderReps();
-if(id==="stage")renderStage();
-window.scrollTo(0,0);
-}
-
-document.querySelectorAll("[data-go]").forEach(b=>{
-b.onclick=()=>go(b.dataset.go);
-});
-
-$("brandHome").onclick=()=>go("home");
-$("themeQuick").onclick=()=>$("themeModal").classList.remove("hidden");
-$("themeTile").onclick=()=>$("themeModal").classList.remove("hidden");
-$("closeTheme").onclick=()=>$("themeModal").classList.add("hidden");
-
-document.querySelectorAll("[data-theme-choice]").forEach(b=>{
-b.onclick=()=>setTheme(b.dataset.themeChoice);
-});
-
-$("themeModal").onclick=e=>{
-if(e.target===$("themeModal"))$("themeModal").classList.add("hidden");
-};
-
-$("detailModal").onclick=e=>{
-if(e.target===$("detailModal"))closeDetails();
-};
-
-document.addEventListener("keydown",e=>{
-if(e.key==="Escape"){
-$("themeModal").classList.add("hidden");
-closeDetails();
-}
-});
-
-function renderSongs(){
-const q=$("search").value.trim().toLocaleLowerCase("tr");
-const found=songs.filter(s=>
-(s.title+" "+s.artist).toLocaleLowerCase("tr").includes(q)
-);
-$("songCount").textContent=found.length+" şarkı";
-$("songList").innerHTML=found.map(s=>`
-<div class="card song">
-<div><h3>${esc(s.title)}</h3><p>${esc(s.artist)}</p></div>
-<button class="secondary" data-add="${s.id}">+ Ekle</button>
-</div>
-`).join("")||'<div class="empty">Şarkı bulunamadı.</div>';
-
-document.querySelectorAll("[data-add]").forEach(b=>{
-b.onclick=()=>addSong(b.dataset.add);
-});
-}
-$("search").oninput=renderSongs;
-
-$("createRep").onclick=()=>{
-const name=$("repName").value.trim();
-if(!name){alert("Repertuvar adı yaz.");return}
-const id="r"+Date.now().toString(36)+Math.random().toString(36).slice(2,6);
-reps.push({id,name,songIds:[]});
-currentRep=id;
-save();
-$("repName").value="";
-renderReps();
-};
-
-function addSong(id){
-if(!reps.length){
-alert("Önce repertuvar oluştur.");
-go("reps");
-return;
-}
-const rep=reps.find(r=>r.id===currentRep)||reps[0];
-if(rep.songIds.includes(id)){
-alert("Şarkı zaten repertuvarda.");
-return;
-}
-rep.songIds.push(id);
-currentRep=rep.id;
-save();
-alert("Şarkı eklendi.");
-}
-
-function settingsFor(rep,id){
-if(!rep.songSettings||typeof rep.songSettings!=="object")rep.songSettings={};
-return rep.songSettings[id]||{};
-}
-
-function openDetails(rid,sid){
-const rep=reps.find(r=>r.id===rid);
-const song=songs.find(s=>s.id===sid);
-if(!rep||!song)return;
-detailTarget={rid,sid};
-const v=settingsFor(rep,sid);
-$("detailTitle").textContent=song.title;
-$("detailContext").textContent=rep.name+" • "+song.artist;
-$("detailKey").value=v.key||"";
-$("detailBpm").value=v.bpm??"";
-$("detailNote").value=v.note||"";
-$("detailModal").classList.remove("hidden");
-}
-
-function closeDetails(){
-$("detailModal").classList.add("hidden");
-detailTarget=null;
-}
-$("closeDetails").onclick=closeDetails;
-
-$("saveDetails").onclick=()=>{
-if(!detailTarget)return;
-const rep=reps.find(r=>r.id===detailTarget.rid);
-if(!rep)return;
-const raw=$("detailBpm").value.trim();
-const bpm=raw===""?null:Number(raw);
-if(bpm!==null&&(!Number.isInteger(bpm)||bpm<40||bpm>220)){
-alert("BPM 40 ile 220 arasında olmalı.");
-return;
-}
-if(!rep.songSettings)rep.songSettings={};
-rep.songSettings[detailTarget.sid]={
-key:$("detailKey").value.trim(),
-bpm,
-note:$("detailNote").value.trim()
-};
-save();
-closeDetails();
-renderReps();
-renderStage();
-};
-
-function renderReps(){
-$("repList").innerHTML=reps.map(r=>{
-const editing=editingRep===r.id;
-return `<div class="card">
-<h3>${esc(r.name)} ${r.id===currentRep?"✓":""}</h3>
-<p class="muted">${r.songIds.length} şarkı</p>
-<div class="actions">
-<button class="secondary" data-use="${r.id}">Aktif seç</button>
-<button class="secondary" data-open="${r.id}">Sahnede aç</button>
-<button class="secondary" data-edit="${r.id}">${editing?"✓ Düzenlemeyi bitir":"↕ Sırala"}</button>
-<button class="secondary" data-delete="${r.id}">Sil</button>
-</div>
-${editing?'<p class="notice">☰ simgesinden tutup sürükle.</p>':""}
-${r.songIds.map((id,i)=>{
-const s=songs.find(x=>x.id===id);
-if(!s)return "";
-return `<div class="reorder-item ${editing?"editing":""}" data-rep="${r.id}" data-index="${i}">
-<button class="secondary drag-handle">☰</button>
-<span class="song-label" data-detail="${r.id}|${id}">${esc(s.title)}</span>
-<button class="secondary" data-detail="${r.id}|${id}">✎ Bilgi</button>
-<button class="secondary" data-remove="${r.id}|${id}">×</button>
-</div>`;
-}).join("")}
-</div>`;
-}).join("")||'<div class="empty">Henüz repertuvarın yok.</div>';
-
-document.querySelectorAll("[data-use]").forEach(b=>{
-b.onclick=()=>{currentRep=b.dataset.use;save();renderReps()};
-});
-document.querySelectorAll("[data-open]").forEach(b=>{
-b.onclick=()=>{currentRep=b.dataset.open;stageIndex=0;save();go("stage")};
-});
-document.querySelectorAll("[data-edit]").forEach(b=>{
-b.onclick=()=>{
-editingRep=editingRep===b.dataset.edit?null:b.dataset.edit;
-renderReps();
-};
-});
-document.querySelectorAll("[data-delete]").forEach(b=>{
-b.onclick=()=>{
-if(!confirm("Repertuvar silinsin mi?"))return;
-reps=reps.filter(r=>r.id!==b.dataset.delete);
-if(currentRep===b.dataset.delete)currentRep=reps[0]?.id||null;
-save();renderReps();
-};
-});
-document.querySelectorAll("[data-remove]").forEach(b=>{
-b.onclick=()=>{
-const [rid,sid]=b.dataset.remove.split("|");
-const r=reps.find(x=>x.id===rid);
-if(!r)return;
-r.songIds=r.songIds.filter(x=>x!==sid);
-save();renderReps();
-};
-});
-document.querySelectorAll("[data-detail]").forEach(b=>{
-b.onclick=()=>{
-const [rid,sid]=b.dataset.detail.split("|");
-openDetails(rid,sid);
-};
-});
-document.querySelectorAll(".reorder-item.editing .drag-handle").forEach(handle=>{
-handle.addEventListener("pointerdown",e=>{
-if(e.button!==0||!e.isPrimary)return;
-const item=handle.closest(".reorder-item");
-const rid=item.dataset.rep;
-const from=Number(item.dataset.index);
-let target=from;
-handle.setPointerCapture(e.pointerId);
-item.classList.add("dragging");
-const move=ev=>{
-document.querySelectorAll(".drop-target").forEach(x=>x.classList.remove("drop-target"));
-const over=document.elementFromPoint(ev.clientX,ev.clientY)?.closest(".reorder-item.editing");
-if(over&&over.dataset.rep===rid){
-target=Number(over.dataset.index);
-over.classList.add("drop-target");
-}
-};
-const finish=cancel=>{
-handle.removeEventListener("pointermove",move);
-handle.removeEventListener("pointerup",up);
-handle.removeEventListener("pointercancel",stop);
-document.querySelectorAll(".drop-target").forEach(x=>x.classList.remove("drop-target"));
-item.classList.remove("dragging");
-if(cancel||from===target)return;
-const rep=reps.find(r=>r.id===rid);
-if(!rep)return;
-const [sid]=rep.songIds.splice(from,1);
-rep.songIds.splice(target,0,sid);
-save();renderReps();
-};
-const up=()=>finish(false);
-const stop=()=>finish(true);
-handle.addEventListener("pointermove",move);
-handle.addEventListener("pointerup",up);
-handle.addEventListener("pointercancel",stop);
-});
-});
-}
-
-function setStageFont(n){
-stageFont=Math.max(14,Math.min(40,n));
-document.documentElement.style.setProperty("--stage-font-size",stageFont+"px");
-localStorage.setItem("musicapp_stage_font_v3",JSON.stringify(stageFont));
-}
-$("fontMinus").onclick=()=>setStageFont(stageFont-2);
-$("fontPlus").onclick=()=>setStageFont(stageFont+2);
-
-function renderStage(){
-const rep=reps.find(r=>r.id===currentRep)||reps[0];
-const ids=rep?.songIds||[];
-if(stageIndex>=ids.length)stageIndex=0;
-const s=songs.find(x=>x.id===ids[stageIndex]);
-const v=s?settingsFor(rep,s.id):{};
-$("stagePosition").textContent=rep
-?rep.name+" • "+(s?(stageIndex+1)+"/"+ids.length:"0 şarkı")
-:"Sahne modu";
-$("stageTitle").textContent=s?.title||"Henüz şarkı seçilmedi";
-$("stageMeta").textContent=s
-?"Ton: "+(v.key||s.key)+" • BPM: "+(v.bpm??s.bpm??"Belirlenmedi")
-:"—";
-$("stageBody").textContent=s?(v.note?"SAHNE NOTU\n"+v.note:"")
-:"Repertuvarlarım bölümünden şarkı seç.";
-$("prevSong").disabled=!s;
-$("nextSong").disabled=!s;
-$("stageDetails").disabled=!s;
-}
-$("stageDetails").onclick=()=>{
-const rep=reps.find(r=>r.id===currentRep)||reps[0];
-const id=rep?.songIds[stageIndex];
-if(rep&&id)openDetails(rep.id,id);
-};
-$("prevSong").onclick=()=>{
-const n=(reps.find(r=>r.id===currentRep)?.songIds.length||0);
-if(n){stageIndex=(stageIndex-1+n)%n;renderStage()}
-};
-$("nextSong").onclick=()=>{
-const n=(reps.find(r=>r.id===currentRep)?.songIds.length||0);
-if(n){stageIndex=(stageIndex+1)%n;renderStage()}
-};
-
-/* METRONOM */
-let metroAudio=null,metroTimer=null,beat=0;
-function metroClick(){
-if(!metroAudio)return;
-const o=metroAudio.createOscillator();
-const g=metroAudio.createGain();
-const t=metroAudio.currentTime;
-o.frequency.value=beat++%4===0?1000:720;
-g.gain.setValueAtTime(.0001,t);
-g.gain.exponentialRampToValueAtTime(.15,t+.005);
-g.gain.exponentialRampToValueAtTime(.0001,t+.075);
-o.connect(g);g.connect(metroAudio.destination);
-o.start(t);o.stop(t+.08);
-}
-function stopMetro(){
-clearInterval(metroTimer);metroTimer=null;
-$("metroBtn").textContent="▶ Başlat";
-}
-async function startMetro(){
-try{
-metroAudio=metroAudio||new(window.AudioContext||window.webkitAudioContext)();
-await metroAudio.resume();
-beat=0;metroClick();
-metroTimer=setInterval(metroClick,60000/Number($("bpm").value));
-$("metroBtn").textContent="■ Durdur";
-}catch{alert("Ses başlatılamadı.")}
-}
-$("metroBtn").onclick=()=>metroTimer?stopMetro():startMetro();
-$("bpm").oninput=()=>{
-$("bpmText").textContent=$("bpm").value;
-if(metroTimer){stopMetro();startMetro()}
-};
-
-/* PRO AKORT */
-const tunerNames=[
-"Do","Do♯","Re","Re♯","Mi","Fa",
-"Fa♯","Sol","Sol♯","La","La♯","Si"
-];
-
-const tunerPresets={
-short:{
-"Bağlama düzeni":[["Alt • La3",57],["Orta • Re3",50],["Üst • Mi3",52]],
-"Bozuk düzen":[["Alt • La3",57],["Orta • Re3",50],["Üst • Sol3",55]]
-},
-long:{
-"Bozuk düzen":[["Alt • La3",57],["Orta • Re3",50],["Üst • Sol3",55]],
-"Bağlama düzeni":[["Alt • La3",57],["Orta • Re3",50],["Üst • Mi3",52]]
-},
-divan:{
-"Bozuk düzen":[["Alt • La2",45],["Orta • Re3",50],["Üst • Sol3",55]],
-"Bağlama düzeni":[["Alt • La2",45],["Orta • Re3",50],["Üst • Mi3",52]]
-},
-guitar:{
-"Standart":[["Mi2",40],["La2",45],["Re3",50],["Sol3",55],["Si3",59],["Mi4",64]],
-"Drop D":[["Re2",38],["La2",45],["Re3",50],["Sol3",55],["Si3",59],["Mi4",64]]
-},
-bass:{
-"Standart":[["Mi1",28],["La1",33],["Re2",38],["Sol2",43]]
-},
-violin:{
-"Standart":[["Sol3",55],["Re4",62],["La4",69],["Mi5",76]]
-},
-ukulele:{
-"Standart":[["Sol4",67],["Do4",60],["Mi4",64],["La4",69]]
-},
-accordion:{
-"Do / Re referansı":[["Do4",60],["Re4",62],["Do5",72],["Re5",74]]
-}
-};
-
-let tunerIndex=0;
-let tunerStream=null,tunerAudio=null,tunerAnalyser=null;
-let tunerFrame=0,tunerSamples=null,tunerLast=0;
-let tunerToneAudio=null,tunerOsc=null,tunerGain=null;
-let tunerHistory=[],tunerStarting=false;
-
-const tunerStore="musicapp_tuner_pro_v4";
-const tunerSaved=read(tunerStore,{});
-
-function tunerA4(){
-const n=Number($("tunerA4").value);
-return n>=415&&n<=466?n:440;
-}
-function tunerHz(midi){
-return tunerA4()*Math.pow(2,(midi-69)/12);
-}
-function tunerName(midi){
-return tunerNames[(midi%12+12)%12]+(Math.floor(midi/12)-1);
-}
-function tunerMidi(hz){
-return Math.round(69+12*Math.log2(hz/tunerA4()));
-}
-function tunerTargets(){
-return tunerPresets[$("tunerInstrument").value][$("tunerTuning").value]||[];
-}
-function tunerTarget(){
-return tunerTargets()[tunerIndex]||tunerTargets()[0];
-}
-function tunerPersist(){
-localStorage.setItem(tunerStore,JSON.stringify({
-instrument:$("tunerInstrument").value,
-tuning:$("tunerTuning").value,
-mode:$("tunerMode").value,
-a4:tunerA4(),
-sensitivity:$("tunerSensitivity").value,
-tolerance:$("tunerTolerance").value
-}));
-}
-function tunerRender(){
-const targets=tunerTargets();
-tunerIndex=Math.min(tunerIndex,Math.max(0,targets.length-1));
-$("tunerNotes").innerHTML=targets.map((v,i)=>`
-<button class="tuner-note ${i===tunerIndex?"selected":""}" data-target="${i}">
-<strong>${esc(v[0])}</strong>
-<small>${tunerHz(v[1]).toFixed(2)} Hz</small>
-</button>`).join("");
-document.querySelectorAll("[data-target]").forEach(b=>{
-b.onclick=()=>{
-tunerIndex=Number(b.dataset.target);
-tunerStopTone();tunerHistory=[];tunerRender();
-};
-});
-tunerPersist();
-}
-function tunerRenderTunings(preferred){
-const choices=Object.keys(tunerPresets[$("tunerInstrument").value]);
-$("tunerTuning").innerHTML=choices.map(t=>
-`<option value="${esc(t)}">${esc(t)}</option>`
-).join("");
-if(choices.includes(preferred))$("tunerTuning").value=preferred;
-tunerIndex=0;
-tunerRender();
-}
-$("tunerInstrument").onchange=()=>{
-tunerStopTone();tunerRenderTunings();
-};
-$("tunerTuning").onchange=()=>{
-tunerIndex=0;tunerStopTone();tunerRender();
-};
-["tunerMode","tunerA4","tunerSensitivity","tunerTolerance"].forEach(id=>{
-$(id).onchange=()=>{
-tunerStopTone();tunerHistory=[];tunerRender();
-};
-});
-
-/* YIN tabanlı frekans analizi */
-function tunerDetect(samples,sr){
-const n=samples.length;
-let mean=0;
-for(let i=0;i<n;i++)mean+=samples[i];
-mean/=n;
-
-let rms=0;
-for(let i=0;i<n;i++){
-const v=samples[i]-mean;
-rms+=v*v;
-}
-rms=Math.sqrt(rms/n);
-
-const threshold=.028/Math.pow(1.45,Number($("tunerSensitivity").value)-5);
-if(rms<threshold)return null;
-
-const minTau=Math.max(2,Math.floor(sr/1100));
-const maxTau=Math.min(Math.floor(sr/40),Math.floor(n/2)-1);
-const difference=new Float32Array(maxTau+1);
-const half=n>>1;
-
-for(let tau=1;tau<=maxTau;tau++){
-let sum=0;
-for(let i=0;i<half;i++){
-const d=samples[i]-samples[i+tau];
-sum+=d*d;
-}
-difference[tau]=sum;
-}
-
-let running=0;
-const cmnd=new Float32Array(maxTau+1);
-cmnd[0]=1;
-
-for(let tau=1;tau<=maxTau;tau++){
-running+=difference[tau];
-cmnd[tau]=running?difference[tau]*tau/running:1;
-}
-
-let best=0;
-for(let tau=minTau;tau<=maxTau;tau++){
-if(cmnd[tau]<.13){
-while(tau+1<=maxTau&&cmnd[tau+1]<cmnd[tau])tau++;
-best=tau;break;
-}
-}
-if(!best){
-let low=1;
-for(let tau=minTau;tau<=maxTau;tau++){
-if(cmnd[tau]<low){low=cmnd[tau];best=tau}
-}
-if(low>.20)return null;
-}
-
-const left=cmnd[best-1]??cmnd[best];
-const mid=cmnd[best];
-const right=cmnd[best+1]??cmnd[best];
-const denom=left-2*mid+right;
-const correction=Math.abs(denom)>1e-8
-?Math.max(-1,Math.min(1,(left-right)/(2*denom))):0;
-const hz=sr/(best+correction);
-
-return Number.isFinite(hz)&&hz>=40&&hz<=1100?hz:null;
-}
-
-function tunerLoop(now){
-if(!tunerAnalyser)return;
-tunerFrame=requestAnimationFrame(tunerLoop);
-if(now-tunerLast<95)return;
-tunerLast=now;
-
-tunerAnalyser.getFloatTimeDomainData(tunerSamples);
-const raw=tunerDetect(tunerSamples,tunerAudio.sampleRate);
-
-if(!raw){
-tunerHistory=[];
-$("tunerPitch").textContent="—";
-$("tunerFrequency").textContent="Ses bekleniyor";
-$("tunerCents").textContent="— cent";
-$("tunerStatus").textContent="Tek nota çal";
-$("tunerNeedle").style.left="50%";
-$("tunerReadout").classList.remove("good");
-return;
-}
-
-tunerHistory.push(raw);
-if(tunerHistory.length>5)tunerHistory.shift();
-
-const sorted=[...tunerHistory].sort((a,b)=>a-b);
-const hz=sorted[Math.floor(sorted.length/2)];
-const midi=tunerMidi(hz);
-const selected=tunerTarget();
-
-const targetMidi=$("tunerMode").value==="manual"
-?selected[1]:midi;
-
-const targetHz=tunerHz(targetMidi);
-const cents=1200*Math.log2(hz/targetHz);
-
-$("tunerPitch").textContent=tunerName(midi);
-$("tunerFrequency").textContent=
-hz.toFixed(2)+" Hz • Hedef "+tunerName(targetMidi)+
-" ("+targetHz.toFixed(2)+" Hz)";
-$("tunerCents").textContent=
-(cents>=0?"+":"")+cents.toFixed(1)+" cent";
-
-$("tunerNeedle").style.left=
-Math.max(2,Math.min(98,50+cents))+"%";
-
-const good=Math.abs(cents)<=Number($("tunerTolerance").value);
-$("tunerReadout").classList.toggle("good",good);
-$("tunerStatus").textContent=good
-?"✓ Akort tamam"
-:cents<0?"♭ Pes • Sesi yükselt":"♯ Tiz • Sesi düşür";
-}
-
-async function tunerStart(){
-if(tunerStarting||tunerStream)return;
-if(!navigator.mediaDevices?.getUserMedia){
-$("tunerStatus").textContent="HTTPS ve mikrofon izni gerekli";
-return;
-}
-tunerStarting=true;
-try{
-const stream=await navigator.mediaDevices.getUserMedia({
-audio:{
-echoCancellation:false,
-noiseSuppression:false,
-autoGainControl:false
-}
-});
-tunerStream=stream;
-tunerAudio=new(window.AudioContext||window.webkitAudioContext)();
-await tunerAudio.resume();
-tunerAnalyser=tunerAudio.createAnalyser();
-tunerAnalyser.fftSize=4096;
-tunerAudio.createMediaStreamSource(stream).connect(tunerAnalyser);
-tunerSamples=new Float32Array(tunerAnalyser.fftSize);
-tunerHistory=[];
-$("tunerMic").textContent="■ Mikrofonu Kapat";
-$("tunerStatus").textContent="Tek nota çal";
-tunerFrame=requestAnimationFrame(tunerLoop);
-}catch{
-tunerStop();
-$("tunerStatus").textContent="Mikrofon açılamadı. İzinleri kontrol et.";
-}finally{
-tunerStarting=false;
-}
-}
-
-function tunerStop(){
-cancelAnimationFrame(tunerFrame);
-tunerFrame=0;tunerAnalyser=null;tunerHistory=[];
-if(tunerStream){
-tunerStream.getTracks().forEach(t=>t.stop());
-tunerStream=null;
-}
-if(tunerAudio){
-tunerAudio.close().catch(()=>{});
-tunerAudio=null;
-}
-$("tunerMic").textContent="🎙 Mikrofonu Aç";
-}
-
-$("tunerMic").onclick=()=>{
-if(tunerStream){
-tunerStop();
-$("tunerStatus").textContent="Ölçüm durduruldu";
-}else tunerStart();
-};
-
-function tunerStopTone(){
-if(tunerOsc){
-try{tunerOsc.stop()}catch{}
-tunerOsc.disconnect();
-tunerOsc=null;
-}
-if(tunerGain){
-tunerGain.disconnect();
-tunerGain=null;
-}
-$("tunerTone").textContent="♪ Referans Sesi Çal";
-}
-
-$("tunerTone").onclick=async()=>{
-if(tunerOsc){tunerStopTone();return}
-try{
-tunerToneAudio=tunerToneAudio||new(
-window.AudioContext||window.webkitAudioContext
-)();
-await tunerToneAudio.resume();
-tunerOsc=tunerToneAudio.createOscillator();
-tunerGain=tunerToneAudio.createGain();
-tunerOsc.type="sine";
-tunerOsc.frequency.value=tunerHz(tunerTarget()[1]);
-tunerGain.gain.value=.12;
-tunerOsc.connect(tunerGain);
-tunerGain.connect(tunerToneAudio.destination);
-tunerOsc.start();
-$("tunerTone").textContent="■ Referans Sesi Durdur";
-}catch{
-tunerStopTone();
-$("tunerStatus").textContent="Referans sesi başlatılamadı";
-}
-};
-$("tunerStopTone").onclick=tunerStopTone;
-
-document.addEventListener("visibilitychange",()=>{
-if(document.hidden){
-stopMetro();tunerStop();tunerStopTone();
-}
-});
-
-if(tunerPresets[tunerSaved.instrument]){
-$("tunerInstrument").value=tunerSaved.instrument;
-}
-if(["auto","manual"].includes(tunerSaved.mode)){
-$("tunerMode").value=tunerSaved.mode;
-}
-if(Number(tunerSaved.a4)>=415&&Number(tunerSaved.a4)<=466){
-$("tunerA4").value=tunerSaved.a4;
-}
-if(Number(tunerSaved.sensitivity)>=1&&Number(tunerSaved.sensitivity)<=10){
-$("tunerSensitivity").value=tunerSaved.sensitivity;
-}
-if(["3","5","10"].includes(String(tunerSaved.tolerance))){
-$("tunerTolerance").value=tunerSaved.tolerance;
-}
-
-tunerRenderTunings(tunerSaved.tuning);
-setTheme(theme);
-setStageFont(stageFont);
-renderSongs();
-renderReps();
-go(lastPage);
+/* Music App V4.1 PRO — Bağlama Karar Sesi ve Oktav */
+
+(function () {
+  const names = [
+    "Do", "Do♯", "Re", "Re♯", "Mi", "Fa",
+    "Fa♯", "Sol", "Sol♯", "La", "La♯", "Si"
+  ];
+
+  const instruments = ["short", "long", "divan"];
+  const instrumentSelect = document.getElementById("tunerInstrument");
+  const tuningSelect = document.getElementById("tunerTuning");
+  const notesContainer = document.getElementById("tunerNotes");
+
+  if (!instrumentSelect || !tuningSelect || !notesContainer) return;
+
+  const storageKey = "musicapp_tuner_decision_v41";
+
+  let saved = {};
+  try {
+    saved = JSON.parse(localStorage.getItem(storageKey) || "{}");
+  } catch {}
+
+  const panel = document.createElement("div");
+  panel.className = "card";
+  panel.id = "decisionPanel";
+
+  panel.innerHTML = `
+    <h3>🎼 Bağlama Karar Sesi</h3>
+    <p>Karar sesini ve oktavı seç. Tel notaları otomatik güncellensin.</p>
+
+    <label for="decisionNote">Karar sesi</label>
+    <select id="decisionNote" class="field"></select>
+
+    <label for="decisionOctave">Oktav</label>
+    <select id="decisionOctave" class="field">
+      <option value="-1">Bir oktav pes</option>
+      <option value="0">Normal oktav</option>
+      <option value="1">Bir oktav tiz</option>
+    </select>
+  `;
+
+  tuningSelect.parentElement.insertAdjacentElement("afterend", panel);
+
+  const decisionNote = document.getElementById("decisionNote");
+  const decisionOctave = document.getElementById("decisionOctave");
+
+  decisionNote.innerHTML = names.map((name, index) =>
+    `<option value="${index}">${name}</option>`
+  ).join("");
+
+  decisionNote.value = saved.note ?? "9";
+  decisionOctave.value = saved.octave ?? "0";
+
+  function updateVisibility() {
+    panel.style.display = instruments.includes(instrumentSelect.value)
+      ? ""
+      : "none";
+  }
+
+  function applyDecision() {
+    updateVisibility();
+
+    if (!instruments.includes(instrumentSelect.value)) return;
+
+    const shift =
+      Number(decisionNote.value) - 9 +
+      Number(decisionOctave.value) * 12;
+
+    const a4Input = document.getElementById("tunerA4");
+    const a4 = Number(a4Input?.value) || 440;
+
+    const buttons = notesContainer.querySelectorAll("button");
+
+    buttons.forEach(button => {
+      if (!button.dataset.originalText) {
+        button.dataset.originalText = button.textContent.trim();
+      }
+
+      const strong = button.querySelector("strong");
+      const small = button.querySelector("small");
+
+      if (!strong || !small) return;
+
+      const match = button.dataset.originalText.match(
+        /(Do|Re|Mi|Fa|Sol|La|Si)[♯#]?\d/
+      );
+
+      if (!match) return;
+
+      const original = match[0];
+      const parsed = original.match(
+        /^(Do|Re|Mi|Fa|Sol|La|Si)([♯#]?)(\d)$/
+      );
+
+      if (!parsed) return;
+
+      const baseIndex = names.indexOf(
+        parsed[1] + (parsed[2] ? "♯" : "")
+      );
+
+      if (baseIndex < 0) return;
+
+      const originalMidi =
+        (Number(parsed[3]) + 1) * 12 + baseIndex;
+
+      const midi = originalMidi + shift;
+      const noteName =
+        names[((midi % 12) + 12) % 12] +
+        (Math.floor(midi / 12) - 1);
+
+      const hz = a4 * Math.pow(2, (midi - 69) / 12);
+
+      strong.textContent =
+        button.dataset.originalText
+          .replace(original, noteName)
+          .replace(/\s+\d+([.,]\d+)?\s*Hz.*/i, "");
+
+      small.textContent = hz.toFixed(2) + " Hz";
+    });
+
+    localStorage.setItem(storageKey, JSON.stringify({
+      note: decisionNote.value,
+      octave: decisionOctave.value
+    }));
+  }
+
+  decisionNote.addEventListener("change", applyDecision);
+  decisionOctave.addEventListener("change", applyDecision);
+
+  instrumentSelect.addEventListener("change", () => {
+    setTimeout(applyDecision, 50);
+  });
+
+  tuningSelect.addEventListener("change", () => {
+    setTimeout(applyDecision, 50);
+  });
+
+  updateVisibility();
+  setTimeout(applyDecision, 100);
+})();
 </script>
-</body>
-</html>
