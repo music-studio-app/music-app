@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#101827">
-<title>Music App V4.5 PRO • Mobil</title>
+<title>Music App V4.8 PRO • Mobil</title>
 <style>
 :root{font-family:system-ui,-apple-system,Segoe UI,sans-serif;color-scheme:dark;--bg:#101827;--panel:#1b273a;--text:#f7fafc;--muted:#aab8cc;--accent:#51dfb5;--line:#33445b}
 body[data-theme="light"]{color-scheme:light;--bg:#f4f6fb;--panel:#fff;--text:#162034;--muted:#5c6b80;--accent:#007e68;--line:#d9e0e9}
@@ -113,7 +113,7 @@ button{touch-action:manipulation}
 <div class="hero"><h1>Sahneye hazır mısın?</h1><p>Şarkılarını düzenle, repertuvarını hazırla ve sahnede tek dokunuşla aç.</p><button class="primary" data-go="reps">Repertuvarlarım →</button></div>
 <div class="section"><h2>Hızlı erişim</h2></div>
 <div class="grid"><button class="tile" data-go="songs">♫ Tüm Şarkılar<span>Arşiv ve arama</span></button><button class="tile" data-go="reps">▤ Repertuvarlarım<span>Kendi listelerim</span></button><button class="tile" data-go="stage">▶ Sahne Modu<span>Canlı performans</span></button><button class="tile" data-go="tools">♩ Müzik Araçları<span>Metronom • Akort</span></button><button class="tile" id="themeTile">⚙ Ayarlar<span>Renk temaları</span></button></div>
-<div class="card"><h3>Music App V4.5 PRO</h3><p>Mobil uyumlu repertuvar, sahne modu, metronom ve karar sesi seçilebilen akort cihazı.</p></div>
+<div class="card"><h3>Music App V4.8 PRO</h3><p>Mobil uyumlu repertuvar, sahne modu, metronom ve karar sesi seçilebilen akort cihazı.</p></div>
 </section>
 <section id="songs" class="hidden"><div class="section"><h2>Tüm Şarkılar</h2><span class="muted" id="songCount"></span></div><input class="field" id="search" placeholder="Şarkı veya sanatçı ara…" aria-label="Şarkı ara"><div id="categoryMenu" class="category-menu"></div><div id="regionMenu" class="region-menu hidden"></div><div id="songList"></div><p class="notice">Şarkı sözleri yalnızca yayınlama hakkı bulunan eserlerde gösterilir.</p></section>
 <section id="reps" class="hidden"><div class="section"><h2>Repertuvarlarım</h2></div><div class="card"><label for="repName">Yeni repertuvar oluştur</label><input class="field" id="repName" maxlength="60" placeholder="Örn. Cumartesi Sahnesi"><button class="primary" id="createRep">+ Oluştur</button></div><div id="repList"></div></section>
@@ -180,9 +180,9 @@ button{touch-action:manipulation}
 <script>
 "use strict";
 const seedSongs=[
-{id:"s1",title:"Ankara'nın Bağları",artist:"Geleneksel / yöresel",region:"Ankara",genre:"Türkü / oyun havası",singers:[],lyricsPublished:false,key:"—",bpm:null},
-{id:"s2",title:"Misket",artist:"Ankara yöresi",region:"Ankara",genre:"Türkü",singers:[],lyricsPublished:false,key:"—",bpm:null},
-{id:"s3",title:"Hüdayda",artist:"Ankara yöresi",region:"Ankara",genre:"Oyun havası",singers:[],lyricsPublished:false,key:"—",bpm:null},
+{id:"s1",title:"Ankara'nın Bağları",artist:"Geleneksel / yöresel",region:"Ankara",genre:"Oyun havası",categories:["oyun"],singers:[],lyricsPublished:false,key:"—",bpm:null},
+{id:"s2",title:"Misket",artist:"Ankara yöresi",region:"Ankara",genre:"Türkü",categories:["turku"],singers:[],lyricsPublished:false,key:"—",bpm:null},
+{id:"s3",title:"Hüdayda",artist:"Ankara yöresi",region:"Ankara",genre:"Oyun havası",categories:["oyun"],singers:[],lyricsPublished:false,key:"—",bpm:null},
 {id:"s4",title:"Çökertme",artist:"Bodrum yöresi",region:"Muğla / Bodrum",genre:"Türkü",singers:[],lyricsPublished:false,key:"—",bpm:null},
 {id:"s5",title:"Çayelinden Öteye",artist:"Rize yöresi",region:"Rize",genre:"Türkü",singers:[],lyricsPublished:false,key:"—",bpm:null},
 {id:"s6",title:"Drama Köprüsü",artist:"Rumeli yöresi",region:"Rumeli",genre:"Türkü",singers:[],lyricsPublished:false,key:"—",bpm:null}
@@ -214,22 +214,36 @@ const catalogCategories=[
  {id:"roman",name:"Roman Havaları",emoji:"🎺",desc:"Hareketli eserler"},
  {id:"ciftetelli",name:"Çiftetelli",emoji:"🪗",desc:"Bölgeye göre"},
  {id:"sanat",name:"Türk Sanat Müziği",emoji:"🎼",desc:"Makam ve sanatçı"},
- {id:"pop",name:"Pop Müzik",emoji:"🎸",desc:"Sanatçıya göre"},
- {id:"ozgun",name:"Özgün Müzik",emoji:"🎙️",desc:"Sanatçıya göre"}
+ {id:"pop",name:"Türkçe Pop",emoji:"🎸",desc:"Sanatçıya göre"},
+ {id:"ozgun",name:"Özgün Müzik",emoji:"🎙️",desc:"Sanatçıya göre"},
+ {id:"fantezi",name:"Fantezi Müzik",emoji:"🎹",desc:"Sanatçıya göre"},
+ {id:"bozlak",name:"Bozlak ve Uzun Hava",emoji:"🪕",desc:"Yöreye göre"},
+ {id:"halay",name:"Halaylar",emoji:"💃",desc:"Bölgeye göre"},
+ {id:"horon",name:"Horonlar",emoji:"🕺",desc:"Karadeniz yöreleri"},
+ {id:"zeybek",name:"Zeybekler",emoji:"🎶",desc:"Ege yöreleri"},
+ {id:"karsilama",name:"Karşılama Havaları",emoji:"🥁",desc:"Bölgeye göre"},
+ {id:"rock",name:"Türkçe Rock",emoji:"🎷",desc:"Sanatçıya göre"},
+ {id:"rap",name:"Rap / Hip-Hop",emoji:"🎧",desc:"Sanatçıya göre"},
+ {id:"yabanci",name:"Yabancı Müzik",emoji:"🌍",desc:"Tür ve sanatçıya göre"},
+ {id:"tasavvuf",name:"Tasavvuf Müziği",emoji:"🕌",desc:"Eserlere göre"}
 ];
 function songCategories(song){
- if(Array.isArray(song.categories)&&song.categories.length)return song.categories;
+ if(Array.isArray(song.categories)&&song.categories.length)return [...new Set(song.categories)];
+ const result=new Set();
  const g=archiveNormalize(song.genre||"");
- const result=[];
- if(g.includes("turku"))result.push("turku");
- if(g.includes("oyun havasi"))result.push("oyun");
- if(g.includes("arabesk"))result.push("arabesk");
- if(g.includes("roman"))result.push("roman");
- if(g.includes("ciftetelli"))result.push("ciftetelli");
- if(g.includes("sanat muzigi"))result.push("sanat");
- if(g.includes("pop"))result.push("pop");
- if(g.includes("ozgun"))result.push("ozgun");
- return result;
+ const terms=[
+ ["turku",["turku","halk muzigi"]],["arabesk",["arabesk"]],
+ ["oyun",["oyun havasi","oyun havalari"]],["roman",["roman"]],
+ ["ciftetelli",["ciftetelli"]],["sanat",["sanat muzigi"]],
+ ["pop",["pop"]],["ozgun",["ozgun"]],["fantezi",["fantezi"]],
+ ["bozlak",["bozlak","uzun hava"]],["halay",["halay"]],
+ ["horon",["horon"]],["zeybek",["zeybek"]],
+ ["karsilama",["karsilama"]],["rock",["rock"]],
+ ["rap",["rap","hip hop","hip-hop"]],["yabanci",["yabanci"]],
+ ["tasavvuf",["tasavvuf","ilahi"]]
+ ];
+ for(const [id,words] of terms)if(words.some(w=>g.includes(w)))result.add(id);
+ return [...result];
 }
 let selectedCatalogCategory=null,selectedCatalogRegion=null;
 function regionOf(song){return String(song.region||"Yöresi belirtilmemiş").trim()}
@@ -279,27 +293,42 @@ function openLyrics(songId){const s=songs.find(x=>x.id===songId);if(!s)return;$(
 function closeLyricsModal(){$("lyricsModal").classList.add("hidden")}
 $("closeLyrics").onclick=closeLyricsModal;
 $("lyricsModal").onclick=e=>{if(e.target===$("lyricsModal"))closeLyricsModal()};
+function catalogArtist(song){
+ const list=Array.isArray(song.singers)?song.singers.filter(x=>typeof x==="string"&&x.trim()):[];
+ if(list.length)return list;
+ const artist=String(song.artist||"").trim();
+ if(!artist||/yöresi|yoresi|geleneksel|yöresel/i.test(artist))return ["Sanatçısı belirtilmemiş"];
+ return [artist];
+}
 function renderSongs(){
  const q=$("search").value.trim().toLocaleLowerCase("tr");
- const menu=$("categoryMenu"),regions=$("regionMenu");
+ const menu=$("categoryMenu"),subMenu=$("regionMenu"),list=$("songList");
+ const matches=s=>[s.title,s.artist,s.region,s.genre,...(s.singers||[])].join(" ").toLocaleLowerCase("tr").includes(q);
  if(!selectedCatalogCategory){
-  menu.classList.remove("hidden");regions.classList.add("hidden");
+  menu.classList.remove("hidden");subMenu.classList.add("hidden");
   menu.innerHTML=catalogCategories.map(c=>`<button class="category-button" data-category="${c.id}"><strong>${c.emoji} ${escapeHtml(c.name)}</strong><small>${songs.filter(s=>songCategories(s).includes(c.id)).length} eser • ${escapeHtml(c.desc)}</small></button>`).join("");
   menu.querySelectorAll("[data-category]").forEach(b=>b.onclick=()=>{selectedCatalogCategory=b.dataset.category;selectedCatalogRegion=null;renderSongs()});
-  $("songList").innerHTML="";$("songCount").textContent=songs.length+" tekil eser";return;
+  list.innerHTML="";$("songCount").textContent=songs.length+" tekil eser";return;
  }
- menu.classList.add("hidden");regions.classList.remove("hidden");
+ menu.classList.add("hidden");subMenu.classList.remove("hidden");
  const category=catalogCategories.find(c=>c.id===selectedCatalogCategory);
  const inCategory=songs.filter(s=>songCategories(s).includes(selectedCatalogCategory));
- const isRegional=["turku","oyun","roman","ciftetelli"].includes(selectedCatalogCategory);
- const names=[...new Set(inCategory.map(regionOf))].sort((a,b)=>a.localeCompare(b,"tr"));
- regions.innerHTML=`<button class="secondary" id="catalogBack">← Türler</button><button class="secondary ${!selectedCatalogRegion?"selected":""}" data-region-all="1">Tümü</button>`+(isRegional?names.map((r,i)=>`<button class="secondary ${selectedCatalogRegion===r?"selected":""}" data-region-index="${i}">${escapeHtml(r)}</button>`).join(""):"");
+ const isRegional=["turku","oyun","roman","ciftetelli","bozlak","halay","horon","zeybek","karsilama"].includes(selectedCatalogCategory);
+ const groupOf=s=>isRegional?regionOf(s):catalogArtist(s)[0];
+ const groups=[...new Set(inCategory.map(groupOf))].sort((a,b)=>a.localeCompare(b,"tr"));
+ subMenu.innerHTML=`<button class="secondary" id="catalogBack">← Türler</button><button class="secondary ${selectedCatalogRegion==="__all__"?"selected":""}" data-group-all="1">Tüm eserler</button>`+
+ groups.map((name,i)=>`<button class="secondary ${selectedCatalogRegion===name?"selected":""}" data-group-index="${i}">${escapeHtml(name)}</button>`).join("");
  $("catalogBack").onclick=()=>{selectedCatalogCategory=null;selectedCatalogRegion=null;renderSongs()};
- regions.querySelector("[data-region-all]").onclick=()=>{selectedCatalogRegion=null;renderSongs()};
- regions.querySelectorAll("[data-region-index]").forEach(b=>b.onclick=()=>{selectedCatalogRegion=names[Number(b.dataset.regionIndex)];renderSongs()});
- const found=inCategory.filter(s=>(!selectedCatalogRegion||regionOf(s)===selectedCatalogRegion)&&[s.title,s.artist,s.region,s.genre,...(s.singers||[])].join(" ").toLocaleLowerCase("tr").includes(q));
+ subMenu.querySelector("[data-group-all]").onclick=()=>{selectedCatalogRegion="__all__";renderSongs()};
+ subMenu.querySelectorAll("[data-group-index]").forEach(b=>b.onclick=()=>{selectedCatalogRegion=groups[Number(b.dataset.groupIndex)];renderSongs()});
+ if(selectedCatalogRegion===null){
+  $("songCount").textContent=category.name+" • "+inCategory.length+" eser";
+  list.innerHTML=`<div class="empty">${isRegional?"Önce yöre seç.":"Önce sanatçı seç."} İstersen “Tüm eserler”e basabilirsin.</div>`;
+  return;
+ }
+ const found=inCategory.filter(s=>(selectedCatalogRegion==="__all__"||groupOf(s)===selectedCatalogRegion)&&matches(s));
  $("songCount").textContent=category.name+" • "+found.length+" eser";
- $("songList").innerHTML=found.map(s=>`<article class="card song"><div><h3>${escapeHtml(s.title)}</h3><p>${escapeHtml(s.artist)}</p></div><div class="actions"><button class="secondary" data-info="${escapeHtml(s.id)}">Bilgiler</button><button class="secondary" data-lyrics="${escapeHtml(s.id)}">Sözler</button><button class="secondary" data-add="${escapeHtml(s.id)}">+ Ekle</button></div></article>`).join("")||'<div class="empty">Bu bölümde henüz kayıt yok.</div>';
+ list.innerHTML=found.map(s=>`<article class="card song"><div><h3>${escapeHtml(s.title)}</h3><p>${escapeHtml(s.artist)}</p></div><div class="actions"><button class="secondary" data-info="${escapeHtml(s.id)}">Bilgiler</button><button class="secondary" data-lyrics="${escapeHtml(s.id)}">Sözler</button><button class="secondary" data-add="${escapeHtml(s.id)}">+ Ekle</button></div></article>`).join("")||'<div class="empty">Bu bölümde henüz kayıt yok.</div>';
  document.querySelectorAll("[data-add]").forEach(b=>b.onclick=()=>addSong(b.dataset.add));
  document.querySelectorAll("[data-lyrics]").forEach(b=>b.onclick=()=>openLyrics(b.dataset.lyrics));
  document.querySelectorAll("[data-info]").forEach(b=>b.onclick=()=>openInfo(b.dataset.info));
