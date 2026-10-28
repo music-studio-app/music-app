@@ -377,6 +377,50 @@ body[data-theme="wood"] #home,body[data-theme="neon"] #home{--scene-image-opacit
 @media(prefers-reduced-motion:reduce){
  #home .quick-grid .tile:hover{transform:none}
 }
+
+/* V5.7: approved colorful home; other pages retain their chosen theme */
+#home{--scene-image-opacity:1;--scene-glow:.38}
+#home .quick-grid{gap:14px}
+#home .quick-grid .tile{
+  background:#0a0a23!important;
+  border:1px solid var(--tile-color)!important;
+  border-bottom:2px solid var(--tile-color)!important;
+  box-shadow:inset 0 0 13px color-mix(in srgb,var(--tile-color) 28%,transparent),0 3px 11px rgba(0,0,0,.2)!important;
+  min-height:166px;
+}
+#home .quick-grid .tile::before{
+  background-image:linear-gradient(90deg,rgba(5,5,23,.77) 0%,rgba(7,5,25,.24) 54%,rgba(7,5,25,.02) 100%),var(--card-image)!important;
+  background-position:center,center!important;
+  background-size:cover,cover!important;
+  opacity:1!important;
+  filter:saturate(1.25) contrast(1.1)!important;
+}
+#home .quick-grid .tile::after{background:linear-gradient(145deg,color-mix(in srgb,var(--tile-color) 15%,transparent),transparent 65%)!important}
+#home .quick-grid .tile .tile-icon{
+  color:#fff!important;
+  background:linear-gradient(145deg,color-mix(in srgb,var(--tile-color) 50%,#090b28),#08091e)!important;
+  border-color:var(--tile-color)!important;
+  box-shadow:0 0 10px color-mix(in srgb,var(--tile-color) 24%,transparent)!important;
+}
+#home .quick-grid .tile strong{color:#fff!important;text-shadow:0 2px 5px #050316!important}
+#home .quick-grid .tile > span:not(.tile-icon):not(.tile-art){color:#f0eaff!important;text-shadow:0 1px 5px #060418!important}
+#home .quick-grid .tile i{display:none!important}
+#home .quick-grid .tile strong,#home .quick-grid .tile > span:not(.tile-icon):not(.tile-art){max-width:100%!important}
+#home .admin-stat{
+  background:radial-gradient(circle at 75% 0%,color-mix(in srgb,var(--stat-color) 33%,transparent),transparent 68%),linear-gradient(145deg,color-mix(in srgb,var(--stat-color) 35%,#070719),#09071a 85%)!important;
+  border:1px solid var(--stat-color)!important;
+  border-bottom:3px solid var(--stat-color)!important;
+  box-shadow:inset 0 0 18px color-mix(in srgb,var(--stat-color) 20%,transparent),0 0 12px color-mix(in srgb,var(--stat-color) 30%,transparent)!important;
+}
+#home .admin-stat b,#home .admin-stat small{color:white!important}
+#home .admin-stat b{text-shadow:0 0 9px color-mix(in srgb,var(--stat-color) 38%,transparent)!important}
+#home .hero{border-color:#a938ba!important;background-color:#15071f!important}
+#home .hero h1,#home .hero p{color:white!important}
+#home .hero h1 em{color:#ef68ef!important}
+#home .hero .primary{background:linear-gradient(110deg,#f781f3,#dc40ee)!important;color:#1d0920!important}
+@media(max-width:600px){#home .quick-grid .tile{min-height:146px}}
+@media(prefers-reduced-motion:reduce){#home .quick-grid .tile{transition:none!important}}
+
 </style>
 </head>
 <body data-theme="dark">
