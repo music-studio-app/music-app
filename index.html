@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#101827">
-<title>Music App V4.9 PRO • Mobil</title>
+<title>Music App V5.0 • Yönetim</title>
 <style>
 :root{font-family:system-ui,-apple-system,Segoe UI,sans-serif;color-scheme:dark;--bg:#101827;--panel:#1b273a;--text:#f7fafc;--muted:#aab8cc;--accent:#51dfb5;--line:#33445b}
 body[data-theme="light"]{color-scheme:light;--bg:#f4f6fb;--panel:#fff;--text:#162034;--muted:#5c6b80;--accent:#007e68;--line:#d9e0e9}
@@ -136,13 +136,17 @@ body{background:radial-gradient(ellipse at 50% -10%,color-mix(in srgb,var(--acce
 .pro-hint{font-size:12px;line-height:1.5;color:var(--muted);margin:10px 0}
 #themeModal .modal-box{width:min(520px,100%)}
 @media(prefers-reduced-motion:reduce){.tile,.category-button{transition:none}}
+
+/* V5 yönetim ekranı */
+.admin-dashboard{margin:18px 0}.admin-stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:14px 0}.admin-stat{padding:18px;border:1px solid var(--line);border-radius:19px;background:var(--panel);box-shadow:inset 0 1px rgba(255,255,255,.08),0 7px 16px rgba(0,0,0,.12);text-align:left;color:var(--text);cursor:pointer}.admin-stat b{display:block;font-size:31px;margin:6px 0}.admin-stat small{color:var(--muted)}.admin-stat.active{outline:2px solid var(--accent)}.admin-user{border:1px solid var(--line);background:var(--panel);border-radius:15px;padding:14px;margin:9px 0}.admin-user .actions{display:flex;flex-wrap:wrap;gap:7px;margin-top:9px}.admin-user button{font-size:13px}.admin-badge{display:inline-block;border-radius:20px;background:var(--bg);border:1px solid var(--line);padding:4px 9px;margin:3px;color:var(--text)}.auth-gate{position:fixed;z-index:9999;inset:0;background:var(--bg);overflow:auto;padding:30px 15px;display:flex;justify-content:center;align-items:flex-start}.auth-gate.hidden{display:none}.auth-box{max-width:460px;width:100%;padding:25px;background:var(--panel);border:1px solid var(--line);border-radius:20px;margin:5vh auto}.auth-box input{margin:8px 0}.auth-box .actions{display:flex;gap:9px;flex-wrap:wrap}.auth-status{color:var(--muted);line-height:1.5}.account-bar{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:12px 0}.account-bar button{font-size:12px}.theme-tabs{display:flex;gap:8px;margin:12px 0}.theme-tabs button{flex:1}.theme-choice .theme-preview{display:block;height:44px;border-radius:9px;border:1px solid rgba(150,150,150,.25);margin-bottom:8px;padding:7px;box-shadow:inset 0 2px 4px rgba(255,255,255,.07),0 4px 7px rgba(0,0,0,.12)}.theme-preview em{display:inline-block;width:38%;height:24px;border-radius:6px;margin-right:5px;box-shadow:0 2px 5px rgba(0,0,0,.18)}.theme-choice{box-shadow:inset 0 1px rgba(255,255,255,.07),0 5px 12px rgba(0,0,0,.13)}
+@media(min-width:850px){.admin-stats{grid-template-columns:repeat(4,minmax(0,1fr))}}
 </style>
 </head>
 <body data-theme="dark">
 <div class="shell">
 <header class="top"><div><div class="brand" id="brandHome" role="button" tabindex="0">♫ Music App</div><div class="sub">Müzik senin, sahne senin.</div></div><button class="chip" id="themeQuick" aria-label="Temayı değiştir">◐ Tema</button></header>
-<main>
-<section id="home">
+<div id="accountBar" class="account-bar" aria-live="polite"></div><main>
+<section id="home"><div id="adminHome" class="admin-dashboard hidden"></div>
 <div class="hero"><h1>Sahneye hazır mısın?</h1><p>Şarkılarını düzenle, repertuvarını hazırla ve sahnede tek dokunuşla aç.</p><button class="primary" data-go="reps">Repertuvarlarım →</button></div>
 <div class="section"><h2>Hızlı erişim</h2></div>
 <div class="grid"><button class="tile" data-go="songs">♫ Tüm Şarkılar<span>Arşiv ve arama</span></button><button class="tile" data-go="reps">▤ Repertuvarlarım<span>Kendi listelerim</span></button><button class="tile" data-go="stage">▶ Sahne Modu<span>Canlı performans</span></button><button class="tile" data-go="tools">♩ Müzik Araçları<span>Metronom • Akort</span></button><button class="tile" id="themeTile">⚙ Ayarlar<span>Renk temaları</span></button></div>
@@ -192,12 +196,13 @@ body{background:radial-gradient(ellipse at 50% -10%,color-mix(in srgb,var(--acce
 <p class="notice">Mikrofon için HTTPS veya localhost gerekir. Tek tel grubunu ayrı çal. Karar sesi seçimi burada La temel referansından eşit aralıklı transpozisyon yapar; bağlamadaki geleneksel karar adlandırmaları farklılık gösterebilir. Oktavı enstrümanına göre ayarla. Ölçüm sonuçlarını gerçek enstrümanla test edeceğiz.</p>
 </div></section>
 
+<section id="admin" class="hidden"><div class="section"><h2>👑 Yönetici Paneli</h2></div><div id="adminPanel"></div></section>
 </main></div>
 <div id="themeModal" class="modal-backdrop hidden" role="presentation">
   <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="themeModalTitle">
     <h2 id="themeModalTitle">🎨 Görünüm Ayarları</h2>
     <p>Rengini seç. Tercihin otomatik kaydedilir.</p>
-    <div class="theme-row" id="themeChoices"></div>
+    <div class="theme-tabs"><button class="secondary" id="tabFree">Ücretsiz (4)</button><button class="secondary" id="tabPro">PRO (12)</button></div><div class="theme-row" id="themeChoices"></div>
     <p class="pro-hint" id="themeProHint">4 ücretsiz tema. Ek 12 tema PRO üyelikle açılır.</p>
     <button class="primary modal-close" id="closeTheme">Kapat</button>
   </div>
@@ -205,9 +210,20 @@ body{background:radial-gradient(ellipse at 50% -10%,color-mix(in srgb,var(--acce
 <div id="infoModal" class="modal-backdrop hidden" role="presentation"><div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="infoTitle"><h2 id="infoTitle">Eser Bilgileri</h2><div id="infoContent"></div><button class="primary modal-close" id="closeInfo">Kapat</button></div></div>
 <div id="lyricsModal" class="modal-backdrop hidden" role="presentation"><div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="lyricsTitle"><h2 id="lyricsTitle">Şarkı Sözleri</h2><p id="lyricsArtist"></p><div class="lyrics-heading">ŞARKI SÖZLERİ</div><div id="lyricsContent" class="song-lyrics lyrics-notice"></div><button class="primary modal-close" id="closeLyrics">Kapat</button></div></div>
 <div id="detailModal" class="modal-backdrop hidden" role="presentation"><div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="detailTitle"><h2 id="detailTitle">Şarkı Bilgileri</h2><p id="detailContext"></p><label for="detailKey">Ton</label><input id="detailKey" class="field" maxlength="40" placeholder="Örn. La minör"><label for="detailBpm">BPM (40–220)</label><input id="detailBpm" class="field" type="number" min="40" max="220" step="1" placeholder="Örn. 100"><label for="detailNote">Kişisel sahne notu</label><textarea id="detailNote" class="field" maxlength="3000" placeholder="Sahnede hatırlamak istediğin notlar..."></textarea><p class="hint">Bu ayarlar yalnızca seçili repertuvardaki şarkıya kaydedilir.</p><div class="actions"><button class="primary" id="saveDetails">Kaydet</button><button class="secondary" id="closeDetails">Kapat</button></div></div></div>
+<div id="authGate" class="auth-gate hidden"><div class="auth-box"><h1>♫ Music App</h1><p class="auth-status" id="authMessage">Giriş yap veya kayıt ol. Yeni hesaplar yönetici onayıyla açılır.</p><label>E-posta</label><input class="field" type="email" id="authEmail" autocomplete="email" placeholder="ornek@eposta.com"><label>Şifre</label><input class="field" type="password" id="authPassword" autocomplete="current-password" placeholder="En az 8 karakter"><label id="authNameLabel">Ad Soyad (kayıt için)</label><input class="field" id="authName" maxlength="90" placeholder="Ad Soyad"><div class="actions"><button class="primary" id="authLogin">Giriş Yap</button><button class="secondary" id="authRegister">Kayıt Ol</button></div><p class="notice">Hesabınız onaylanmadan uygulamaya erişemezsiniz.</p></div></div>
 <nav class="nav" aria-label="Alt menü"><div class="nav-inner"><button data-go="home" class="active"><span>⌂</span>Ana Sayfa</button><button data-go="songs"><span>♫</span>Şarkılar</button><button data-go="reps"><span>▤</span>Listelerim</button><button data-go="stage"><span>▶</span>Sahne</button><button data-go="tools"><span>♩</span>Araçlar</button></div></nav>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <script>
 "use strict";
+// Supabase projenizin URL ve publishable/anon anahtarını buraya girin.
+// Bu alanlar boşken mevcut çevrimdışı uygulama çalışır; gerçek üyelik/onay sistemi aktif olmaz.
+const SUPABASE_URL="";
+const SUPABASE_PUBLISHABLE_KEY="";
+const backendEnabled=Boolean(SUPABASE_URL&&SUPABASE_PUBLISHABLE_KEY&&window.supabase);
+const sb=backendEnabled?window.supabase.createClient(SUPABASE_URL,SUPABASE_PUBLISHABLE_KEY):null;
+let account=null,profile=null,adminFilter="all",themeTab="free";
+function hasPro(){return Boolean(profile&&(profile.role==='admin'||(profile.plan==='pro'&&profile.pro_until&&new Date(profile.pro_until)>new Date())))}
+
 const seedSongs=[
 {id:"s1",title:"Ankara'nın Bağları",artist:"Geleneksel / yöresel",region:"Ankara",genre:"Oyun havası",categories:["oyun"],singers:[],lyricsPublished:false,key:"—",bpm:null},
 {id:"s2",title:"Misket",artist:"Ankara yöresi",region:"Ankara",genre:"Türkü",categories:["turku"],singers:[],lyricsPublished:false,key:"—",bpm:null},
@@ -283,37 +299,41 @@ if(!Array.isArray(reps))reps=[];
 let currentRep=read("musicapp_currentrep_v1",null),stageIndex=0;
 const THEME_OPTIONS = [{'id': 'dark', 'name': 'Sahne Siyahı', 'bg': '#10141b', 'panel': '#202733', 'accent': '#c9a66c', 'pro': false}, {'id': 'cream', 'name': 'Krem Klasik', 'bg': '#f2ecdf', 'panel': '#fffaf1', 'accent': '#a87b48', 'pro': false}, {'id': 'navy', 'name': 'Gece Mavisi', 'bg': '#0b1c2b', 'panel': '#162b40', 'accent': '#73b8cb', 'pro': false}, {'id': 'purple', 'name': 'Mor Sahne', 'bg': '#211c2c', 'panel': '#322b3d', 'accent': '#bb9aca', 'pro': false}, {'id': 'red', 'name': 'Kırmızı Sahne', 'bg': '#251b1e', 'panel': '#38282e', 'accent': '#ce8990', 'pro': true}, {'id': 'emerald', 'name': 'Zümrüt', 'bg': '#10241f', 'panel': '#203b33', 'accent': '#8fc4a7', 'pro': true}, {'id': 'ice', 'name': 'Buz Mavisi', 'bg': '#e8f0f2', 'panel': '#f9fcfc', 'accent': '#6e9eb1', 'pro': true}, {'id': 'copper', 'name': 'Bakır', 'bg': '#2c241f', 'panel': '#41352e', 'accent': '#cba17c', 'pro': true}, {'id': 'platinum', 'name': 'Platin', 'bg': '#202329', 'panel': '#343942', 'accent': '#b6beca', 'pro': true}, {'id': 'sunset', 'name': 'Gün Batımı', 'bg': '#30242a', 'panel': '#48333a', 'accent': '#d6a18a', 'pro': true}, {'id': 'ruby', 'name': 'Yakut', 'bg': '#2c1c29', 'panel': '#452a3b', 'accent': '#c993ad', 'pro': true}, {'id': 'forest', 'name': 'Orman', 'bg': '#1d291e', 'panel': '#303f30', 'accent': '#a6c18a', 'pro': true}, {'id': 'ocean', 'name': 'Okyanus', 'bg': '#122833', 'panel': '#20404c', 'accent': '#7cb7c1', 'pro': true}, {'id': 'wood', 'name': 'Retro Ahşap', 'bg': '#322820', 'panel': '#4b3a2e', 'accent': '#d0aa79', 'pro': true}, {'id': 'neon', 'name': 'Yumuşak Neon', 'bg': '#1e2031', 'panel': '#31364a', 'accent': '#aaa3d5', 'pro': true}, {'id': 'piano', 'name': 'Beyaz Piyano', 'bg': '#f0f0ed', 'panel': '#fdfdfb', 'accent': '#929ba5', 'pro': true}];
 // Üyelik doğrulama servisi bağlanana kadar PRO temalar kilitli kalır.
-const hasVerifiedPro = false;
+const hasVerifiedPro = false; // Eski sabit yerine aşağıda hasPro() kullanılır.
 function renderThemeChoices(){
  const root=document.getElementById("themeChoices");
- root.innerHTML=THEME_OPTIONS.map(t=>`<button type="button" class="secondary theme-choice ${t.pro&&!hasVerifiedPro?'locked':''}" data-theme-choice="${t.id}" aria-label="${t.name}${t.pro&&!hasVerifiedPro?' PRO':''}"><span class="theme-swatch"><i style="background:${t.bg}"></i><i style="background:${t.panel}"></i><i style="background:${t.accent}"></i></span><strong>${t.name}${t.pro?' · 🔒 PRO':''}</strong><small>${t.pro?'PRO tema':'Ücretsiz tema'}</small></button>`).join("");
+ root.innerHTML=THEME_OPTIONS.filter(t=>themeTab==="pro"?t.pro:!t.pro).map(t=>`<button type="button" class="secondary theme-choice ${t.pro&&!hasPro()?'locked':''}" data-theme-choice="${t.id}"><span class="theme-preview" style="background:${t.bg}"><em style="background:${t.panel};border:1px solid ${t.accent}"></em><em style="background:${t.accent};width:22%"></em></span><strong>${t.name}${t.pro&&!hasPro()?' · 🔒 PRO':''}</strong><small>${t.pro?'PRO tema':'Ücretsiz tema'}</small></button>`).join("");
  root.querySelectorAll("[data-theme-choice]").forEach(b=>b.addEventListener("click",()=>{
   const t=THEME_OPTIONS.find(x=>x.id===b.dataset.themeChoice);
-  if(t.pro&&!hasVerifiedPro){document.getElementById("themeProHint").textContent="Bu tema PRO üyelikle açılacak. PRO satın alma sistemi henüz etkin değil.";return}
+  if(t.pro&&!hasPro()){document.getElementById("themeProHint").textContent="Bu tema PRO üyelikle açılır.";return}
   setTheme(t.id);
  }));
+ root.querySelectorAll("[data-theme-choice]").forEach(b=>b.classList.toggle("selected",b.dataset.themeChoice===theme));
 }
+
 let theme=read("musicapp_theme_v1","dark");
-const validPages=["home","songs","reps","stage","tools"];
+const validPages=["home","songs","reps","stage","tools","admin"];
 let lastPage=read("musicapp_page_v3","home");
 if(!validPages.includes(lastPage))lastPage="home";
 let stageFont=Number(read("musicapp_stage_font_v3",20));
 if(!Number.isFinite(stageFont)||stageFont<14||stageFont>40)stageFont=20;
 let detailTarget=null;
 if(theme==="light")theme="cream";
-if(!THEME_OPTIONS.some(t=>t.id===theme&&(!t.pro||hasVerifiedPro)))theme="dark";
+if(!THEME_OPTIONS.some(t=>t.id===theme&&(!t.pro||hasPro())))theme="dark";
 const $=id=>document.getElementById(id);
 const save=()=>{localStorage.setItem("musicapp_reps_v1",JSON.stringify(reps));localStorage.setItem("musicapp_currentrep_v1",JSON.stringify(currentRep))};
 function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
-function setTheme(t){if(!THEME_OPTIONS.some(x=>x.id===t&&(!x.pro||hasVerifiedPro)))return;theme=t;document.body.dataset.theme=t;localStorage.setItem("musicapp_theme_v1",JSON.stringify(t));document.querySelectorAll("[data-theme-choice]").forEach(b=>b.classList.toggle("selected",b.dataset.themeChoice===t))}
-function go(id){if(!validPages.includes(id))id="home";localStorage.setItem("musicapp_page_v3",JSON.stringify(id));closeThemeModal();closeDetailModal();closeLyricsModal();closeInfoModal();document.querySelectorAll("main > section").forEach(s=>s.classList.toggle("hidden",s.id!==id));document.querySelectorAll("[data-go]").forEach(b=>b.classList.toggle("active",b.dataset.go===id));if(id==="songs")renderSongs();if(id==="reps")renderReps();if(id==="stage")renderStage();window.scrollTo(0,0)}
+function setTheme(t){if(!THEME_OPTIONS.some(x=>x.id===t&&(!x.pro||hasPro())))return;theme=t;document.body.dataset.theme=t;localStorage.setItem("musicapp_theme_v1",JSON.stringify(t));document.querySelectorAll("[data-theme-choice]").forEach(b=>b.classList.toggle("selected",b.dataset.themeChoice===t))}
+function go(id){if(!validPages.includes(id))id="home";localStorage.setItem("musicapp_page_v3",JSON.stringify(id));closeThemeModal();closeDetailModal();closeLyricsModal();closeInfoModal();document.querySelectorAll("main > section").forEach(s=>s.classList.toggle("hidden",s.id!==id));document.querySelectorAll("[data-go]").forEach(b=>b.classList.toggle("active",b.dataset.go===id));if(id==="admin")renderAdmin();if(id==="songs")renderSongs();if(id==="reps")renderReps();if(id==="stage")renderStage();window.scrollTo(0,0)}
 document.querySelectorAll("[data-go]").forEach(b=>b.addEventListener("click",()=>go(b.dataset.go)));
 $("brandHome").addEventListener("click",()=>go("home"));
 $("brandHome").addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();go("home")}});
 renderThemeChoices();
 let themeReturnFocus=null;
-function openThemeModal(){document.getElementById("themeProHint").textContent="4 ücretsiz tema. Ek 12 tema PRO üyelikle açılır.";themeReturnFocus=document.activeElement;$("themeModal").classList.remove("hidden");$("closeTheme").focus()}
+function openThemeModal(){themeTab="free";renderThemeChoices();document.getElementById("themeProHint").textContent="4 ücretsiz tema. Ek 12 tema PRO üyelikle açılır.";themeReturnFocus=document.activeElement;$("themeModal").classList.remove("hidden");$("closeTheme").focus()}
 function closeThemeModal(){if(!$("themeModal").classList.contains("hidden")){$("themeModal").classList.add("hidden");themeReturnFocus?.focus()}}
+$("tabFree").onclick=()=>{themeTab="free";renderThemeChoices()};
+$("tabPro").onclick=()=>{themeTab="pro";renderThemeChoices()};
 $("themeQuick").addEventListener("click",openThemeModal);
 $("themeTile").addEventListener("click",openThemeModal);
 $("closeTheme").addEventListener("click",closeThemeModal);
@@ -690,7 +710,56 @@ if(Number(tunerSaved.sensitivity)>=1&&Number(tunerSaved.sensitivity)<=10)$("tune
 if(["3","5","10"].includes(String(tunerSaved.tolerance)))$("tunerTolerance").value=tunerSaved.tolerance;
 tunerRenderTunings(tunerSaved.tuning);
 
+
+// V5: Sunucu tarafı RLS/RPC ile yönetilen hesaplar. Bu arayüz tek başına yetki vermez.
+function statusText(p){if(p.status==='pending')return 'Onay bekliyor';if(p.status==='rejected')return 'Reddedildi';if(p.status==='disabled')return 'Pasif';return 'Aktif'}
+function showGate(message){$("authGate").classList.remove("hidden");if(message)$("authMessage").textContent=message}
+function hideGate(){$("authGate").classList.add("hidden")}
+function showAccount(){
+ const bar=$("accountBar");
+ if(!backendEnabled){bar.innerHTML='<span class="admin-badge">Çevrimdışı önizleme • Üyelik sistemi bağlantı bekliyor</span>';return}
+ if(!profile){bar.innerHTML='';return}
+ bar.innerHTML=`<span class="admin-badge">${escapeHtml(profile.full_name||'Kullanıcı')} · ${profile.role==='admin'?'👑 Yönetici':hasPro()?'⭐ PRO':'Ücretsiz'}</span>${profile.role==='admin'?'<button class="secondary" id="adminNav">👑 Yönetici Paneli</button>':''}<button class="secondary" id="logoutBtn">Çıkış</button>`;
+ if($("adminNav"))$("adminNav").onclick=()=>go('admin');
+ $("logoutBtn").onclick=async()=>{await sb.auth.signOut();account=null;profile=null;showGate('Oturum kapatıldı.');showAccount();go('home')};
+}
+async function loadProfile(){
+ const {data:{user}}=await sb.auth.getUser();account=user;
+ if(!user){profile=null;showAccount();showGate();return}
+ const {data,error}=await sb.from('profiles').select('*').eq('id',user.id).single();
+ if(error||!data){showGate('Hesap bilgisi okunamadı. Lütfen daha sonra tekrar deneyin.');return}
+ profile=data;showAccount();
+ if(data.status!=='active'){showGate('Hesap durumu: '+statusText(data)+'. Yönetici onayı gereklidir.');return}
+ hideGate();if(profile.role==='admin'){await renderAdminHome()}else{$('adminHome').classList.add('hidden');if(lastPage==='admin')go('home')}
+ if(!hasPro()&&THEME_OPTIONS.find(t=>t.id===theme)?.pro)setTheme('dark');
+ renderThemeChoices();
+}
+async function authenticate(register){
+ if(!backendEnabled)return;
+ const email=$('authEmail').value.trim(),password=$('authPassword').value,name=$('authName').value.trim();
+ if(!email||password.length<8){$('authMessage').textContent='E-posta ve en az 8 karakterli şifre gerekli.';return}
+ if(register&&!name){$('authMessage').textContent='Kayıt için ad soyad gerekli.';return}
+ $('authMessage').textContent='İşlem yapılıyor…';
+ const result=register?await sb.auth.signUp({email,password,options:{data:{full_name:name}}}):await sb.auth.signInWithPassword({email,password});
+ if(result.error){$('authMessage').textContent=result.error.message;return}
+ if(register){await sb.auth.signOut();$('authMessage').textContent='Kayıt alındı. E-posta doğrulamasını tamamlayın ve yönetici onayını bekleyin.';return}
+ await loadProfile();
+}
+$('authLogin').onclick=()=>authenticate(false);$('authRegister').onclick=()=>authenticate(true);
+const adminCards=[['normal','👥','Normal Kullanıcı'],['pro','👑','PRO Kullanıcı'],['all','▤','Toplam Kullanıcı'],['pending','⏳','Onay Bekleyen']];
+async function fetchProfiles(){if(!sb||profile?.role!=='admin')return null;const {data,error}=await sb.from('profiles').select('id,full_name,email,status,role,plan,pro_until,created_at').order('created_at',{ascending:false});if(error){console.warn(error);return null}return data||[]}
+function isCurrentPro(p){return p.role!=='admin'&&p.plan==='pro'&&p.pro_until&&new Date(p.pro_until)>new Date()}
+function counts(users){return {normal:users.filter(p=>p.role!=='admin'&&p.status==='active'&&!isCurrentPro(p)).length,pro:users.filter(p=>p.status==='active'&&isCurrentPro(p)).length,all:users.filter(p=>p.role!=='admin'&&p.status==='active').length,pending:users.filter(p=>p.status==='pending').length}}
+function cardsHtml(users){const c=counts(users);return `<div class="admin-stats">${adminCards.map(([key,ico,label])=>`<button class="admin-stat ${adminFilter===key?'active':''}" data-admin-filter="${key}"><span>${ico}</span><b>${c[key]}</b><small>${label}</small></button>`).join('')}</div>`}
+function wireCards(root){root.querySelectorAll('[data-admin-filter]').forEach(b=>b.onclick=()=>{adminFilter=b.dataset.adminFilter;go('admin')})}
+async function renderAdminHome(){if(profile?.role!=='admin')return;const users=await fetchProfiles();if(!users)return;const root=$('adminHome');root.classList.remove('hidden');root.innerHTML='<h2>👑 Yönetici Özeti</h2>'+cardsHtml(users)+'<button class="secondary" id="openAdmin">Tüm Kullanıcıları Yönet →</button>';wireCards(root);$('openAdmin').onclick=()=>go('admin')}
+function filteredUsers(users){return users.filter(p=>p.role!=='admin'&&(adminFilter==='all'?true:adminFilter==='pending'?p.status==='pending':adminFilter==='pro'?p.status==='active'&&isCurrentPro(p):p.status==='active'&&!isCurrentPro(p)))}
+async function adminAction(id,action,months){if(!sb||profile?.role!=='admin')return;const {error}=await sb.rpc('admin_manage_user',{target_id:id,action_name:action,pro_months:months||null});if(error){alert('İşlem başarısız: '+error.message);return}await renderAdmin();await renderAdminHome()}
+async function renderAdmin(){if(profile?.role!=='admin'){$('adminPanel').textContent='Bu bölüm yalnız yöneticiye açıktır.';return}const root=$('adminPanel');root.textContent='Kullanıcılar yükleniyor…';const users=await fetchProfiles();if(!users){root.textContent='Kullanıcı verileri alınamadı. Supabase bağlantısını ve yetkileri kontrol edin.';return}const filtered=filteredUsers(users);root.innerHTML=cardsHtml(users)+`<h3>${adminCards.find(x=>x[0]===adminFilter)[2]} (${filtered.length})</h3>`+filtered.map(p=>`<div class="admin-user"><strong>${escapeHtml(p.full_name||'İsimsiz')}</strong><div class="muted">${escapeHtml(p.email||'')}</div><span class="admin-badge">${statusText(p)}</span><span class="admin-badge">${isCurrentPro(p)?'PRO':'Normal'}</span>${p.pro_until?`<p class="muted">PRO bitiş: ${new Date(p.pro_until).toLocaleDateString('tr-TR')}</p>`:''}<div class="actions">${p.status==='pending'?`<button class="primary" data-action="approve" data-id="${p.id}">Onayla</button><button class="secondary" data-action="reject" data-id="${p.id}">Reddet</button>`:''}${p.status==='active'?`<button class="secondary" data-action="disable" data-id="${p.id}">Pasif Yap</button>`:p.status!=='pending'?`<button class="secondary" data-action="activate" data-id="${p.id}">Aktifleştir</button>`:''}${[1,3,6,12].map(n=>`<button class="secondary" data-action="grant_pro" data-months="${n}" data-id="${p.id}">PRO ${n} Ay</button>`).join('')}<button class="secondary" data-action="revoke_pro" data-id="${p.id}">PRO İptal</button></div></div>`).join('')||'<p class="muted">Bu grupta kullanıcı bulunmuyor.</p>';wireCards(root);root.querySelectorAll('[data-action]').forEach(b=>b.onclick=()=>{if(confirm('Bu kullanıcı için işlemi onaylıyor musun?'))adminAction(b.dataset.id,b.dataset.action,Number(b.dataset.months)||null)})}
+async function initializeAuth(){showAccount();if(!backendEnabled)return;showGate('Giriş yap veya kayıt ol. Yeni kullanıcılar yönetici onayı bekler.');await loadProfile();sb.auth.onAuthStateChange((event)=>{if(event==='SIGNED_OUT'){profile=null;account=null;showAccount();showGate('Giriş yapın.')}})}
+
 setTheme(theme);setStageFont(stageFont);renderSongs();renderReps();go(lastPage);
+initializeAuth();
 </script>
 </body>
 </html>
