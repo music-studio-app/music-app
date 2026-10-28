@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#101827">
-<title>Music App V4.8 PRO • Mobil</title>
+<title>Music App V4.9 PRO • Mobil</title>
 <style>
 :root{font-family:system-ui,-apple-system,Segoe UI,sans-serif;color-scheme:dark;--bg:#101827;--panel:#1b273a;--text:#f7fafc;--muted:#aab8cc;--accent:#51dfb5;--line:#33445b}
 body[data-theme="light"]{color-scheme:light;--bg:#f4f6fb;--panel:#fff;--text:#162034;--muted:#5c6b80;--accent:#007e68;--line:#d9e0e9}
@@ -103,6 +103,39 @@ button{touch-action:manipulation}
 .region-menu button.selected{border:2px solid var(--accent)}
 .catalog-back{margin:10px 0}
 @media(max-width:380px){.category-menu{gap:7px}.category-button{padding:12px 9px}}
+
+/* V4.9 — göz dostu 3D tema sistemi */
+body[data-theme="dark"]{--bg:#10141b;--panel:#202733;--text:#f2eee6;--muted:#aeb8c7;--accent:#c9a66c;--line:#3c4655;color-scheme:dark;}
+body[data-theme="cream"]{--bg:#f2ecdf;--panel:#fffaf1;--text:#302a23;--muted:#71685c;--accent:#a87b48;--line:#d8cbb6;color-scheme:light;}
+body[data-theme="navy"]{--bg:#0b1c2b;--panel:#162b40;--text:#edf3f7;--muted:#a8bdce;--accent:#73b8cb;--line:#345064;color-scheme:dark;}
+body[data-theme="purple"]{--bg:#211c2c;--panel:#322b3d;--text:#f3edf5;--muted:#bcb0c7;--accent:#bb9aca;--line:#51445c;color-scheme:dark;}
+body[data-theme="red"]{--bg:#251b1e;--panel:#38282e;--text:#f5eded;--muted:#c5afb5;--accent:#ce8990;--line:#60464b;color-scheme:dark;}
+body[data-theme="emerald"]{--bg:#10241f;--panel:#203b33;--text:#e9f3ee;--muted:#b2c8bc;--accent:#8fc4a7;--line:#426357;color-scheme:dark;}
+body[data-theme="ice"]{--bg:#e8f0f2;--panel:#f9fcfc;--text:#26363d;--muted:#657d86;--accent:#6e9eb1;--line:#c6d8dc;color-scheme:light;}
+body[data-theme="copper"]{--bg:#2c241f;--panel:#41352e;--text:#f4eee8;--muted:#c8b7a9;--accent:#cba17c;--line:#665246;color-scheme:dark;}
+body[data-theme="platinum"]{--bg:#202329;--panel:#343942;--text:#eef0f2;--muted:#b8c0c9;--accent:#b6beca;--line:#515a65;color-scheme:dark;}
+body[data-theme="sunset"]{--bg:#30242a;--panel:#48333a;--text:#f7eeee;--muted:#d0b7b9;--accent:#d6a18a;--line:#6c4e53;color-scheme:dark;}
+body[data-theme="ruby"]{--bg:#2c1c29;--panel:#452a3b;--text:#f5edf2;--muted:#ceb6c5;--accent:#c993ad;--line:#67465c;color-scheme:dark;}
+body[data-theme="forest"]{--bg:#1d291e;--panel:#303f30;--text:#edf3e8;--muted:#b8c7b0;--accent:#a6c18a;--line:#53654d;color-scheme:dark;}
+body[data-theme="ocean"]{--bg:#122833;--panel:#20404c;--text:#edf5f6;--muted:#aec7cf;--accent:#7cb7c1;--line:#42626d;color-scheme:dark;}
+body[data-theme="wood"]{--bg:#322820;--panel:#4b3a2e;--text:#f5eee5;--muted:#d1bfad;--accent:#d0aa79;--line:#705846;color-scheme:dark;}
+body[data-theme="neon"]{--bg:#1e2031;--panel:#31364a;--text:#eff0f7;--muted:#b5bdd3;--accent:#aaa3d5;--line:#535875;color-scheme:dark;}
+body[data-theme="piano"]{--bg:#f0f0ed;--panel:#fdfdfb;--text:#292d31;--muted:#72777b;--accent:#929ba5;--line:#d1d4d5;color-scheme:light;}
+body{background:radial-gradient(ellipse at 50% -10%,color-mix(in srgb,var(--accent) 7%,transparent),transparent 65%),var(--bg)}
+.card,.tile,.category-button,.chip,.modal-box{box-shadow:0 8px 20px rgba(0,0,0,.10),inset 0 1px 0 rgba(255,255,255,.08);background-image:linear-gradient(155deg,color-mix(in srgb,var(--panel) 95%,white),var(--panel))}
+.tile,.category-button{border-bottom-width:3px;transition:transform .14s ease,box-shadow .14s ease}
+.tile:active,.category-button:active{transform:translateY(2px);box-shadow:0 3px 9px rgba(0,0,0,.08)}
+.primary{color:var(--bg);box-shadow:inset 0 1px 0 rgba(255,255,255,.22),0 4px 12px rgba(0,0,0,.12)}
+.secondary,.chip{box-shadow:inset 0 1px 0 rgba(255,255,255,.07),0 3px 8px rgba(0,0,0,.07)}
+.theme-row{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+.theme-choice{position:relative;text-align:left;min-height:83px!important;padding:12px!important;border-radius:14px!important;overflow:hidden}
+.theme-choice strong,.theme-choice small{display:block}.theme-choice small{font-size:11px;margin-top:5px;opacity:.8}
+.theme-choice .theme-swatch{display:flex;gap:5px;margin-bottom:8px}
+.theme-choice .theme-swatch i{display:block;width:25px;height:15px;border-radius:5px;border:1px solid rgba(127,127,127,.25)}
+.theme-choice.locked{opacity:.82}.theme-choice.selected{border:2px solid var(--accent)!important}
+.pro-hint{font-size:12px;line-height:1.5;color:var(--muted);margin:10px 0}
+#themeModal .modal-box{width:min(520px,100%)}
+@media(prefers-reduced-motion:reduce){.tile,.category-button{transition:none}}
 </style>
 </head>
 <body data-theme="dark">
@@ -113,7 +146,7 @@ button{touch-action:manipulation}
 <div class="hero"><h1>Sahneye hazır mısın?</h1><p>Şarkılarını düzenle, repertuvarını hazırla ve sahnede tek dokunuşla aç.</p><button class="primary" data-go="reps">Repertuvarlarım →</button></div>
 <div class="section"><h2>Hızlı erişim</h2></div>
 <div class="grid"><button class="tile" data-go="songs">♫ Tüm Şarkılar<span>Arşiv ve arama</span></button><button class="tile" data-go="reps">▤ Repertuvarlarım<span>Kendi listelerim</span></button><button class="tile" data-go="stage">▶ Sahne Modu<span>Canlı performans</span></button><button class="tile" data-go="tools">♩ Müzik Araçları<span>Metronom • Akort</span></button><button class="tile" id="themeTile">⚙ Ayarlar<span>Renk temaları</span></button></div>
-<div class="card"><h3>Music App V4.8 PRO</h3><p>Mobil uyumlu repertuvar, sahne modu, metronom ve karar sesi seçilebilen akort cihazı.</p></div>
+<div class="card"><h3>Music App V4.9 PRO</h3><p>Mobil uyumlu repertuvar, sahne modu, metronom ve karar sesi seçilebilen akort cihazı.</p></div>
 </section>
 <section id="songs" class="hidden"><div class="section"><h2>Tüm Şarkılar</h2><span class="muted" id="songCount"></span></div><input class="field" id="search" placeholder="Şarkı veya sanatçı ara…" aria-label="Şarkı ara"><div id="categoryMenu" class="category-menu"></div><div id="regionMenu" class="region-menu hidden"></div><div id="songList"></div><p class="notice">Şarkı sözleri yalnızca yayınlama hakkı bulunan eserlerde gösterilir.</p></section>
 <section id="reps" class="hidden"><div class="section"><h2>Repertuvarlarım</h2></div><div class="card"><label for="repName">Yeni repertuvar oluştur</label><input class="field" id="repName" maxlength="60" placeholder="Örn. Cumartesi Sahnesi"><button class="primary" id="createRep">+ Oluştur</button></div><div id="repList"></div></section>
@@ -164,12 +197,8 @@ button{touch-action:manipulation}
   <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="themeModalTitle">
     <h2 id="themeModalTitle">🎨 Görünüm Ayarları</h2>
     <p>Rengini seç. Tercihin otomatik kaydedilir.</p>
-    <div class="theme-row">
-      <button class="secondary" data-theme-choice="dark">Siyah</button>
-      <button class="secondary" data-theme-choice="light">Beyaz</button>
-      <button class="secondary" data-theme-choice="navy">Lacivert</button>
-      <button class="secondary" data-theme-choice="cream">Krem</button>
-    </div>
+    <div class="theme-row" id="themeChoices"></div>
+    <p class="pro-hint" id="themeProHint">4 ücretsiz tema. Ek 12 tema PRO üyelikle açılır.</p>
     <button class="primary modal-close" id="closeTheme">Kapat</button>
   </div>
 </div>
@@ -252,6 +281,18 @@ const read=(key,fallback)=>{try{const v=JSON.parse(localStorage.getItem(key));re
 let reps=read("musicapp_reps_v1",[]);
 if(!Array.isArray(reps))reps=[];
 let currentRep=read("musicapp_currentrep_v1",null),stageIndex=0;
+const THEME_OPTIONS = [{'id': 'dark', 'name': 'Sahne Siyahı', 'bg': '#10141b', 'panel': '#202733', 'accent': '#c9a66c', 'pro': false}, {'id': 'cream', 'name': 'Krem Klasik', 'bg': '#f2ecdf', 'panel': '#fffaf1', 'accent': '#a87b48', 'pro': false}, {'id': 'navy', 'name': 'Gece Mavisi', 'bg': '#0b1c2b', 'panel': '#162b40', 'accent': '#73b8cb', 'pro': false}, {'id': 'purple', 'name': 'Mor Sahne', 'bg': '#211c2c', 'panel': '#322b3d', 'accent': '#bb9aca', 'pro': false}, {'id': 'red', 'name': 'Kırmızı Sahne', 'bg': '#251b1e', 'panel': '#38282e', 'accent': '#ce8990', 'pro': true}, {'id': 'emerald', 'name': 'Zümrüt', 'bg': '#10241f', 'panel': '#203b33', 'accent': '#8fc4a7', 'pro': true}, {'id': 'ice', 'name': 'Buz Mavisi', 'bg': '#e8f0f2', 'panel': '#f9fcfc', 'accent': '#6e9eb1', 'pro': true}, {'id': 'copper', 'name': 'Bakır', 'bg': '#2c241f', 'panel': '#41352e', 'accent': '#cba17c', 'pro': true}, {'id': 'platinum', 'name': 'Platin', 'bg': '#202329', 'panel': '#343942', 'accent': '#b6beca', 'pro': true}, {'id': 'sunset', 'name': 'Gün Batımı', 'bg': '#30242a', 'panel': '#48333a', 'accent': '#d6a18a', 'pro': true}, {'id': 'ruby', 'name': 'Yakut', 'bg': '#2c1c29', 'panel': '#452a3b', 'accent': '#c993ad', 'pro': true}, {'id': 'forest', 'name': 'Orman', 'bg': '#1d291e', 'panel': '#303f30', 'accent': '#a6c18a', 'pro': true}, {'id': 'ocean', 'name': 'Okyanus', 'bg': '#122833', 'panel': '#20404c', 'accent': '#7cb7c1', 'pro': true}, {'id': 'wood', 'name': 'Retro Ahşap', 'bg': '#322820', 'panel': '#4b3a2e', 'accent': '#d0aa79', 'pro': true}, {'id': 'neon', 'name': 'Yumuşak Neon', 'bg': '#1e2031', 'panel': '#31364a', 'accent': '#aaa3d5', 'pro': true}, {'id': 'piano', 'name': 'Beyaz Piyano', 'bg': '#f0f0ed', 'panel': '#fdfdfb', 'accent': '#929ba5', 'pro': true}];
+// Üyelik doğrulama servisi bağlanana kadar PRO temalar kilitli kalır.
+const hasVerifiedPro = false;
+function renderThemeChoices(){
+ const root=document.getElementById("themeChoices");
+ root.innerHTML=THEME_OPTIONS.map(t=>`<button type="button" class="secondary theme-choice ${t.pro&&!hasVerifiedPro?'locked':''}" data-theme-choice="${t.id}" aria-label="${t.name}${t.pro&&!hasVerifiedPro?' PRO':''}"><span class="theme-swatch"><i style="background:${t.bg}"></i><i style="background:${t.panel}"></i><i style="background:${t.accent}"></i></span><strong>${t.name}${t.pro?' · 🔒 PRO':''}</strong><small>${t.pro?'PRO tema':'Ücretsiz tema'}</small></button>`).join("");
+ root.querySelectorAll("[data-theme-choice]").forEach(b=>b.addEventListener("click",()=>{
+  const t=THEME_OPTIONS.find(x=>x.id===b.dataset.themeChoice);
+  if(t.pro&&!hasVerifiedPro){document.getElementById("themeProHint").textContent="Bu tema PRO üyelikle açılacak. PRO satın alma sistemi henüz etkin değil.";return}
+  setTheme(t.id);
+ }));
+}
 let theme=read("musicapp_theme_v1","dark");
 const validPages=["home","songs","reps","stage","tools"];
 let lastPage=read("musicapp_page_v3","home");
@@ -259,18 +300,19 @@ if(!validPages.includes(lastPage))lastPage="home";
 let stageFont=Number(read("musicapp_stage_font_v3",20));
 if(!Number.isFinite(stageFont)||stageFont<14||stageFont>40)stageFont=20;
 let detailTarget=null;
-if(!["dark","light","navy","cream"].includes(theme))theme="dark";
+if(theme==="light")theme="cream";
+if(!THEME_OPTIONS.some(t=>t.id===theme&&(!t.pro||hasVerifiedPro)))theme="dark";
 const $=id=>document.getElementById(id);
 const save=()=>{localStorage.setItem("musicapp_reps_v1",JSON.stringify(reps));localStorage.setItem("musicapp_currentrep_v1",JSON.stringify(currentRep))};
 function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
-function setTheme(t){theme=t;document.body.dataset.theme=t;localStorage.setItem("musicapp_theme_v1",JSON.stringify(t));document.querySelectorAll("[data-theme-choice]").forEach(b=>b.classList.toggle("selected",b.dataset.themeChoice===t))}
+function setTheme(t){if(!THEME_OPTIONS.some(x=>x.id===t&&(!x.pro||hasVerifiedPro)))return;theme=t;document.body.dataset.theme=t;localStorage.setItem("musicapp_theme_v1",JSON.stringify(t));document.querySelectorAll("[data-theme-choice]").forEach(b=>b.classList.toggle("selected",b.dataset.themeChoice===t))}
 function go(id){if(!validPages.includes(id))id="home";localStorage.setItem("musicapp_page_v3",JSON.stringify(id));closeThemeModal();closeDetailModal();closeLyricsModal();closeInfoModal();document.querySelectorAll("main > section").forEach(s=>s.classList.toggle("hidden",s.id!==id));document.querySelectorAll("[data-go]").forEach(b=>b.classList.toggle("active",b.dataset.go===id));if(id==="songs")renderSongs();if(id==="reps")renderReps();if(id==="stage")renderStage();window.scrollTo(0,0)}
 document.querySelectorAll("[data-go]").forEach(b=>b.addEventListener("click",()=>go(b.dataset.go)));
 $("brandHome").addEventListener("click",()=>go("home"));
 $("brandHome").addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();go("home")}});
-document.querySelectorAll("[data-theme-choice]").forEach(b=>b.addEventListener("click",()=>setTheme(b.dataset.themeChoice)));
+renderThemeChoices();
 let themeReturnFocus=null;
-function openThemeModal(){themeReturnFocus=document.activeElement;$("themeModal").classList.remove("hidden");$("closeTheme").focus()}
+function openThemeModal(){document.getElementById("themeProHint").textContent="4 ücretsiz tema. Ek 12 tema PRO üyelikle açılır.";themeReturnFocus=document.activeElement;$("themeModal").classList.remove("hidden");$("closeTheme").focus()}
 function closeThemeModal(){if(!$("themeModal").classList.contains("hidden")){$("themeModal").classList.add("hidden");themeReturnFocus?.focus()}}
 $("themeQuick").addEventListener("click",openThemeModal);
 $("themeTile").addEventListener("click",openThemeModal);
