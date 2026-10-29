@@ -514,6 +514,18 @@ body:has(#home:not(.hidden)){background:radial-gradient(ellipse at 55% -10%,#2d0
  #home .admin-stat,#home .quick-grid .tile{transition:none!important}
  #home .admin-stat:hover,#home .quick-grid .tile:hover{transform:none}
 }
+
+/* V5.10 — Yönetici kartı sembollerini kutulara orantıla */
+#home .admin-stat > span {
+  width:42px; height:42px;
+  font-size:21px !important; line-height:1;
+  flex:0 0 42px;
+  border-radius:12px;
+  filter:drop-shadow(0 0 4px var(--stat-color));
+}
+@media(max-width:600px){
+  #home .admin-stat > span {width:36px;height:36px;flex-basis:36px;font-size:18px !important;}
+}
 </style>
 </head>
 <body data-theme="dark">
