@@ -553,7 +553,7 @@ body:has(#home:not(.hidden)){background:radial-gradient(ellipse at 55% -10%,#2d0
 </section>
 <section id="songs" class="hidden"><div class="section"><h2>Tüm Şarkılar</h2><span class="muted" id="songCount"></span></div><input class="field" id="search" placeholder="Tüm arşivde şarkı, sanatçı veya söz ara…" aria-label="Şarkı ara"><div class="song-discovery-actions"><button class="secondary" id="youtubeSongSearch" type="button">▶ YouTube’da Ara</button><button class="secondary" id="aiSongSearch" type="button">✦ Arşivde yoksa yapay zekâyla ara</button></div><p id="songDiscoveryStatus" class="notice" role="status" aria-live="polite">Önce arşivimizde ara. YouTube dinlemek içindir; yapay zekâ araması güvenli sunucu bağlanınca kullanılabilir.</p><div id="categoryMenu" class="category-menu"></div><div id="regionMenu" class="region-menu hidden"></div><div id="songList"></div><p class="notice" id="sourceIndexStatus">Yöresel türkü kaynakları yükleniyor…</p><details id="ytImportPanel" class="yt-import"><summary>▶ YouTube oynatma listesinden eser adayları aktar</summary><div class="yt-import-body"><p class="notice">YouTube Data API v3 anahtarı ve herkese açık oynatma listesi gerekir. API anahtarı kaydedilmez. Video başlıkları otomatik olarak doğrulanmış şarkı/söz kabul edilmez; aktarılan kayıtlar kontrol bekler.</p><label>API anahtarı (yalnızca bu işlemde kullanılır)<input id="ytApiKey" class="field" type="password" autocomplete="off" placeholder="YouTube Data API v3 anahtarı"></label><label>Oynatma listesi adresi veya kimliği<input id="ytPlaylist" class="field" placeholder="https://www.youtube.com/playlist?list=..."></label><label>Aktarılacak kategori<select id="ytCategory" class="field"></select></label><label>En fazla kaç video taransın?<input id="ytLimit" class="field" type="number" min="1" max="5000" value="500"></label><div class="actions"><button class="secondary" id="ytFetch" type="button">Listeyi tara</button><button class="primary" id="ytSave" type="button" disabled>Önizlenenleri arşive ekle</button></div><p id="ytStatus" class="notice" role="status">Henüz liste taranmadı.</p><div id="ytPreview" class="yt-preview"></div></div></details><p class="notice">Şarkı sözleri yalnızca yayınlama hakkı bulunan eserlerde gösterilir.</p></section>
 <section id="reps" class="hidden"><div class="section"><h2>Repertuvarlarım</h2></div><div class="card"><label for="repName">Yeni repertuvar oluştur</label><input class="field" id="repName" maxlength="60" placeholder="Örn. Cumartesi Sahnesi"><button class="primary" id="createRep">+ Oluştur</button></div><div id="repList"></div></section>
-<section id="stage" class="hidden"><div class="stage"><div><div class="muted" id="stagePosition">Sahne modu</div><h1 id="stageTitle">Henüz şarkı seçilmedi</h1><div class="meta" id="stageMeta">—</div><div class="stage-toolbar"><button class="secondary" id="fontMinus" aria-label="Yazıyı küçült">A−</button><button class="secondary" id="fontPlus" aria-label="Yazıyı büyüt">A+</button><button class="secondary" id="stageDetails">✎ Bilgiler</button></div><div class="lyrics" id="stageBody">Repertuvarından bir şarkı seçerek başlayabilirsin.</div></div><div class="controls"><button class="secondary" id="prevSong">← Önceki</button><button class="secondary" id="nextSong">Sonraki →</button></div></div></section>
+<section id="stage" class="hidden"><div class="stage"><div><div class="muted" id="stagePosition">Sahne modu</div><h1 id="stageTitle">Henüz şarkı seçilmedi</h1><div class="meta" id="stageMeta">—</div><div class="stage-toolbar"><button class="secondary" id="fontMinus" aria-label="Yazıyı küçült">A−</button><button class="secondary" id="fontPlus" aria-label="Yazıyı büyüt">A+</button><button class="secondary" id="stageDetails">✎ Bilgiler</button><button class="secondary" id="stageEditLyrics">✎ Sahne sözlerini düzenle</button></div><div id="stageLyricsEditor" class="hidden" style="margin:12px 0"><label for="stageLyricsInput">Bu repertuvara özel sözler (orijinal katalog kaydı değişmez)</label><textarea id="stageLyricsInput" rows="14" style="width:100%;box-sizing:border-box;margin:8px 0" placeholder="Kullanım hakkına sahip olduğun sözleri buraya yaz veya yapıştır."></textarea><div class="actions"><button class="primary" id="stageSaveLyrics">Sözleri kaydet</button><button class="secondary" id="stageCancelLyrics">Vazgeç</button><button class="secondary" id="stageResetLyrics">Kişisel sözleri sil / orijinale dön</button></div></div><div class="lyrics" id="stageBody">Repertuvarından bir şarkı seçerek başlayabilirsin.</div></div><div class="controls"><button class="secondary" id="prevSong">← Önceki</button><button class="secondary" id="nextSong">Sonraki →</button></div></div></section>
 <section id="tools" class="hidden"><div class="section"><h2>Müzik Araçları</h2></div><div class="card"><h3>♩ Metronom</h3><p>İlk çalışan sürüm: BPM seç, başlat ve durdur.</p><label for="bpm">Tempo: <strong id="bpmText">100</strong> BPM</label><input class="field" id="bpm" type="range" min="40" max="220" value="100"><button class="primary" id="metroBtn">▶ Başlat</button><p class="notice">Ses çıkması için önce butona basmalısın.</p></div><div class="card">
 <h3>🎼 PRO Akort Cihazı</h3>
 <p>Kromatik nota algılama, bağlama düzenleri, cent göstergesi ve referans ses.</p>
@@ -963,12 +963,11 @@ function renderSongs(){
  if(archiveView==="regions"&&archiveRegion){
   base=base.filter(s=>archiveRegionOf(s)===archiveRegion);
   heading=archiveRegion;
-  if(!archiveGenre&&!q){
+  menu.append(button("← Yöreler",()=>archiveSet("regions")));
+  if(!archiveGenre){
    const genres=catalogCategories.filter(c=>base.some(s=>songCategories(s).includes(c.id)));
-   menu.append(button("← Yöreler",()=>archiveSet("regions")));
+   menu.append(button("🎵 Tüm "+archiveRegion+" Şarkıları ("+base.length+")",()=>archiveSet("regions",archiveRegion)));
    genres.forEach(c=>menu.append(button(c.emoji+" "+c.name+" ("+base.filter(s=>songCategories(s).includes(c.id)).length+")",()=>archiveSet("regions",archiveRegion,c.id))));
-   menu.append(button("Tüm "+archiveRegion+" Eserleri",()=>archiveSet("region-all",archiveRegion)));
-   list.innerHTML='<p class="notice">Yörenin alt türünü seç veya tüm eserleri aç.</p>';$("songCount").textContent=archiveRegion+" • "+base.length+" eser";return;
   }
  }
  if(archiveView==="region-all"&&archiveRegion){base=base.filter(s=>archiveRegionOf(s)===archiveRegion);heading=archiveRegion;menu.append(button("← "+archiveRegion+" türleri",()=>archiveSet("regions",archiveRegion)))}
@@ -1082,6 +1081,7 @@ function renderReps(){
  });
 }
 function renderStage(){
+ $("stageLyricsEditor").classList.add("hidden");
  const rep=reps.find(r=>r.id===currentRep)||reps[0];const ids=rep?.songIds||[];
  if(stageIndex>=ids.length)stageIndex=0;
  const s=songs.find(x=>x.id===ids[stageIndex]);
@@ -1089,9 +1089,33 @@ function renderStage(){
  $("stagePosition").textContent=rep?rep.name+" • "+(s?(stageIndex+1)+"/"+ids.length:"0 şarkı"):"Sahne modu";
  $("stageTitle").textContent=s?.title||"Henüz şarkı seçilmedi";
  $("stageMeta").textContent=s?"Ton: "+(settings.key||s.key)+"  •  BPM: "+(settings.bpm??s.bpm??"Belirlenmedi"):"—";
- $("stageBody").textContent=s?((settings.note?"SAHNE NOTU\n"+settings.note+"\n\n":"")+"ŞARKI SÖZLERİ\n"+songLyrics(s)):"Repertuvarlarım bölümünde liste oluşturup şarkı ekle.";
+ $("stageBody").textContent=s?((settings.note?"SAHNE NOTU\n"+settings.note+"\n\n":"")+"ŞARKI SÖZLERİ\n"+(settings.personalLyrics?.trim()||songLyrics(s))):"Repertuvarlarım bölümünde liste oluşturup şarkı ekle.";
  $("prevSong").disabled=!s;$("nextSong").disabled=!s;$("stageDetails").disabled=!s;
 }
+$("stageEditLyrics").onclick=()=>{
+ const rep=reps.find(r=>r.id===currentRep)||reps[0],s=songs.find(x=>x.id===rep?.songIds[stageIndex]);
+ if(!rep||!s){alert("Önce repertuvara bir şarkı ekle.");return}
+ const settings=getSongSettings(rep,s.id);
+ $("stageLyricsInput").value=settings.personalLyrics??(s.lyricsPublished===true?s.lyrics:"");
+ $("stageLyricsEditor").classList.remove("hidden");$("stageLyricsInput").focus();
+};
+$("stageCancelLyrics").onclick=()=>{$("stageLyricsEditor").classList.add("hidden")};
+$("stageSaveLyrics").onclick=()=>{
+ const rep=reps.find(r=>r.id===currentRep)||reps[0],s=songs.find(x=>x.id===rep?.songIds[stageIndex]);if(!rep||!s)return;
+ const text=$("stageLyricsInput").value.trim();
+ if(!text){alert("Söz alanı boş. Orijinale dönmek için ilgili butonu kullan.");return}
+ if(!rep.songSettings)rep.songSettings={};
+ rep.songSettings[s.id]={...getSongSettings(rep,s.id),personalLyrics:text};
+ try{save()}catch(e){alert("Sözler kaydedilemedi: cihaz depolama alanını kontrol et.");return}
+ renderStage();
+};
+$("stageResetLyrics").onclick=()=>{
+ const rep=reps.find(r=>r.id===currentRep)||reps[0],s=songs.find(x=>x.id===rep?.songIds[stageIndex]);if(!rep||!s)return;
+ if(!confirm("Bu şarkının repertuvara özel sözleri silinsin mi?"))return;
+ if(!rep.songSettings)rep.songSettings={};
+ const settings={...getSongSettings(rep,s.id)};delete settings.personalLyrics;rep.songSettings[s.id]=settings;
+ save();renderStage();
+};
 $("prevSong").onclick=()=>{const n=(reps.find(r=>r.id===currentRep)?.songIds.length||0);if(n){stageIndex=(stageIndex-1+n)%n;renderStage()}};
 $("nextSong").onclick=()=>{const n=(reps.find(r=>r.id===currentRep)?.songIds.length||0);if(n){stageIndex=(stageIndex+1)%n;renderStage()}};
 let audio=null,timer=null,beat=0;
