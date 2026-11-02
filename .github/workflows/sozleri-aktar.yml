@@ -1,22 +1,30 @@
-name: Turkulerin sozlerini arşive aktar
+name: Turkulerin sozlerini arsive aktar
 on:
   workflow_dispatch:
 permissions:
   contents: write
+concurrency:
+  group: turku-aktarim
+  cancel-in-progress: false
 jobs:
   import:
     runs-on: ubuntu-latest
-    timeout-minutes: 120
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Vikikaynak turku sayfalarini oku
-        run: python scripts/aktar.py
+      - name: Vikikaynak turku sayfalarini oku (30 eser)
+        run: python -u scripts/aktar.py
+        env:
+          BATCH_SIZE: '30'
       - name: Katalog ve raporu kaydet
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add catalog/sarki-sozleri.json catalog/aktarim-raporu.json
-          git diff --cached --quiet || (git commit -m "Türkü sözleri kaynak aktarımı (inceleme bekliyor)" && git push)
+          if ! git diff --cached --quiet; then
+            git commit -m "Turku sozleri aktarimi - sonraki parti icin kaydet"
+            git push
+          fi
