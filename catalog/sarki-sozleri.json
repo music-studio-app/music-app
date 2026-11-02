@@ -1,5 +1,126 @@
 {
   "version": 1,
   "description": "Yalnızca yayınlama izni veya uygun lisansı doğrulanmış sözler. Kayıtlar songId veya title ile eşleşir.",
-  "records": []
+  "records": [
+    {
+      "title": "Adana Köprü Başı",
+      "lyrics": "←Adana türküleri\n\nAdana Köprü Başı \nSelahattin Sarıkaya (kaynak kişi)\nHalil Atılgan (derleyen)\n\nVur Çapayı Çapayı olarak da bilinir. \n TRT Rep. No = 4219 Derlenme tarihi = Aralık 1996\n\n1836Adana Köprü BaşıSelahattin Sarıkaya (kaynak kişi)\nHalil Atılgan (derleyen)\n\nAdana köprü başı\n\nOtur saraya karşı\n\nGel beraber gezelim\n\nDosta düşmana karşı\n\nPamuk içinde çiğit\n\nElinde altın divit\n\nHem sararmış hem solmuş\n\nBir kız için bir yiğit\n\nVur çapayı çapayı\n\nVur kazmayı kazmayı\n\nKız başına bağlamış\n\nda ipek yazmayı",
+      "publishingAuthorized": false,
+      "source": "Vikikaynak",
+      "sourceUrl": "https://tr.wikisource.org/wiki/Adana_K%C3%B6pr%C3%BC_Ba%C5%9F%C4%B1",
+      "regions": [
+        "Adana"
+      ],
+      "reviewRequired": true,
+      "license": "Kaynak sayfası ve yayınlama izni kontrol edilmeli"
+    },
+    {
+      "title": "Adana'nın Yolları Taşlık",
+      "lyrics": "←Adana türküleri\n\nAdana'nın Yolları Taşlık \nEser sahibi bilinmiyor\n\n215Adana'nın Yolları TaşlıkAnonim\n\nAdana'nın yolları taşlık,\n\nYok cebimizde beş para harçlık.\n\nElden gitti kahpe de gençlik.\n\nAğam Adanalı paşam Adanalı,\n\nEvde duramıyom sana dadanalı.\n\nSebebim sen oldun şişman delikanlı.\n\nHey güllü hele hele güllü,\n\nKız güllü hele hele güllü,\n\nPeştemalı püsküllü, peştemalı sümbüllü.\n\nAğam Adanalı paşam Adanalı,\n\nEvde duramıyom sana dadanalı.\n\nAdana'nın bayırına,\n\nAğam at güverdim çayırına,\n\nAnam babam hayırına.\n\nAğam Adanalı paşam Adanalı,\n\nEvde duramıyom sana dadanalı.\n\nSebebim sen oldun şişman delikanlı.\n\nHey güllü hele hele güllü,\n\nKız güllü hele hele güllü,\n\nPeştemalı püsküllü, peştemalı sümbüllü.\n\nAğam Adanalı paşam Adanalı,\n\nEvde duramıyom sana dadanalı.\n\nAdana'nın yolları taştan,\n\nSen çıkardın beni baştan,\n\nHem anadan hem kardaştan.\n\nAğam Adanalı paşam Adanalı,\n\nEvde duramıyom sana dadanalı.\n\nSebebim sen oldun şişman delikanlı.\n\nHey güllü hele hele güllü,\n\nKız güllü hele hele güllü,\n\nPeştemalı püsküllü, peştemalı sümbüllü.\n\nAğam Adanalı paşam Adanalı,\n\nEvde duramıyom sana dadanalı",
+      "publishingAuthorized": false,
+      "source": "Vikikaynak",
+      "sourceUrl": "https://tr.wikisource.org/wiki/Adana%27n%C4%B1n_Yollar%C4%B1_Ta%C5%9Fl%C4%B1k",
+      "regions": [
+        "Adana"
+      ],
+      "reviewRequired": true,
+      "license": "Kaynak sayfası ve yayınlama izni kontrol edilmeli"
+    },
+    {
+      "title": "Adatepe",
+      "lyrics": "←Malatya türküleri\n\nAdatepe \nEser sahibi bilinmiyor\n\n3439AdatepeAnonim\n\nAdatepe Adatepe\n\nYağmur yağar sere serpe\n\nAsiye'yi sele verdik\n\nDaha yavruları körpe\n\nAsiye'yi sele verdik\n\nYavruları galdı körpe\n\nBu vali de ağır vali\n\nGumandanı çağır vali\n\nGelinleri su götürmüş\n\nAskerleri goyur vali\n\nGelinleri su götürmüş\n\nAskerleri goyur vali",
+      "publishingAuthorized": false,
+      "source": "Vikikaynak",
+      "sourceUrl": "https://tr.wikisource.org/wiki/Adatepe",
+      "regions": [
+        "Malatya"
+      ],
+      "reviewRequired": true,
+      "license": "Kaynak sayfası ve yayınlama izni kontrol edilmeli"
+    },
+    {
+      "title": "Adem Gardaş Dedim Geldim Yanına",
+      "lyrics": "←Muğla türküleri\n\nAdem Gardaş Dedim Geldim Yanına \nEser sahibi bilinmiyor\n\n281Adem Gardaş Dedim Geldim YanınaAnonim\n\nAdem gardaş dedim geldim yanına\n\nNasıl kıydın benim tatlı canıma\n\nHısımlar komaz bunu da yanına\n\nDoyamadım sana nazlı Naime’m\n\nAnnem annem annem beni vuran adem\n\nDoyamadım sana nazlı Naime’m\n\nYüksekten götürün benim de salımı\n\nDüşmanlarım görmesin akan kanımı\n\nAnneme söylemeyin garip halimi\n\nDoyamadım sana nazlı Naime’m\n\nAnnem annem annem beni vuran adem\n\nDoyamadım sana nazlı Naime’m\n\nAnnem yoktur benim suyumu da verecek\n\nBabam yoktur benim salıma girecek\n\nGardaşlarım yoktur ahtımı alacak\n\nAdem yaptıkların yanına mı kalacak\n\nAnnem annem annem beni vuran adem\n\nDoyamadım sana nazlı Naime’m\n\nAnneme söyleyin lambalar yakmasın\n\nGüvey elbiselerimi askıya asmasın\n\nOğlum gelecek diye yollara bakmasın\n\nDoyamadım sana nazlı Naime’m\n\nAnnem annem annem beni vuran adem\n\nDoyamadım sana nazlı Naime’m\n\nBodrum Hakimi Bodrum Türküleri ve Oyunları - Dr. Halil Atılgan Kayıtlı Şekli\n\nÂdem gardaş dedim geldim yanına\n\nNasıl kıydın Âdem tatlı canıma\n\nYükseklerden taşısınlar benim salıma\n\nAnama göstermesinler akan kanıma\n\nAna desem anam yok suyumu da verecek\n\nBaba desem babam yok salıma da girecek\n\nGardaş desem gardaş ahtımı da alacak\n\nÂdem’in yaptıkları yanına mı kalacak\n\nAnam anam anam ben vuran Âdem\n\nDoyamadım sana ben güzel Naime’m\n\nMezarımı derin kazın biraz dar olsun\n\nEtrafına güller dikin bülbüller konsun\n\nGelip geçen ahbaplarım halimi sorsun\n\nSevdiceğim arkamdan ağlasın dursun\n\nAna desem anam yok suyumu da verecek\n\nBaba desem babam yok salıma da girecek\n\nGardaş desem gardaş ahtımı da alacak\n\nÂdem’in yaptıkları yanına mı kalacak\n\nAnam anam anam ben vuran Âdem\n\nDoyamadım sana ben güzel Naime’m",
+      "publishingAuthorized": false,
+      "source": "Vikikaynak",
+      "sourceUrl": "https://tr.wikisource.org/wiki/Adem_Garda%C5%9F_Dedim_Geldim_Yan%C4%B1na",
+      "regions": [
+        "Muğla"
+      ],
+      "reviewRequired": true,
+      "license": "Kaynak sayfası ve yayınlama izni kontrol edilmeli"
+    },
+    {
+      "title": "Adil Efendi",
+      "lyrics": "←Diyarbakır türküleri\n\nAdil Efendi \nEser sahibi bilinmiyor\n\n1213Adil EfendiAnonim\n\nDedim Adil Efendi Gel Kıyma Bana\nDedi İnsaf Ettim Geldim İmana\nDedim Bir Busecik Kerem Et Bana\nDedi Kamaştırır Gözlerin Yavaş\nDedim Adülere Niçin Uyarsın\nDedi Bu Haberleri Kimden Duyarsın\nZalım Didelerin Kana Boyarsın\nDedi Aşık Olan Döker Kanlı Yaş\nKarlı Dağlar Kalmayınca Aradan\nHaber Aldım O Kaşları Karadan\nVer Muradım Yeri Göğü Yaradan\nKoyma Beni Bu Hasrete Öleyim\nGah Sefa Buldu Gönlüm Ahinesi Gahi Keder\nAli Alem Böyledir Böyle Gelir Böyle Gider",
+      "publishingAuthorized": false,
+      "source": "Vikikaynak",
+      "sourceUrl": "https://tr.wikisource.org/wiki/Adil_Efendi",
+      "regions": [
+        "Diyarbakır"
+      ],
+      "reviewRequired": true,
+      "license": "Kaynak sayfası ve yayınlama izni kontrol edilmeli"
+    },
+    {
+      "title": "Adile'min Üç Boncuklu Hasırı",
+      "lyrics": "←Antalya türküleri\n\nAdilemin Üç Boncuklu Hasırı \nEser sahibi bilinmiyor\n\n1808Adilemin Üç Boncuklu HasırıAnonim\n\nAdile’min üç boncuklu hasırı\n\nAdile’m olmuş düşmanların yesiri\n\nHiç yok mudur abeysinin hatırı\n\nBağlantı: \n\nGül mü sandım gül Adile’m solacak\n\nSen ölürsen gara (gara) yerler dolacak\n\nGül mü sandım gül Adile’m solacak\n\nSen ölürsen gara (gara) yerler dolacak\n\nAdile’min saçına (da) altın takmalı\n\nTakıp takıp cemaline bakmalı\n\nAdile’mle bir odada yatmalı.\n\nBağlantı ”",
+      "publishingAuthorized": false,
+      "source": "Vikikaynak",
+      "sourceUrl": "https://tr.wikisource.org/wiki/Adile%27min_%C3%9C%C3%A7_Boncuklu_Has%C4%B1r%C4%B1",
+      "regions": [
+        "Antalya"
+      ],
+      "reviewRequired": true,
+      "license": "Kaynak sayfası ve yayınlama izni kontrol edilmeli"
+    },
+    {
+      "title": "Adını Sevdiğim Avşar Beyleri",
+      "lyrics": "←Burdur türküleri\n\nAdını Sevdiğim Avşar Beyleri \nEser sahibi bilinmiyor\n\n1809Adını Sevdiğim Avşar BeyleriAnonim\n\nAdını sevdiğim avşar beyleri\n\nSize bir vezirlik yakışıp durur\n\nTopla dizginini de tanı (aman of) kendini\n\nGarşımda düsmanlar bakışıp durur (efendim)\n\nGar mı da yağmış şu avşar’ın (aman of) düzüne\n\nSızılar mı girmiş gır atımın (of of) dizine (efendim)\n\nSelam söylen (aman of) şu avşar'ın kızına\n\nKendi gülüp bizi ağladıp durmasın (aman durmasın efendim)",
+      "publishingAuthorized": false,
+      "source": "Vikikaynak",
+      "sourceUrl": "https://tr.wikisource.org/wiki/Ad%C4%B1n%C4%B1_Sevdi%C4%9Fim_Av%C5%9Far_Beyleri",
+      "regions": [
+        "Burdur"
+      ],
+      "reviewRequired": true,
+      "license": "Kaynak sayfası ve yayınlama izni kontrol edilmeli"
+    },
+    {
+      "title": "Adıyaman Dağında Bülbül Öter Bağında",
+      "lyrics": "←Adıyaman türküleri\n\nAdıyaman Dağında Bülbül Öter Bağında \nEser sahibi bilinmiyor\n\nNuri Büyükyolcu tarafından söylenen sözleridir.Fincanın Etrafı Yeşil türküsü ile müzik olarak benzer.\n\n38918Adıyaman Dağında Bülbül Öter BağındaAnonim\n\nAdıyaman dağında\n\nAdıyaman dağında\n\nBülbül öter bağında\n\nBülbül öter bağında\n\nBen yarimi tanırım\n\nBen yarimi tanırım\n\nBeni var yanağında\n\nBeni var yanağında\n\nBen yarimi tanırım\n\nBen yarimi tanırım\n\nBeni var yanağında\n\nBeni var yanağında\n\nUy aman vay aman \n\nBurası Adıyaman\n\nBurası Adıyaman\n\nUy aman vay aman \n\nSevdiğim Adıyaman\n\nSevdiğim Adıyaman\n\nAdıyaman dağları\n\nAdıyaman dağları\n\nMor sümbüldür bağları\n\nMor sümbüldür bağları\n\nYine gölgelendi yar\n\nYine gölgelendi yar\n\nBahçaları bağları\n\nBahçaları bağları\n\nUy aman vay aman \n\nBurası Adıyaman\n\nBurası Adıyaman\n\nUy aman vay aman \n\nSevdiğim Adıyaman\n\nSevdiğim Adıyaman\n\nKaynakça",
+      "publishingAuthorized": false,
+      "source": "Vikikaynak",
+      "sourceUrl": "https://tr.wikisource.org/wiki/Ad%C4%B1yaman_Da%C4%9F%C4%B1nda_B%C3%BClb%C3%BCl_%C3%96ter_Ba%C4%9F%C4%B1nda",
+      "regions": [
+        "Adıyaman"
+      ],
+      "reviewRequired": true,
+      "license": "Kaynak sayfası ve yayınlama izni kontrol edilmeli"
+    },
+    {
+      "title": "Afiyon'un Ortasında Galesi Var",
+      "lyrics": "←Afyon türküleri\n\nAfiyon'un Ortasında Galesi Var \nEser sahibi bilinmiyor\n\n471Afiyon'un Ortasında Galesi VarAnonim\n\nAfiyon'un (aman aman) ortasında galesi (de var galesi aman)\n\nÜzerinde (aman) vardır gızlar gulesi (de var gulesi)\n\nZümrüt gibi (aman aman) yeşillenmiş ovası (da var ovası aman)\n\nAy karanlık aman gece vurdular beni de vay beni\n\nYarin yazmasına sardılar beni de ah beni\n\nGalecikten (aman aman) ayva gelir gar gelir de (vay gar gelir aman)\n\nGümüş yüzük (aman) parmağına yarin dar gelir (de dar gelir)\n\nBende sandım (aman aman) meyhaneden efem yar gelir (de vay yar gelir aman)\n\nAy karanlık (aman) göremedim (aman) yolumu (da vay yolumu)\n\n(Ah) bilemedim aman cerrah kesti benim golumu da vay golumu",
+      "publishingAuthorized": false,
+      "source": "Vikikaynak",
+      "sourceUrl": "https://tr.wikisource.org/wiki/Afiyon%27un_Ortas%C4%B1nda_Galesi_Var",
+      "regions": [
+        "Afyon"
+      ],
+      "reviewRequired": true,
+      "license": "Kaynak sayfası ve yayınlama izni kontrol edilmeli"
+    },
+    {
+      "title": "Ah Öleyim Vah Öleyim",
+      "lyrics": "←Ankara türküleri\n\nAh Öleyim Vah Öleyim \nEser sahibi bilinmiyor\n\n4189Ah Öleyim Vah ÖleyimAnonim\n\nAh öleyim vah öleyim\n\nEsmeri nerde göreyim(yâr yandım aman)\n\nEsmer yârimin yanında\n\nBen bayılayım öleyim\n\nŞu gelen kimin kızı\n\nFeracesi kırmızı (yâr yandım aman)\n\nGerdanında beş beni var\n\nSandım seher yıldızı",
+      "publishingAuthorized": false,
+      "source": "Vikikaynak",
+      "sourceUrl": "https://tr.wikisource.org/wiki/Ah_%C3%96leyim_Vah_%C3%96leyim",
+      "regions": [
+        "Ankara"
+      ],
+      "reviewRequired": true,
+      "license": "Kaynak sayfası ve yayınlama izni kontrol edilmeli"
+    }
+  ]
 }
