@@ -3848,7 +3848,7 @@
       ]
     }
   ],
-  "cursor": 30,
+  "cursor": 60,
   "failures": {
     "A Gız Senin Adın Dudu": "HTTP Error 429: Too Many Requests",
     "A Gızım Sana Fotin Alayım mı": "HTTP Error 429: Too Many Requests",
@@ -3872,6 +3872,6 @@
     "Al Kahat Mavi Kahat": "HTTP Error 429: Too Many Requests"
   },
   "total": 641,
-  "imported": 10,
+  "imported": 40,
   "complete": false
 }
