@@ -1,6 +1,8 @@
 name: Turkulerin sozlerini arsive aktar
 on:
   workflow_dispatch:
+  schedule:
+    - cron: '17,47 * * * *'
 permissions:
   contents: write
 concurrency:
@@ -9,22 +11,27 @@ concurrency:
 jobs:
   import:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 25
     steps:
       - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Vikikaynak turku sayfalarini oku (30 eser)
+      - name: Arsivden siradaki 30 eseri aktar
         run: python -u scripts/aktar.py
         env:
           BATCH_SIZE: '30'
-      - name: Katalog ve raporu kaydet
+          # Yalnizca yayinlama izni dogrulanmis eserlerde true yapin.
+          PUBLISHING_AUTHORIZED: 'false'
+      - name: Katalog ve ilerlemeyi kaydet
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add catalog/sarki-sozleri.json catalog/aktarim-raporu.json
           if ! git diff --cached --quiet; then
-            git commit -m "Turku sozleri aktarimi - sonraki parti icin kaydet"
-            git push
+            git commit -m "Turku sozleri aktarimi: kayit ve ilerleme"
+            git pull --rebase origin main
+            git push origin HEAD:main
           fi
