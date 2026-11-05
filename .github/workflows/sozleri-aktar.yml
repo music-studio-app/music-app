@@ -1,8 +1,8 @@
 name: Turkulerin sozlerini arsive aktar
 on:
   workflow_dispatch:
-  schedule:
-    - cron: '17,47 * * * *'
+  
+    
 permissions:
   contents: write
 concurrency:
