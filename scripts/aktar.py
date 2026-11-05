@@ -1,5 +1,6 @@
 """Vikikaynak yöresel türkü arşivi: küçük partilerle, kaldığı yerden aktarım."""
 import json
+import random
 import os
 import pathlib
 import re
@@ -15,6 +16,7 @@ ROOT = pathlib.Path(__file__).resolve().parents[1]
 OUT = ROOT / 'catalog' / 'sarki-sozleri.json'
 REPORT = ROOT / 'catalog' / 'aktarim-raporu.json'
 BATCH_SIZE = max(1, min(int(os.getenv('BATCH_SIZE', '30')), 100))
+AUTHORIZED = os.getenv('PUBLISHING_AUTHORIZED', 'false').lower() == 'true'
 TIMEOUT = 12
 HEADERS = {'User-Agent': 'MusicRepertuvarArchiveImporter/2.0 (GitHub Actions; contact via repository)', 'Accept': 'application/json'}
 
@@ -50,18 +52,29 @@ class Extract(HTMLParser):
 def api(**params):
     params.update(format='json', formatversion=2)
     url = API + '?' + urllib.parse.urlencode(params)
-    for attempt in range(2):
+    for attempt in range(6):
         try:
             with urllib.request.urlopen(urllib.request.Request(url, headers=HEADERS), timeout=TIMEOUT) as response:
                 result = json.load(response)
             if 'error' in result:
+                code = result['error'].get('code', '')
+                if code in ('maxlag', 'ratelimited'):
+                    raise urllib.error.HTTPError(url, 429, code, {}, None)
                 raise RuntimeError(str(result['error']))
             return result
-        except (urllib.error.URLError, TimeoutError, OSError) as exc:
-            if attempt == 1:
+        except urllib.error.HTTPError as exc:
+            if exc.code not in (429, 500, 502, 503, 504) or attempt == 5:
                 raise
-            print(f'  Bağlantı denemesi başarısız: {exc}; tekrar deneniyor', flush=True)
-            time.sleep(1.5)
+            retry = exc.headers.get('Retry-After') if exc.headers else None
+            delay = min(120, max(3, int(retry))) if retry and retry.isdigit() else min(120, 3 * 2 ** attempt + random.random())
+            print(f'  HTTP {exc.code}: {delay:.1f} saniye bekleniyor', flush=True)
+            time.sleep(delay)
+        except (urllib.error.URLError, TimeoutError, OSError) as exc:
+            if attempt == 5:
+                raise
+            delay = min(45, 2 ** attempt + random.random())
+            print(f'  Bağlantı hatası: {exc}; {delay:.1f} saniye sonra tekrar', flush=True)
+            time.sleep(delay)
 
 def members(category):
     token = None
@@ -118,8 +131,15 @@ def main():
         report['failures'] = {}
     cursor = int(report.get('cursor', 0))
     if cursor >= len(titles):
-        print('Tüm kayıtlar daha önce tarandı. Yeni tarama için rapor dosyasındaki cursor sıfırlanabilir.', flush=True)
-        return
+        failed_titles = [t for t in titles if t['title'] in report.get('failures', {})]
+        if not failed_titles:
+            print('Tüm kayıtlar tamamlandı; mevcut arşiv korundu.', flush=True)
+            return
+        print(f'{len(failed_titles)} başarısız kayıt yeniden denenecek.', flush=True)
+        titles = failed_titles
+        cursor = 0
+        report['titles'] = titles
+        report['cursor'] = 0
     end = min(cursor + BATCH_SIZE, len(titles))
     failures = report.get('failures', {})
     if not isinstance(failures, dict):
@@ -144,7 +164,7 @@ def main():
             if not 35 <= len(lyrics) <= 18000:
                 raise ValueError(f'Şüpheli uzunluk: {len(lyrics)}')
             by_title[title] = {
-                'title': title, 'lyrics': lyrics, 'publishingAuthorized': False,
+                'title': title, 'lyrics': lyrics, 'publishingAuthorized': AUTHORIZED,
                 'source': 'Vikikaynak',
                 'sourceUrl': 'https://tr.wikisource.org/wiki/' + urllib.parse.quote(title.replace(' ', '_')),
                 'regions': item.get('regions', []), 'reviewRequired': True,
@@ -157,7 +177,7 @@ def main():
             print(f'[{index+1}/{len(titles)}] Hata: {title}: {exc}', flush=True)
         time.sleep(0.15)
     catalog['version'] = catalog.get('version', 1)
-    catalog.setdefault('description', 'Kaynak metinler; inceleme sonrası publishingAuthorized=true yapılır.')
+    catalog.setdefault('description', 'Söz kayıtları; yayınlama yetkisi ve içerik doğruluğu kullanıcı sorumluluğundadır.')
     catalog['records'] = sorted(by_title.values(), key=lambda r: r.get('title', '').casefold())
     report.update({'cursor': end, 'total': len(titles), 'imported': sum(bool(str(r.get('lyrics', '')).strip()) for r in by_title.values()), 'failures': failures, 'complete': end == len(titles)})
     atomic_write(OUT, catalog)
