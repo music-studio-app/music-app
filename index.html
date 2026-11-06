@@ -553,7 +553,7 @@ body:has(#home:not(.hidden)){background:radial-gradient(ellipse at 55% -10%,#2d0
 </section>
 <section id="songs" class="hidden"><div class="section"><h2>Tüm Şarkılar</h2><span class="muted" id="songCount"></span></div><input class="field" id="search" placeholder="Tüm arşivde şarkı, sanatçı veya söz ara…" aria-label="Şarkı ara"><div class="song-discovery-actions"><button class="secondary" id="youtubeSongSearch" type="button">▶ YouTube’da Ara</button><button class="secondary" id="aiSongSearch" type="button">✦ Arşivde yoksa yapay zekâyla ara</button></div><p id="songDiscoveryStatus" class="notice" role="status" aria-live="polite">Önce arşivimizde ara. YouTube dinlemek içindir; yapay zekâ araması güvenli sunucu bağlanınca kullanılabilir.</p><div id="categoryMenu" class="category-menu"></div><div id="regionMenu" class="region-menu hidden"></div><div id="songList"></div><details id="ytImportPanel" class="yt-import"><summary>▶ YouTube oynatma listesinden eser adayları aktar</summary><div class="yt-import-body"><p class="notice">YouTube Data API v3 anahtarı ve herkese açık oynatma listesi gerekir. API anahtarı kaydedilmez. Video başlıkları otomatik olarak doğrulanmış şarkı/söz kabul edilmez; aktarılan kayıtlar kontrol bekler.</p><label>API anahtarı (yalnızca bu işlemde kullanılır)<input id="ytApiKey" class="field" type="password" autocomplete="off" placeholder="YouTube Data API v3 anahtarı"></label><label>Oynatma listesi adresi veya kimliği<input id="ytPlaylist" class="field" placeholder="https://www.youtube.com/playlist?list=..."></label><label>Aktarılacak kategori<select id="ytCategory" class="field"></select></label><label>En fazla kaç video taransın?<input id="ytLimit" class="field" type="number" min="1" max="5000" value="500"></label><div class="actions"><button class="secondary" id="ytFetch" type="button">Listeyi tara</button><button class="primary" id="ytSave" type="button" disabled>Önizlenenleri arşive ekle</button></div><p id="ytStatus" class="notice" role="status">Henüz liste taranmadı.</p><div id="ytPreview" class="yt-preview"></div></div></details><p class="notice">Şarkı sözleri yalnızca yayınlama hakkı bulunan eserlerde gösterilir.</p></section>
 <section id="reps" class="hidden"><div class="section"><h2>Repertuvarlarım</h2></div><div class="card"><label for="repName">Yeni repertuvar oluştur</label><input class="field" id="repName" maxlength="60" placeholder="Örn. Cumartesi Sahnesi"><button class="primary" id="createRep">+ Oluştur</button></div><div id="repList"></div></section>
-<section id="stage" class="hidden"><div class="stage"><div><div class="muted" id="stagePosition">Sahne modu</div><h1 id="stageTitle">Henüz şarkı seçilmedi</h1><div class="meta" id="stageMeta">—</div><div class="stage-toolbar"><button class="secondary" id="fontMinus" aria-label="Yazıyı küçült">A−</button><button class="secondary" id="fontPlus" aria-label="Yazıyı büyüt">A+</button><button class="secondary" id="stageDetails">✎ Bilgiler</button><button class="secondary" id="stageEditLyrics">✎ Sahne sözlerini düzenle</button></div><div id="stageLyricsEditor" class="hidden" style="margin:12px 0"><label for="stageLyricsInput">Bu repertuvara özel sözler (orijinal katalog kaydı değişmez)</label><textarea id="stageLyricsInput" rows="14" style="width:100%;box-sizing:border-box;margin:8px 0" placeholder="Kullanım hakkına sahip olduğun sözleri buraya yaz veya yapıştır."></textarea><div class="actions"><button class="primary" id="stageSaveLyrics">Sözleri kaydet</button><button class="secondary" id="stageCancelLyrics">Vazgeç</button><button class="secondary" id="stageResetLyrics">Kişisel sözleri sil / orijinale dön</button></div></div><div class="lyrics" id="stageBody">Repertuvarından bir şarkı seçerek başlayabilirsin.</div></div><div class="controls"><button class="secondary" id="prevSong">← Önceki</button><button class="secondary" id="nextSong">Sonraki →</button></div></div></section>
+<section id="stage" class="hidden"><div class="stage"><div><div class="muted" id="stagePosition">Sahne modu</div><h1 id="stageTitle">Henüz şarkı seçilmedi</h1><div class="meta" id="stageMeta">—</div><div class="stage-toolbar"><button class="secondary" id="fontMinus" aria-label="Yazıyı küçült">A−</button><button class="secondary" id="fontPlus" aria-label="Yazıyı büyüt">A+</button><button class="secondary" id="stageDetails">✎ Bilgiler</button><button class="secondary" id="stageCommunityLyrics">+ Ortak söz ekle</button><button class="secondary" id="stageEditLyrics">✎ Sahne sözlerini düzenle</button></div><div id="stageLyricsEditor" class="hidden" style="margin:12px 0"><label for="stageLyricsInput">Bu repertuvara özel sözler (orijinal katalog kaydı değişmez)</label><textarea id="stageLyricsInput" rows="14" style="width:100%;box-sizing:border-box;margin:8px 0" placeholder="Kullanım hakkına sahip olduğun sözleri buraya yaz veya yapıştır."></textarea><div class="actions"><button class="primary" id="stageSaveLyrics">Sözleri kaydet</button><button class="secondary" id="stageCancelLyrics">Vazgeç</button><button class="secondary" id="stageResetLyrics">Kişisel sözleri sil / orijinale dön</button></div></div><div class="lyrics" id="stageBody">Repertuvarından bir şarkı seçerek başlayabilirsin.</div></div><div class="controls"><button class="secondary" id="prevSong">← Önceki</button><button class="secondary" id="nextSong">Sonraki →</button></div></div></section>
 <section id="tools" class="hidden"><div class="section"><h2>Müzik Araçları</h2></div><div class="card"><h3>♩ Metronom</h3><p>İlk çalışan sürüm: BPM seç, başlat ve durdur.</p><label for="bpm">Tempo: <strong id="bpmText">100</strong> BPM</label><input class="field" id="bpm" type="range" min="40" max="220" value="100"><button class="primary" id="metroBtn">▶ Başlat</button><p class="notice">Ses çıkması için önce butona basmalısın.</p></div><div class="card">
 <h3>🎼 PRO Akort Cihazı</h3>
 <p>Kromatik nota algılama, bağlama düzenleri, cent göstergesi ve referans ses.</p>
@@ -607,7 +607,8 @@ body:has(#home:not(.hidden)){background:radial-gradient(ellipse at 55% -10%,#2d0
   </div>
 </div>
 <div id="infoModal" class="modal-backdrop hidden" role="presentation"><div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="infoTitle"><h2 id="infoTitle">Eser Bilgileri</h2><div id="infoContent"></div><button class="primary modal-close" id="closeInfo">Kapat</button></div></div>
-<div id="lyricsModal" class="modal-backdrop hidden" role="presentation"><div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="lyricsTitle"><h2 id="lyricsTitle">Şarkı Sözleri</h2><p id="lyricsArtist"></p><div class="lyrics-heading">ŞARKI SÖZLERİ</div><div id="lyricsContent" class="song-lyrics lyrics-notice"></div><button class="primary modal-close" id="closeLyrics">Kapat</button></div></div>
+<div id="communityEditorModal" class="modal-backdrop hidden" role="presentation"><div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="communityEditorTitle"><h2 id="communityEditorTitle">Ortak şarkı sözü ekle</h2><p id="communityEditorSong"></p><label for="communityEditorText">Şarkı sözleri (kıtalar arasına boş satır bırak)</label><textarea class="field" id="communityEditorText" rows="13" maxlength="20000" style="min-height:230px;white-space:pre-wrap" placeholder="Şarkı sözlerini buraya yaz..."></textarea><label style="display:flex;gap:8px;align-items:start;margin:12px 0"><input id="communityRights" type="checkbox"> Bu metni ortak katalogda yayımlama hakkım olduğunu beyan ediyorum.</label><p class="notice" id="communityEditorStatus"></p><div class="actions"><button class="primary" id="communityEditorSave">Ortak kataloğa kaydet</button><button class="secondary" id="communityEditorCancel">Vazgeç</button></div></div></div>
+<div id="lyricsModal" class="modal-backdrop hidden" role="presentation"><div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="lyricsTitle"><h2 id="lyricsTitle">Şarkı Sözleri</h2><p id="lyricsArtist"></p><div class="lyrics-heading">ŞARKI SÖZLERİ</div><div id="lyricsContent" class="song-lyrics lyrics-notice"></div><div class="actions"><button class="primary hidden" id="communityAddLyrics">+ Ortak sözleri ekle</button><button class="secondary" id="communityPersonalLyrics">Kişisel düzenle</button></div><p class="notice" id="communityLyricsHint"></p><button class="primary modal-close" id="closeLyrics">Kapat</button></div></div>
 <div id="detailModal" class="modal-backdrop hidden" role="presentation"><div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="detailTitle"><h2 id="detailTitle">Şarkı Bilgileri</h2><p id="detailContext"></p><label for="detailKey">Ton</label><input id="detailKey" class="field" maxlength="40" placeholder="Örn. La minör"><label for="detailBpm">BPM (40–220)</label><input id="detailBpm" class="field" type="number" min="40" max="220" step="1" placeholder="Örn. 100"><label for="detailNote">Kişisel sahne notu</label><textarea id="detailNote" class="field" maxlength="3000" placeholder="Sahnede hatırlamak istediğin notlar..."></textarea><p class="hint">Bu ayarlar yalnızca seçili repertuvardaki şarkıya kaydedilir.</p><div class="actions"><button class="primary" id="saveDetails">Kaydet</button><button class="secondary" id="closeDetails">Kapat</button></div></div></div>
 <div id="authGate" class="auth-gate"><div class="auth-box"><h1>♫ Music App</h1><p class="auth-status" id="authMessage">Giriş yap veya kayıt ol. Yeni hesaplar yönetici onayıyla açılır.</p><label>E-posta</label><input class="field" type="email" id="authEmail" autocomplete="email" placeholder="ornek@eposta.com"><label>Şifre</label><input class="field" type="password" id="authPassword" autocomplete="current-password" placeholder="En az 8 karakter"><label id="authNameLabel">Ad Soyad (kayıt için)</label><input class="field" id="authName" maxlength="90" placeholder="Ad Soyad"><div class="actions"><button class="primary" id="authLogin">Giriş Yap</button><button class="secondary" id="authRegister">Kayıt Ol</button></div><p class="notice">Hesabınız onaylanmadan uygulamaya erişemezsiniz.</p></div></div>
 <nav class="nav" aria-label="Alt menü"><div class="nav-inner"><button data-go="home" class="active"><span>⌂</span>Ana Sayfa</button><button data-go="songs"><span>♫</span>Şarkılar</button><button data-go="reps"><span>▤</span>Listelerim</button><button data-go="stage"><span>▶</span>Sahne</button><button data-go="tools"><span>♩</span>Araçlar</button></div></nav>
@@ -768,7 +769,7 @@ function openInfo(songId){
 function closeInfoModal(){$("infoModal").classList.add("hidden")}
 $("closeInfo").onclick=closeInfoModal;
 $("infoModal").onclick=e=>{if(e.target===$("infoModal"))closeInfoModal()};
-function openLyrics(songId){const s=songs.find(x=>x.id===songId);if(!s)return;$("lyricsTitle").textContent=s.title;$("lyricsArtist").textContent=s.artist;$("lyricsContent").textContent=songLyrics(s);$("lyricsContent").classList.toggle("lyrics-notice",songLyrics(s)===lyricsUnavailable);$("lyricsModal").classList.remove("hidden");$("closeLyrics").focus()}
+function openLyrics(songId){const s=songs.find(x=>x.id===songId);if(!s)return;communitySelectedSongId=songId;$("communityAddLyrics").classList.toggle("hidden",!!s.lyricsPublished);$("communityLyricsHint").textContent=s.lyricsPublished?"Ortak sözler mevcut. Kendi repertuvarında kişisel düzenleme yapabilirsin.":"Bu esere ilk sözleri ekleyen kişi, sözleri ortak kataloğa kaydeder.";$("lyricsTitle").textContent=s.title;$("lyricsArtist").textContent=s.artist;$("lyricsContent").textContent=songLyrics(s);$("lyricsContent").classList.toggle("lyrics-notice",songLyrics(s)===lyricsUnavailable);$("lyricsModal").classList.remove("hidden");$("closeLyrics").focus()}
 function closeLyricsModal(){$("lyricsModal").classList.add("hidden")}
 $("closeLyrics").onclick=closeLyricsModal;
 $("lyricsModal").onclick=e=>{if(e.target===$("lyricsModal"))closeLyricsModal()};
@@ -1012,8 +1013,9 @@ function renderStage(){
  $("stageTitle").textContent=s?.title||"Henüz şarkı seçilmedi";
  $("stageMeta").textContent=s?"Ton: "+(settings.key||s.key)+"  •  BPM: "+(settings.bpm??s.bpm??"Belirlenmedi"):"—";
  $("stageBody").textContent=s?((settings.note?"SAHNE NOTU\n"+settings.note+"\n\n":"")+"ŞARKI SÖZLERİ\n"+(settings.personalLyrics?.trim()||songLyrics(s))):"Repertuvarlarım bölümünde liste oluşturup şarkı ekle.";
- $("prevSong").disabled=!s;$("nextSong").disabled=!s;$("stageDetails").disabled=!s;
+ $("prevSong").disabled=!s;$("nextSong").disabled=!s;$("stageDetails").disabled=!s;$("stageCommunityLyrics").classList.toggle("hidden",!s||!!s.lyricsPublished);
 }
+$("stageCommunityLyrics").onclick=()=>{const rep=reps.find(r=>r.id===currentRep)||reps[0],s=songs.find(x=>x.id===rep?.songIds[stageIndex]);if(s)openCommunityEditor(s.id)};
 $("stageEditLyrics").onclick=()=>{
  const rep=reps.find(r=>r.id===currentRep)||reps[0],s=songs.find(x=>x.id===rep?.songIds[stageIndex]);
  if(!rep||!s){alert("Önce repertuvara bir şarkı ekle.");return}
@@ -1425,5 +1427,83 @@ initYoutubeImport();
 </script>
 
 
-<script>window.addEventListener("load",async()=>{await loadSharedSongCatalog();await loadOwnLyrics()})</script></body>
+<script>
+/* Ortak sözler: ilk kayıt kazanır; kişisel sözler mevcut repertuvar ayarlarında saklanır. */
+let communitySelectedSongId=null;
+let communitySubscription=null;
+function openCommunityEditor(songId){
+ const s=songs.find(x=>x.id===songId);if(!s)return;
+ if(s.lyricsPublished){alert('Bu şarkının ortak sözleri zaten mevcut. Kişisel düzenleme yapabilirsin.');return}
+ communitySelectedSongId=songId;
+ $('communityEditorTitle').textContent='Ortak şarkı sözü ekle';
+ $('communityEditorSong').textContent=s.title+' • '+(s.artist||'');
+ $('communityEditorText').value='';$('communityRights').checked=false;
+ $('communityEditorStatus').textContent='İlk eklenen söz tüm kullanıcılara görünür. Lütfen eseri ve metni kontrol et.';
+ $('communityEditorModal').classList.remove('hidden');
+ $('lyricsModal').classList.add('hidden');
+}
+function closeCommunityEditor(){$('communityEditorModal').classList.add('hidden')}
+$('communityEditorCancel').onclick=closeCommunityEditor;
+$('communityEditorModal').onclick=e=>{if(e.target===$('communityEditorModal'))closeCommunityEditor()};
+$('communityAddLyrics').onclick=()=>openCommunityEditor(communitySelectedSongId);
+$('communityPersonalLyrics').onclick=()=>{
+ const id=communitySelectedSongId;
+ const rep=reps.find(r=>r.id===currentRep&&r.songIds.includes(id))||reps.find(r=>r.songIds.includes(id));
+ if(!rep){alert('Kişisel söz düzenlemek için önce bu şarkıyı bir repertuvara ekle.');return}
+ currentRep=rep.id;stageIndex=rep.songIds.indexOf(id);save();closeLyricsModal();go('stage');$('stageEditLyrics').click();
+};
+function applyCommunityLyrics(rows){
+ let changed=false;
+ for(const row of rows||[]){
+  const s=songs.find(x=>x.id===row.song_id);
+  if(!s||s.lyricsPublished)continue;
+  s.lyrics=row.lyrics;s.lyricsPublished=true;s.lyricsSource='Topluluk ortak sözleri';changed=true;
+ }
+ if(changed){renderSongs();if(!$('stage').classList.contains('hidden'))renderStage();
+  if(!$('lyricsModal').classList.contains('hidden')&&communitySelectedSongId)openLyrics(communitySelectedSongId)}
+}
+async function refreshCommunityLyrics(){
+ if(!backendEnabled)return;
+ // Sayfalama: tek sorguda 1000 kayıt sınırına takılmadan tüm ortak sözleri al.
+ let start=0;while(true){
+  const {data,error}=await sb.from('community_lyrics').select('song_id,lyrics').order('song_id').range(start,start+499);
+  if(error){console.warn('Ortak sözler alınamadı:',error.message);return}
+  applyCommunityLyrics(data);
+  if(!data||data.length<500)break;
+  start+=500;
+ }
+}
+$('communityEditorSave').onclick=async()=>{
+ const btn=$('communityEditorSave'),status=$('communityEditorStatus');
+ const s=songs.find(x=>x.id===communitySelectedSongId),lyrics=$('communityEditorText').value.trim();
+ if(!s)return;
+ if(s.lyricsPublished){status.textContent='Bu şarkının sözleri zaten eklendi.';return}
+ if(!lyrics){status.textContent='Lütfen şarkı sözlerini yaz.';return}
+ if(!$('communityRights').checked){status.textContent='Yayımlama hakkı beyanını işaretlemelisin.';return}
+ if(!backendEnabled){status.textContent='Veritabanı bağlantısı kurulamadı.';return}
+ btn.disabled=true;status.textContent='Ortak kataloğa kaydediliyor…';
+ try{
+  const {data:{user},error:authError}=await sb.auth.getUser();
+  if(authError||!user){status.textContent='Ortak söz eklemek için giriş yapmalısın.';return}
+  const {error}=await sb.from('community_lyrics').insert({song_id:s.id,lyrics,submitted_by:user.id,rights_confirmed:true});
+  if(error){
+   if(error.code==='23505'){status.textContent='Bu şarkının sözleri başka bir kullanıcı tarafından eklenmiş. Güncelleniyor…';await refreshCommunityLyrics()}
+   else status.textContent='Kaydedilemedi: '+error.message;
+   return;
+  }
+  applyCommunityLyrics([{song_id:s.id,lyrics}]);
+  closeCommunityEditor();alert('Şarkı sözleri ortak kataloğa kaydedildi!');
+ }catch(e){status.textContent='Bağlantı hatası: '+e.message}
+ finally{btn.disabled=false}
+};
+window.addEventListener('load',async()=>{
+ if(!backendEnabled)return;
+ // İlk açılışta katalog yüklendikten sonra ortak sözleri getir.
+ communitySubscription=sb.channel('community-lyrics-updates').on('postgres_changes',
+  {event:'INSERT',schema:'public',table:'community_lyrics'},payload=>applyCommunityLyrics([payload.new])
+ ).subscribe();
+ document.addEventListener('visibilitychange',()=>{if(!document.hidden)refreshCommunityLyrics()});
+});
+</script>
+<script>window.addEventListener("load",async()=>{await loadSharedSongCatalog();await loadOwnLyrics();await refreshCommunityLyrics()})</script></body>
 </html>
