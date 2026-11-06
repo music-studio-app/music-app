@@ -173,7 +173,12 @@ def main():
         default="catalog/katalog-adaylari.json",
         help="Cikti JSON dosyasi",
     )
-
+parser.add_argument(
+    "--offset",
+    type=int,
+    default=0,
+    help="Baslangic konumu",
+)
     args = parser.parse_args()
 
     if args.limit < 1:
