@@ -179,7 +179,7 @@ parser.add_argument(
     default=0,
     help="Baslangic konumu",
 )
-    args = parser.parse_args()
+args = parser.parse_args()
 
     if args.limit < 1:
         parser.error("--limit en az 1 olmali")
