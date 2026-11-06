@@ -1,0 +1,33 @@
+name: Turkce katalog adaylarini hazirla
+on:
+  workflow_dispatch:
+    inputs:
+      limit:
+        description: 'Aday kayit sayisi (1-1000)'
+        required: true
+        default: '100'
+      offset:
+        description: 'MusicBrainz arama baslangic indeksi'
+        required: true
+        default: '0'
+permissions:
+  contents: read
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Katalog adaylarini derle (yayina alma)
+        run: python scripts/import_musicbrainz.py --limit "$LIMIT" --offset "$OFFSET"
+        env:
+          LIMIT: ${{ inputs.limit }}
+          OFFSET: ${{ inputs.offset }}
+      - name: Inceleme icin JSON dosyasini indirilebilir yap
+        uses: actions/upload-artifact@v4
+        with:
+          name: turkce-katalog-adaylari
+          path: catalog/turkce-sarkilar.json
