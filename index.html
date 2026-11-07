@@ -1138,6 +1138,34 @@ $("stageResetLyrics").onclick=()=>{
 };
 $("prevSong").onclick=()=>{const n=(reps.find(r=>r.id===currentRep)?.songIds.length||0);if(n){stageIndex=(stageIndex-1+n)%n;renderStage()}};
 $("nextSong").onclick=()=>{const n=(reps.find(r=>r.id===currentRep)?.songIds.length||0);if(n){stageIndex=(stageIndex+1)%n;renderStage()}};
+// Paket 2: Sahne sozlerinde yatay parmak hareketiyle sarki degistirme.
+// Dikey kaydirma ve butonlarin mevcut davranisi korunur.
+(function setupStageSwipe(){
+ const area=$('stageBody');
+ let start=null, blockClickUntil=0;
+ area.addEventListener('touchstart',e=>{
+  if(e.touches.length!==1){start=null;return}
+  const t=e.touches[0];start={x:t.clientX,y:t.clientY,time:Date.now()};
+ },{passive:true});
+ area.addEventListener('touchcancel',()=>{start=null},{passive:true});
+ area.addEventListener('touchend',e=>{
+  if(!start||e.changedTouches.length!==1){start=null;return}
+  const t=e.changedTouches[0],dx=t.clientX-start.x,dy=t.clientY-start.y;
+  const elapsed=Date.now()-start.time;start=null;
+  if(Math.abs(dx)<70||Math.abs(dx)<Math.abs(dy)*1.5||elapsed>1200)return;
+  const rep=reps.find(r=>r.id===currentRep)||reps[0];
+  const count=rep?.songIds?.length||0;
+  if(count<2)return;
+  const next=stageIndex+(dx<0?1:-1);
+  if(next<0||next>=count)return;
+  blockClickUntil=Date.now()+500;
+  stageIndex=next;renderStage();
+ },{passive:true});
+ // Swipe sonrasinda sentetik tiklama satir secimini tetiklemesin.
+ area.addEventListener('click',e=>{
+  if(Date.now()<blockClickUntil){e.preventDefault();e.stopImmediatePropagation()}
+ },true);
+})();
 let audio=null,timer=null,beat=0;
 function clickBeat(){if(!audio)return;const o=audio.createOscillator(),g=audio.createGain(),t=audio.currentTime;o.frequency.value=beat++%4===0?1000:720;g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(.15,t+.005);g.gain.exponentialRampToValueAtTime(.0001,t+.075);o.connect(g);g.connect(audio.destination);o.start(t);o.stop(t+.08)}
 function stopMetro(){if(timer){clearInterval(timer);timer=null}$("metroBtn").textContent="▶ Başlat"}
