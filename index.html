@@ -555,6 +555,14 @@ body[data-theme="light"] #stage .stage-line[data-color="1"],body[data-theme="cre
 body[data-theme="light"] #stage .stage-line[data-color="2"],body[data-theme="cream"] #stage .stage-line[data-color="2"],body[data-theme="ice"] #stage .stage-line[data-color="2"],body[data-theme="piano"] #stage .stage-line[data-color="2"]{color:#086b38}
 body[data-theme="light"] #stage .stage-line[data-color="3"],body[data-theme="cream"] #stage .stage-line[data-color="3"],body[data-theme="ice"] #stage .stage-line[data-color="3"],body[data-theme="piano"] #stage .stage-line[data-color="3"]{color:#164cba}
 body[data-theme="light"] #stage .stage-line[data-color="4"],body[data-theme="cream"] #stage .stage-line[data-color="4"],body[data-theme="ice"] #stage .stage-line[data-color="4"],body[data-theme="piano"] #stage .stage-line[data-color="4"]{color:#ad1554}
+
+/* Kelimeye özel biçimlendirme: satırın kalanına dokunmaz */
+#stage .stage-word-mark[data-color="1"]{color:#ffca59!important}
+#stage .stage-word-mark[data-color="2"]{color:#7be0b2!important}
+#stage .stage-word-mark[data-color="3"]{color:#87bbff!important}
+#stage .stage-word-mark[data-color="4"]{color:#ff8dbb!important}
+#stage .stage-word-mark[data-bold="1"]{font-weight:850!important}
+#stage .stage-line{user-select:text;-webkit-user-select:text}
 #stage .stage-line.stage-selected{outline:2px solid var(--accent);outline-offset:1px;background:color-mix(in srgb,var(--accent) 12%,transparent)}
 #stage .stage-line[data-bold="1"]{font-weight:850}
 #stage .stage-line.stage-selected{background:rgba(140,140,180,.18);outline:1px dashed var(--accent)}
@@ -1033,8 +1041,80 @@ const stageColorKey='eae_stage_line_marks_v1';
 function stageMarkIdentity(rep,song){return String(rep?.id||'')+'::'+String(song?.id||'')}
 function stageReadMarks(){try{return JSON.parse(localStorage.getItem(stageColorKey)||'{}')||{}}catch{return {}}}
 function stageActiveSong(){const rep=reps.find(r=>r.id===currentRep)||reps[0];const song=songs.find(x=>x.id===rep?.songIds[stageIndex]);return {rep,song}}
-function stageMarkLine(kind){const {rep,song}=stageActiveSong();if(!song||stageSelectedLine<0){alert('Önce renklendirmek istediğin söz satırına dokun.');return}const key=stageMarkIdentity(rep,song),all=stageReadMarks(),marks=all[key]||{},mark=marks[stageSelectedLine]||{};if(kind==='color')mark.color=((mark.color||0)+1)%5;else mark.bold=mark.bold?0:1;marks[stageSelectedLine]=mark;all[key]=marks;try{localStorage.setItem(stageColorKey,JSON.stringify(all))}catch{alert('İşaret kaydedilemedi: depolama dolu olabilir.');return}stageDrawLines()}
-function stageDrawLines(){const el=$('stageBody'),{rep,song}=stageActiveSong();if(!song)return;const settings=getSongSettings(rep,song.id);const text=(settings.note?'SAHNE NOTU\n'+settings.note+'\n\n':'')+'ŞARKI SÖZLERİ\n'+(settings.personalLyrics?.trim()||songLyrics(song));const marks=stageReadMarks()[stageMarkIdentity(rep,song)]||{};el.replaceChildren();text.split('\n').forEach((line,i)=>{const span=document.createElement('span');span.className='stage-line'+(i===stageSelectedLine?' stage-selected':'');span.textContent=line||'\u00a0';span.dataset.color=String(marks[i]?.color||0);span.dataset.bold=String(marks[i]?.bold||0);span.tabIndex=0;span.title='İşaretlemek için satırı seç';span.addEventListener('click',()=>{stageSelectedLine=i;stageDrawLines()});span.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();stageSelectedLine=i;stageDrawLines()}});el.append(span)})}
+// Seçili metnin satır içindeki başlangıç/bitiş konumlarını sakla; araç çubuğu odağı seçimi bozmasın.
+let stageTextSelection=[];
+function stageCaptureSelection(){
+ const sel=window.getSelection();if(!sel||sel.isCollapsed||!sel.rangeCount)return;
+ const range=sel.getRangeAt(0),body=$('stageBody');
+ if(!body.contains(range.commonAncestorContainer))return;
+ const chosen=[];
+ body.querySelectorAll('.stage-line').forEach((line,i)=>{
+  try{
+   if(!range.intersectsNode(line))return;
+   const full=document.createRange();full.selectNodeContents(line);
+   const segment=range.cloneRange();
+   if(range.compareBoundaryPoints(Range.START_TO_START,full)<0)segment.setStart(full.startContainer,full.startOffset);
+   if(range.compareBoundaryPoints(Range.END_TO_END,full)>0)segment.setEnd(full.endContainer,full.endOffset);
+   const prefix=document.createRange();prefix.selectNodeContents(line);
+   prefix.setEnd(segment.startContainer,segment.startOffset);
+   const start=prefix.toString().length,end=start+segment.toString().length;
+   if(end>start)chosen.push({line:i,start,end});
+  }catch(e){}
+ });
+ if(chosen.length){stageTextSelection=chosen;stageSelectedLine=chosen[0].line}
+}
+$('stageBody').addEventListener('mouseup',stageCaptureSelection);
+$('stageBody').addEventListener('touchend',()=>setTimeout(stageCaptureSelection,0));
+document.addEventListener('selectionchange',()=>{const sel=window.getSelection();if(sel&&!sel.isCollapsed&&$('stageBody').contains(sel.anchorNode))stageCaptureSelection()});
+['stageColor','stageBold'].forEach(id=>$(id).addEventListener('mousedown',e=>e.preventDefault()));
+function stageMarkLine(kind){
+ stageCaptureSelection();
+ const {rep,song}=stageActiveSong();if(!song){return}
+ const selected=stageTextSelection.length?stageTextSelection:null;
+ if(!selected&&stageSelectedLine<0){alert('Önce bir kelimeyi seç veya bir söz satırına dokun.');return}
+ const key=stageMarkIdentity(rep,song),all=stageReadMarks(),marks=all[key]||{};
+ if(selected){
+  selected.forEach(({line,start,end})=>{
+   const mark=marks[line]||{};const ranges=mark.ranges||[];
+   // Aynı aralığa tekrar basıldığında renk sıradaki renge geçer; kalınlık açılıp kapanır.
+   let item=ranges.find(x=>x.start===start&&x.end===end);
+   if(!item){item={start,end,color:0,bold:0};ranges.push(item)}
+   if(kind==='color')item.color=((item.color||0)+1)%5;else item.bold=item.bold?0:1;
+   mark.ranges=ranges;marks[line]=mark;
+  });
+ }else{
+  const mark=marks[stageSelectedLine]||{};
+  if(kind==='color')mark.color=((mark.color||0)+1)%5;else mark.bold=mark.bold?0:1;
+  marks[stageSelectedLine]=mark;
+ }
+ all[key]=marks;
+ try{localStorage.setItem(stageColorKey,JSON.stringify(all))}catch{alert('İşaret kaydedilemedi: depolama dolu olabilir.');return}
+ stageTextSelection=[];window.getSelection()?.removeAllRanges();stageDrawLines();
+}
+function stageDrawLines(){
+ const el=$('stageBody'),{rep,song}=stageActiveSong();if(!song)return;
+ const settings=getSongSettings(rep,song.id);
+ const text=(settings.note?'SAHNE NOTU\n'+settings.note+'\n\n':'')+'ŞARKI SÖZLERİ\n'+(settings.personalLyrics?.trim()||songLyrics(song));
+ const marks=stageReadMarks()[stageMarkIdentity(rep,song)]||{};el.replaceChildren();
+ text.split('\n').forEach((line,i)=>{
+  const span=document.createElement('span');span.className='stage-line'+(i===stageSelectedLine?' stage-selected':'');
+  const mark=marks[i]||{};span.dataset.color=String(mark.color||0);span.dataset.bold=String(mark.bold||0);
+  span.tabIndex=0;span.title='Kelime seç veya satıra dokun';
+  const ranges=(mark.ranges||[]).filter(r=>r.end>r.start).sort((a,b)=>a.start-b.start);
+  let pos=0;
+  for(const r of ranges){
+   const start=Math.max(pos,Math.min(line.length,r.start)),end=Math.max(start,Math.min(line.length,r.end));
+   if(start>pos)span.append(document.createTextNode(line.slice(pos,start)));
+   if(end>start){const part=document.createElement('span');part.className='stage-word-mark';part.dataset.color=String(r.color||0);part.dataset.bold=String(r.bold||0);part.textContent=line.slice(start,end);span.append(part)}
+   pos=end;
+  }
+  if(pos<line.length)span.append(document.createTextNode(line.slice(pos)));
+  if(!line.length)span.textContent='\u00a0';
+  span.addEventListener('click',()=>{if(!window.getSelection()?.isCollapsed)return;stageTextSelection=[];stageSelectedLine=i;stageDrawLines()});
+  span.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();stageTextSelection=[];stageSelectedLine=i;stageDrawLines()}});
+  el.append(span);
+ });
+}
 $('stageColor').onclick=()=>stageMarkLine('color');
 $('stageBold').onclick=()=>stageMarkLine('bold');
 $('stageFullscreen').onclick=async()=>{const el=$('stage');try{if(document.fullscreenElement){await document.exitFullscreen()}else if(el.requestFullscreen){await el.requestFullscreen()}else{el.classList.toggle('stage-fullscreen-fallback')}}catch{el.classList.toggle('stage-fullscreen-fallback')} $('stageFullscreen').textContent=(document.fullscreenElement||el.classList.contains('stage-fullscreen-fallback'))?'✕ Tam ekrandan çık':'⛶ Tam ekran'};
