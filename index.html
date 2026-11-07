@@ -700,7 +700,107 @@ body .shell{max-width:none;margin:0;padding:16px 22px 35px 258px;min-width:0}
 @media(max-width:900px){body .shell{padding:14px 15px 30px 194px}}
 @media(max-width:700px){body .shell{padding:12px 12px calc(100px + env(safe-area-inset-bottom))}.eae-unified-sidebar{display:none}.nav{display:flex;background:var(--panel);border-color:var(--line)}.nav button.active{color:var(--accent);background:var(--bg)}#reps .rep-page-head h2{font-size:21px}#reps .rep-create{padding:14px}#reps .rep-create h3{font-size:18px}#reps .rep-create p{font-size:12px}#reps .rep-create-form input{flex-basis:100%}#reps .rep-create-form button{width:100%}#reps .rep-card-top{gap:10px}#reps .rep-card-buttons{width:100%}#reps .rep-actions button{font-size:11px}#reps .reorder-item .detail-btn{display:none}}
 </style>
-</head>
+
+<style id="eae-four-screen-gold-fix">
+/* Dört eksik ekrana ortak siyah–altın tasarım: yalnız sunum, ID/JS değişmez. */
+body{--eae-page:#08111c;--eae-card:#122235;--eae-card-deep:#0d1a29;--eae-stroke:#6e5838;--eae-highlight:#f4bd55;--eae-copy:#f3f1eb;--eae-dim:#a8b7c8}
+#songs,#stage,#tools,#admin{color:var(--eae-copy)}
+#songs .section,#tools .section,#admin .section{border-bottom:1px solid var(--eae-stroke);padding:4px 0 13px;margin-bottom:15px}
+#songs .section h2,#tools .section h2,#admin .section h2{color:var(--eae-copy);font-size:clamp(21px,2.3vw,27px);letter-spacing:-.4px}
+#songs .section h2::first-letter,#tools .section h2::first-letter,#admin .section h2::first-letter{color:var(--eae-highlight)}
+#songs .field,#tools .field,#admin .field,#stage .field,
+#stage textarea,#admin input,#admin select,#admin textarea{background:var(--eae-card-deep)!important;color:var(--eae-copy)!important;border:1px solid #526177!important;border-radius:11px!important;box-shadow:none!important}
+#songs button,#stage button,#tools button,#admin button{transition:background .15s,border-color .15s,transform .15s}
+#songs .secondary,#stage .secondary,#tools .secondary,#admin .secondary,
+#songs .category-menu button,#songs .region-menu button,
+#songs .regional-alphabet button,#songs .regional-track,
+#tools .tuner-grid button,#adminPanel button:not(.primary){
+background:linear-gradient(155deg,#192c40,#101d2c)!important;color:#e8edf3!important;border:1px solid #5d6570!important;box-shadow:none!important;border-radius:11px!important}
+#songs .primary,#stage .primary,#tools .primary,#admin .primary,
+#songs .category-menu button.active,#songs .region-menu button.active,
+#songs .regional-alphabet button.active,#tools button.active{
+background:linear-gradient(180deg,#ffd57b,#e7a632)!important;color:#211608!important;border:1px solid #d9a64e!important;box-shadow:0 3px 12px #b77b2628!important}
+#songs button:hover,#stage button:hover,#tools button:hover,#admin button:hover{border-color:var(--eae-highlight)!important}
+#songs .category-menu,#songs .region-menu{gap:10px!important}
+#songs .category-menu button,#songs .region-menu button{min-height:74px!important;padding:12px 14px!important;font-size:13px!important;text-align:left}
+#songs .song-discovery-actions{display:flex!important;gap:9px!important;flex-wrap:wrap;margin:10px 0!important}
+#songs .song-discovery-actions button{flex:0 1 auto!important;min-height:40px!important;padding:9px 14px!important;font-size:12px!important}
+#songs #search{width:100%;max-width:100%;min-height:46px}
+#songs .yt-import,#songs .regional-browser,#songs .regional-entry,#songs .regional-dialog-inner,
+#songs #songList>div,#songs #songList article,#songs details{
+background:var(--eae-card)!important;border:1px solid var(--eae-stroke)!important;border-radius:13px!important;color:var(--eae-copy)!important;box-shadow:none!important}
+#songs .regional-browser{padding:14px!important;margin:13px 0!important}
+#songs .regional-entry summary,#songs .regional-track{color:var(--eae-copy)!important}
+#songs .regional-entry[open] summary{background:#23364a!important}
+#songs .regional-dialog{background:#000b!important}
+#stage>.stage{background:linear-gradient(155deg,#101f30,#0a1522)!important;border:1px solid var(--eae-stroke)!important;border-radius:18px!important;box-shadow:none!important;padding:clamp(14px,2vw,24px)!important;color:var(--eae-copy)!important}
+#stage #stageTitle{color:#f8f3e9!important;font-size:clamp(24px,3vw,37px)!important;letter-spacing:-.5px}
+#stage #stagePosition,#stage #stageMeta{color:#d7b476!important}
+#stage .stage-toolbar{display:flex;flex-wrap:wrap;gap:7px!important;padding:11px 0!important;border-bottom:1px solid #4b4e4f}
+#stage .stage-toolbar button,#stage .controls button{padding:8px 11px!important;font-size:12px!important;min-height:37px!important}
+#stage #stageBody{background:transparent!important;color:inherit;line-height:1.6}
+#stage .stage-next-preview{background:#101e2c!important;border:1px solid #685335!important;color:#e4dfd5!important;border-radius:12px!important}
+#stage .stage-color-palette,#stage #stageLyricsEditor{background:#14263a!important;border:1px solid var(--eae-stroke)!important;border-radius:12px!important;padding:12px!important}
+#tools>.card,#tools .card,#tools .tuner-readout,#tools .tuner-options,
+#adminPanel .card,#adminPanel .tile,#adminPanel [class*="panel"],#adminPanel [class*="stat"],#adminPanel [class*="box"],
+#adminPanel table,#adminPanel details{
+background:linear-gradient(145deg,#14263a,#0e1a29)!important;color:var(--eae-copy)!important;border:1px solid var(--eae-stroke)!important;border-radius:14px!important;box-shadow:none!important}
+#tools>.card{padding:17px!important;margin:11px 0!important}
+#tools .card h3,#adminPanel h2,#adminPanel h3,#adminPanel h4{color:#f4bd55!important}
+#tools .tuner-options{padding:11px!important;gap:10px!important}
+#tools .tuner-readout{padding:15px!important;margin:12px 0!important}
+#tools .tuner-meter{background:#0a1420!important;border:1px solid #665334!important}
+#tools .tuner-needle{background:#f4bd55!important}
+#adminPanel{color:var(--eae-copy)!important}
+#adminPanel>div,#adminPanel>section{margin-bottom:12px}
+#adminPanel .card,#adminPanel .tile{padding:14px!important}
+#adminPanel th{background:#1d3043!important;color:#f4bd55!important}
+#adminPanel td{border-color:#4c5562!important}
+#adminPanel .muted,#tools .muted,#songs .muted{color:var(--eae-dim)!important}
+#adminPanel [style*="background:linear-gradient"],#adminPanel [style*="background: linear-gradient"]{background:linear-gradient(145deg,#14263a,#0e1a29)!important}
+@media(max-width:700px){
+ #songs .song-discovery-actions{display:grid!important;grid-template-columns:1fr}
+ #songs .song-discovery-actions button{width:100%}
+ #stage>.stage{padding:12px!important}
+ #stage .stage-toolbar button{font-size:11px!important;padding:7px 9px!important}
+ #tools>.card{padding:12px!important}
+ #adminPanel{overflow-wrap:anywhere}
+ #adminPanel table{display:block;overflow-x:auto}
+}
+</style>
+<style id="eae-home-clean-final">
+/* Yönetici ana sayfası: işlevleri koruyarak görsel fazlalıkları temizle */
+@media(min-width:701px){.shell>.top{display:none!important}}
+#accountBar{display:flex;align-items:center;gap:7px;margin:6px 0 15px!important;min-height:36px}
+#accountBar .chip,#accountBar button{font-size:11px!important;padding:7px 10px!important;min-height:32px!important;border-radius:9px!important}
+#home .admin-dashboard{margin:8px 0 12px!important}
+#home .admin-heading{margin-bottom:8px!important}
+#home .admin-heading h2{font-size:clamp(20px,2vw,25px)!important;letter-spacing:-.5px!important;margin:0!important;color:#f2eee6!important}
+#home .admin-heading p{font-size:11px!important;margin:4px 0!important;color:#a8b7c8!important}
+#home #refreshAdminHome{padding:7px 11px!important;font-size:11px!important}
+#home .admin-stats{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:9px!important;margin:10px 0 14px!important}
+#home .admin-stat,#home .admin-stat:nth-child(n){position:relative!important;min-height:94px!important;padding:12px 14px!important;border-radius:12px!important;border:1px solid #6c593c!important;background:linear-gradient(145deg,#142436,#0e1a29)!important;color:#f3efe7!important;box-shadow:none!important;outline:none!important;display:flex!important;flex-direction:column!important;justify-content:center!important;gap:4px!important}
+#home .admin-stat span{font-size:16px!important;line-height:1!important;filter:grayscale(.35)!important}
+#home .admin-stat b{font-size:27px!important;line-height:1.1!important;margin:0!important;color:#f4c36b!important;text-shadow:none!important}
+#home .admin-stat small{font-size:11px!important;color:#b9c2cb!important}
+#home .admin-stat.active{border-color:#e6ae4d!important;box-shadow:inset 0 0 0 1px #e6ae4d!important}
+#home .admin-stat:hover{border-color:#e6ae4d!important;transform:translateY(-1px)}
+#home .hero{min-height:155px!important;padding:18px 22px!important;margin:12px 0 16px!important;border:1px solid #6c593c!important;border-radius:15px!important;background:linear-gradient(115deg,#15273a,#0c1827)!important;box-shadow:none!important}
+#home .hero-content{max-width:75%!important}
+#home .hero-kicker{font-size:10px!important;margin-bottom:7px!important;color:#f4bd55!important;letter-spacing:1.5px!important}
+#home .hero h1{font-size:clamp(22px,2.8vw,30px)!important;line-height:1.15!important;margin:0 0 6px!important}
+#home .hero h1 em{color:#f4bd55!important}
+#home .hero p{font-size:12px!important;line-height:1.45!important;margin:0 0 11px!important;max-width:510px!important}
+#home .hero .primary{font-size:12px!important;padding:9px 13px!important;background:linear-gradient(120deg,#ffd16f,#e6a63a)!important;color:#1b1309!important;box-shadow:none!important}
+#home .hero-visual{width:33%!important;opacity:.26!important;filter:saturate(.45)!important}
+#home .quick-title{margin:12px 0 8px!important}
+#home .quick-title h2{font-size:18px!important}
+#home .quick-title p{font-size:11px!important}
+#home .quick-grid .tile{min-height:96px!important;padding:12px!important;border:1px solid #65563e!important;background:linear-gradient(145deg,#152639,#101b2b)!important;box-shadow:none!important}
+#home .quick-grid .tile-art{display:none!important}
+@media(max-width:900px){#home .admin-stats{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
+@media(max-width:700px){.shell>.top{display:flex!important;padding:4px 0!important}.shell>.top .brand{font-size:16px!important}.shell>.top .sub{display:none!important}#home .admin-stats{grid-template-columns:repeat(2,minmax(0,1fr))!important}#home .admin-stat{min-height:84px!important}#home .hero{min-height:0!important;padding:15px!important}#home .hero-content{max-width:100%!important}#home .hero-visual{display:none!important}#accountBar{flex-wrap:wrap}}
+</style></head>
 <body data-theme="dark">
 <div class="shell"><aside class="eae-unified-sidebar" aria-label="EAE ana menü"><div class="eae-unified-logo"><strong>EAE<span>♪</span></strong><small>Sahne <b>Repertuvarı</b></small></div><div class="eae-unified-links"><button data-go="home">⌂ &nbsp; Ana Sayfa</button><button data-go="reps">♫ &nbsp; Repertuvarlarım</button><button data-go="songs">▤ &nbsp; Şarkı Kütüphanesi</button><button data-go="stage">▶ &nbsp; Sahne Modu</button><button data-go="tools">♩ &nbsp; Müzik Araçları</button><button data-go="admin">⚙ &nbsp; Yönetici Paneli</button></div><div class="eae-unified-sidefoot">♪ EAE Müzik Arşivi</div></aside>
 <header class="top"><div><div class="brand" id="brandHome" role="button" tabindex="0">♫ EAE</div><div class="sub">Müzik senin, sahne senin.</div></div><button class="chip" id="themeQuick" aria-label="Temayı değiştir">◐ Tema</button></header>
@@ -1578,7 +1678,7 @@ function isCurrentPro(p){return p.role!=='admin'&&p.plan==='pro'&&p.pro_until&&n
 function counts(users){return {normal:users.filter(p=>p.role!=='admin'&&p.status==='active'&&!isCurrentPro(p)).length,pro:users.filter(p=>p.status==='active'&&isCurrentPro(p)).length,all:users.filter(p=>p.role!=='admin').length,pending:users.filter(p=>p.status==='pending').length}}
 function cardsHtml(users){const c=counts(users);return `<div class="admin-stats">${adminCards.map(([key,ico,label])=>`<button class="admin-stat ${adminFilter===key?'active':''}" data-admin-filter="${key}"><span>${ico}</span><b>${c[key]}</b><small>${label}</small></button>`).join('')}</div>`}
 function wireCards(root){root.querySelectorAll('[data-admin-filter]').forEach(b=>b.onclick=()=>{adminFilter=b.dataset.adminFilter;go('admin')})}
-async function renderAdminHome(){if(profile?.role!=='admin')return;const users=await fetchProfiles();if(!users)return;const root=$('adminHome');root.classList.remove('hidden');root.innerHTML='<div class="admin-heading"><div><h2>👑 Yönetici Özeti</h2><p class="muted">Üyelik durumları · Canlı veriler</p></div><button class="secondary" id="refreshAdminHome" aria-label="İstatistikleri yenile">↻ Yenile</button></div>'+cardsHtml(users)+'<button class="secondary" id="openAdmin">Tüm Kullanıcıları Yönet</button>'; wireCards(root);$('openAdmin').onclick=()=>go('admin');$('refreshAdminHome').onclick=renderAdminHome}
+async function renderAdminHome(){if(profile?.role!=='admin')return;const users=await fetchProfiles();if(!users)return;const root=$('adminHome');root.classList.remove('hidden');root.innerHTML='<div class="admin-heading"><div><h2>👑 Yönetici Özeti</h2><p class="muted">Üyelik durumları · Canlı veriler</p></div><button class="secondary" id="refreshAdminHome" aria-label="İstatistikleri yenile">↻ Yenile</button></div>'+cardsHtml(users); wireCards(root);$('refreshAdminHome').onclick=renderAdminHome}
 function filteredUsers(users){return users.filter(p=>p.role!=='admin'&&(adminFilter==='all'?true:adminFilter==='pending'?p.status==='pending':adminFilter==='pro'?p.status==='active'&&isCurrentPro(p):p.status==='active'&&!isCurrentPro(p)))}
 async function adminAction(id,action,months){if(!sb||profile?.role!=='admin')return;const {error}=await sb.rpc('admin_manage_user',{target_id:id,action_name:action,pro_months:months||null});if(error){alert('İşlem başarısız: '+error.message);return}await renderAdmin();await renderAdminHome()}
 async function renderAdmin(){if(profile?.role!=='admin'){$('adminPanel').textContent='Bu bölüm yalnız yöneticiye açıktır.';return}const root=$('adminPanel');root.textContent='Kullanıcılar yükleniyor…';const users=await fetchProfiles();if(!users){root.textContent='Kullanıcı verileri alınamadı. Supabase bağlantısını ve yetkileri kontrol edin.';return}const filtered=filteredUsers(users);root.innerHTML='<div class="admin-heading"><p class="muted">Kullanıcılar · Son güncelleme: '+new Date().toLocaleTimeString('tr-TR',{hour:'2-digit',minute:'2-digit'})+'</p><button class="secondary" id="refreshAdminPanel">↻ Yenile</button></div>'+cardsHtml(users)+`<h3>${adminCards.find(x=>x[0]===adminFilter)[2]} (${filtered.length})</h3>`+filtered.map(p=>`<div class="admin-user"><strong>${escapeHtml(p.full_name||'İsimsiz')}</strong><div class="muted">${escapeHtml(p.email||'')}</div><span class="admin-badge">${statusText(p)}</span><span class="admin-badge">${isCurrentPro(p)?'PRO':'Normal'}</span>${p.pro_until?`<p class="muted">PRO bitiş: ${new Date(p.pro_until).toLocaleDateString('tr-TR')}</p>`:''}<div class="actions">${p.status==='pending'?`<button class="primary" data-action="approve" data-id="${p.id}">Onayla</button><button class="secondary" data-action="reject" data-id="${p.id}">Reddet</button>`:''}${p.status==='active'?`<button class="secondary" data-action="disable" data-id="${p.id}">Pasif Yap</button>`:p.status!=='pending'?`<button class="secondary" data-action="activate" data-id="${p.id}">Aktifleştir</button>`:''}${[1,3,6,12].map(n=>`<button class="secondary" data-action="grant_pro" data-months="${n}" data-id="${p.id}">PRO ${n} Ay</button>`).join('')}<button class="secondary" data-action="revoke_pro" data-id="${p.id}">PRO İptal</button></div></div>`).join('')||'<p class="muted">Bu grupta kullanıcı bulunmuyor.</p>';wireCards(root);root.querySelector('#refreshAdminPanel').onclick=renderAdmin;root.querySelectorAll('[data-action]').forEach(b=>b.onclick=()=>{if(confirm('Bu kullanıcı için işlemi onaylıyor musun?'))adminAction(b.dataset.id,b.dataset.action,Number(b.dataset.months)||null)})}
