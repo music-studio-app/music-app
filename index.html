@@ -590,7 +590,28 @@ body[data-theme="light"] #stage .stage-line[data-color="4"],body[data-theme="cre
  #stage #stageBody.stage-two-columns .stage-line{break-inside:avoid}
 }
 #stage #stageBody.stage-two-columns .stage-line{overflow-wrap:break-word}
-</style></head>
+</style><style>
+/* EAE PAKET 3 — izolasyonlu premium arayüz */
+#reps{--p3gold:#d8b56b;--p3ink:#0a0b0f;color:#f7edd6}
+#reps .section{padding:18px 20px;border-radius:20px;background:linear-gradient(120deg,#101116,#2b2213);border:1px solid #8d6b36;margin-bottom:15px}
+#reps .section h2{color:#f0d08a;letter-spacing:.5px}
+#reps .card{background:linear-gradient(140deg,#18191f,#14120f);border:1px solid #75603c;box-shadow:0 12px 28px #0003;color:#f7edd6;border-radius:18px}
+#reps .card h3{color:#f3d18a}#reps .card .secondary{border-color:#78623b;color:#f3d18a;background:#292316}
+#reps .card .primary{background:linear-gradient(110deg,#b78b41,#f1d18a);color:#17110a}
+#reps .card input{background:#211e19;color:#fff;border:1px solid #876d3e}
+#tools>.section{padding:16px 20px;background:linear-gradient(110deg,#17191d,#342816);border:1px solid #8a713e;border-radius:18px}
+#tools>.section h2{color:#f1cf86}
+#tools>.card{border-left:3px solid #c8a45f}
+.p3-panel{background:linear-gradient(140deg,#14171d,#272114);border:1px solid #a78950;border-radius:20px;padding:18px;margin:16px 0;color:#f5e9cd;box-shadow:0 12px 28px #0004}
+.p3-panel h3{margin:0 0 10px;color:#f4d48d}.p3-panel p{line-height:1.5;color:#d7c8a7}.p3-panel label{display:block;margin:10px 0 5px}
+.p3-panel input,.p3-panel select{width:100%;min-height:42px;background:#101318;color:#fff;border:1px solid #766440;border-radius:10px;padding:9px}
+.p3-actions{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}.p3-actions button{padding:10px 13px;border-radius:12px;border:1px solid #947443;background:#332918;color:#f8dda2;min-height:43px}
+.p3-actions button:disabled{opacity:.45;cursor:not-allowed}.p3-status{font-size:13px;color:#d7c8a7;min-height:22px}.p3-members{display:flex;gap:8px;flex-wrap:wrap}.p3-member{border:1px solid #6f634d;border-radius:100px;padding:7px 11px;font-size:13px;background:#1a1d22}
+.p3-badge{display:inline-block;border:1px solid #b79a58;border-radius:100px;padding:4px 10px;color:#f6d790;font-size:12px}
+.p3-remote-audio{display:none}#p3TalkButton:active{background:#9b742e}#p3TalkButton[aria-pressed="true"]{background:#a17c37;color:#fff}
+@media(max-width:500px){.p3-panel{padding:13px}.p3-actions button{flex:1 1 43%}}
+</style>
+</head>
 <body data-theme="dark">
 <div class="shell">
 <header class="top"><div><div class="brand" id="brandHome" role="button" tabindex="0">♫ EAE</div><div class="sub">Müzik senin, sahne senin.</div></div><button class="chip" id="themeQuick" aria-label="Temayı değiştir">◐ Tema</button></header>
@@ -1660,5 +1681,86 @@ window.addEventListener('load',async()=>{
  document.addEventListener('visibilitychange',()=>{if(!document.hidden)refreshCommunityLyrics()});
 });
 </script>
-<script>window.addEventListener("load",async()=>{await loadSharedSongCatalog();await loadOwnLyrics();await refreshCommunityLyrics()})</script></body>
+<script>window.addEventListener("load",async()=>{await loadSharedSongCatalog();await loadOwnLyrics();await refreshCommunityLyrics()})</script><script>
+/* EAE Paket 3: yalnızca yeni, bağımsız ekip oturumu; mevcut veri tabloları değişmez. */
+(()=>{
+'use strict';
+const $p=id=>document.getElementById(id);
+const codePattern=/^[A-Z0-9]{6,20}$/;
+const peerId=crypto.randomUUID?crypto.randomUUID():String(Date.now())+'-'+Math.random().toString(36).slice(2);
+const peers=new Map();let channel=null,room='',leader=false,connected=false,localStream=null,micMode='off',pttDown=false;
+let reconnectTimer=null,heartbeat=null,joinInProgress=false,manualLeave=false,lastSyncSignature='';
+const iceServers=[{urls:'stun:stun.l.google.com:19302'}];
+const hostMarkup=`<div class="p3-panel" id="p3TeamPanel"><span class="p3-badge">EAE • PAKET 3</span><h3 style="margin-top:12px">🎙️ EAE Telsiz & Canlı Sahne</h3><p>Solist oturumu açar, ekip kodla katılır. Solistin açtığı şarkı herkeste açılır. Mikrofonunu herkes kendisi yönetir.</p>
+<label for="p3Room">Ekip kodu (6–20 harf/rakam)</label><input id="p3Room" maxlength="20" autocomplete="off" spellcheck="false" placeholder="Örn. SAHNE2026">
+<label for="p3Name">Ekipte görünen adın</label><input id="p3Name" maxlength="32" placeholder="Örn. Bağlama">
+<div class="p3-actions"><button id="p3Create">👑 Solist olarak başlat</button><button id="p3Join">👥 Ekibe katıl</button><button id="p3Leave" disabled>Bağlantıyı kes</button></div>
+<div id="p3Status" class="p3-status" role="status">Bağlı değil.</div><div class="p3-members" id="p3Members"></div>
+<h3 style="margin-top:20px">🎧 Konuşma modu</h3><label for="p3Mode">Kendi mikrofonum</label><select id="p3Mode"><option value="off">🔇 Kapalı</option><option value="open">🎙️ Sürekli açık</option><option value="ptt">🎤 Bas-konuş</option></select>
+<div class="p3-actions"><button id="p3TalkButton" disabled aria-pressed="false">🎤 Basılı tut ve konuş</button><button id="p3Mute" disabled>🔇 Sessize al</button></div>
+<p class="p3-status">Canlı ses için HTTPS, mikrofon izni ve internet gerekir. Bluetooth çıkışını cihazın ses ayarlarından seçebilirsin. Kulaklık yönlendirmesi tarayıcıya bağlıdır.</p><div id="p3Audio" class="p3-remote-audio"></div></div>`;
+const holder=document.createElement('div');holder.innerHTML=hostMarkup;
+const tools=$p('tools');tools.insertBefore(holder,tools.children[1]||null);
+const stagePanel=document.createElement('div');stagePanel.className='p3-panel';stagePanel.innerHTML='<span class="p3-badge">🔄 Canlı Ekip</span><div id="p3StageInfo" class="p3-status" style="margin-top:8px">Ekip bağlantısı kapalı. EAE Telsiz için Araçlar bölümünü aç.</div>';
+$p('stage').insertBefore(stagePanel,$p('stage').firstChild);
+const getName=()=>($p('p3Name').value.trim().slice(0,32)||'Ekip üyesi');
+const status=s=>{$p('p3Status').textContent=s; $p('p3StageInfo').textContent=s;};
+const payload=(kind,data={})=>({kind,from:peerId,name:getName(),leader,at:Date.now(),...data});
+const send=async(kind,data={})=>{if(!channel||!connected)return;try{await channel.send({type:'broadcast',event:'p3',payload:payload(kind,data)})}catch(e){status('Gönderim hatası: '+e.message)}};
+const roster=()=>{const list=[{id:peerId,name:getName(),leader,mode:micMode},...Array.from(peers.values()).map(p=>({id:p.id,name:p.name,leader:p.leader,mode:p.mode}))];$p('p3Members').replaceChildren(...list.map(p=>{const el=document.createElement('span');el.className='p3-member';el.textContent=(p.leader?'👑 ':'👤 ')+p.name+(p.id===peerId?' (sen)':'')+' • '+(p.mode==='open'?'🎙️':p.mode==='ptt'?'🎤':'🔇');return el}));};
+const setUI=()=>{$p('p3Create').disabled=connected||joinInProgress;$p('p3Join').disabled=connected||joinInProgress;$p('p3Leave').disabled=!connected;$p('p3Mute').disabled=!connected;$p('p3TalkButton').disabled=!connected||micMode!=='ptt';roster()};
+const localAudioEnabled=()=>micMode==='open'||(micMode==='ptt'&&pttDown);
+const applyMic=()=>{if(localStream)localStream.getAudioTracks().forEach(t=>t.enabled=localAudioEnabled());$p('p3TalkButton').setAttribute('aria-pressed',String(pttDown));$p('p3Mute').textContent=micMode==='off'?'🔇 Mikrofon kapalı':'🔇 Sessize al'};
+async function ensureMic(){if(localStream)return localStream;if(!navigator.mediaDevices?.getUserMedia)throw Error('Bu tarayıcıda güvenli mikrofon erişimi yok (HTTPS gerekli).');localStream=await navigator.mediaDevices.getUserMedia({audio:{echoCancellation:true,noiseSuppression:true,autoGainControl:true},video:false});applyMic();for(const p of peers.values()){if(p.pc){const sender=p.pc.getSenders().find(x=>x.track?.kind==='audio');if(sender)await sender.replaceTrack(localStream.getAudioTracks()[0]);else{p.pc.addTrack(localStream.getAudioTracks()[0],localStream);if(peerId<p.id)offer(p).catch(console.warn)}}}return localStream;}
+function closePeer(p){if(p.pc){try{p.pc.close()}catch{}p.pc=null}if(p.audio){p.audio.remove();p.audio=null}}
+function dropPeer(id){const p=peers.get(id);if(!p)return;closePeer(p);peers.delete(id);roster()}
+function getPeer(id,name,remoteLeader){if(!peers.has(id))peers.set(id,{id,name:name||'Üye',leader:!!remoteLeader,mode:'off',pc:null,audio:null,lastSeen:Date.now()});const p=peers.get(id);p.name=name||p.name;p.leader=!!remoteLeader;p.lastSeen=Date.now();roster();return p}
+async function createPeer(p){if(p.pc)return p.pc;const pc=new RTCPeerConnection({iceServers});p.pc=pc;
+pc.onicecandidate=e=>{if(e.candidate)send('ice',{to:p.id,candidate:e.candidate.toJSON()})};
+pc.ontrack=e=>{if(!p.audio){p.audio=document.createElement('audio');p.audio.autoplay=true;p.audio.playsInline=true;$p('p3Audio').append(p.audio)}p.audio.srcObject=e.streams[0]||new MediaStream([e.track]);p.audio.play().catch(()=>status('Ses oynatmak için ekrana dokun ve kulaklık sesini kontrol et.'))};
+pc.onconnectionstatechange=()=>{if(pc.connectionState==='failed'){closePeer(p);status('Ses bağlantısı kesildi; yeniden deneniyor.');if(connected)send('hello')}};
+if(localStream)for(const track of localStream.getTracks())pc.addTrack(track,localStream);
+else pc.addTransceiver('audio',{direction:'sendrecv'});
+return pc}
+async function offer(p){const pc=await createPeer(p);if(pc.signalingState!=='stable')return;const desc=await pc.createOffer();await pc.setLocalDescription(desc);await send('offer',{to:p.id,sdp:pc.localDescription})}
+async function signal(m){if(m.to!==peerId)return;const p=getPeer(m.from,m.name,m.leader);try{const pc=await createPeer(p);if(m.kind==='offer'){if(pc.signalingState==='have-local-offer'){if(peerId<m.from)return;await pc.setLocalDescription({type:'rollback'})}await pc.setRemoteDescription(m.sdp);const answer=await pc.createAnswer();await pc.setLocalDescription(answer);await send('answer',{to:p.id,sdp:pc.localDescription})}else if(m.kind==='answer'){if(pc.signalingState==='have-local-offer')await pc.setRemoteDescription(m.sdp)}else if(m.kind==='ice'){if(pc.remoteDescription)await pc.addIceCandidate(m.candidate);else{p.pendingIce=p.pendingIce||[];p.pendingIce.push(m.candidate)}}if(pc.remoteDescription&&p.pendingIce){for(const ice of p.pendingIce)await pc.addIceCandidate(ice).catch(()=>{});p.pendingIce=[]}}catch(e){console.warn('EAE ses sinyali',e);status('Ses bağlantısı kurulamadı: '+e.message)}}
+function stageState(){const rep=reps.find(r=>r.id===currentRep)||reps[0];const song=songs.find(s=>s.id===rep?.songIds[stageIndex]);return rep&&song?{repId:rep.id,repName:rep.name,order:rep.songIds.slice(),songId:song.id,title:song.title,artist:song.artist||'',index:stageIndex}:null}
+function broadcastStage(force=false){if(!connected||!leader)return;const state=stageState();if(!state)return;const sig=JSON.stringify(state);if(!force&&sig===lastSyncSignature)return;lastSyncSignature=sig;send('stage',{state})}
+function applyStage(state){if(leader||!state||!Array.isArray(state.order))return;let rep=reps.find(r=>r.id===state.repId);if(!rep){rep={id:state.repId,name:state.repName||'Ekip repertuvarı',songIds:[],songSettings:{}};reps.push(rep)}rep.name=state.repName||rep.name;rep.songIds=state.order.filter(id=>typeof id==='string').slice(0,2000);
+// Yalnızca repertuvar sıra ve kimliklerini paylaşır; kişisel sözler/notlar gönderilmez.
+const exists=songs.some(s=>s.id===state.songId);if(!exists){status('Solistin açtığı "'+(state.title||'şarkı')+'" yerel kataloğunda yok. Şarkıyı arşivine ekle.');return}
+currentRep=rep.id;stageIndex=Math.max(0,rep.songIds.indexOf(state.songId));save();renderReps();renderStage();if(!$p('stage').classList.contains('hidden'))status('🎶 Solistle senkron: '+(state.title||''));}
+async function onMessage(m){if(!connected||!m||m.from===peerId)return;if(m.to&&m.to!==peerId)return;
+if(['offer','answer','ice'].includes(m.kind)){await signal(m);return}
+if(m.kind==='bye'){dropPeer(m.from);return}
+const p=getPeer(m.from,m.name,m.leader);
+if(m.kind==='hello'){if(peerId<m.from)offer(p).catch(console.warn);if(leader)broadcastStage(true);send('mode',{mode:micMode});}
+if(m.kind==='mode'){p.mode=m.mode||'off';roster()}
+if(m.kind==='stage'&&m.leader)applyStage(m.state);
+}
+async function connect(isLeader){if(connected||joinInProgress)return;if(!backendEnabled||!sb){status('Supabase bağlantısı olmadan canlı ekip çalışmaz.');return}
+const code=$p('p3Room').value.trim().toUpperCase().replace(/\s/g,'');if(!codePattern.test(code)){status('6–20 karakterli harf/rakam ekip kodu gir.');return}
+room=code;leader=isLeader;manualLeave=false;joinInProgress=true;setUI();status('Ekip odasına bağlanılıyor…');
+try{const ch=sb.channel('eae-p3-'+room,{config:{broadcast:{self:false},presence:{key:peerId}}});channel=ch;
+ch.on('broadcast',{event:'p3'},({payload:m})=>{onMessage(m).catch(console.warn)});
+ch.on('presence',{event:'sync'},()=>{const state=ch.presenceState();const active=new Set(Object.keys(state));for(const id of peers.keys())if(!active.has(id))dropPeer(id);roster()});
+await new Promise((resolve,reject)=>{let finished=false;ch.subscribe((st,err)=>{if(st==='SUBSCRIBED'&&!finished){finished=true;resolve()}if(['CHANNEL_ERROR','TIMED_OUT','CLOSED'].includes(st)&&!finished){finished=true;reject(err||Error(st))}})});
+connected=true;joinInProgress=false;await ch.track({name:getName(),leader,joined:Date.now()});setUI();status((leader?'👑 Solist':'👥 Ekip üyesi')+' bağlı • Oda: '+room);await send('hello');if(leader)broadcastStage(true);
+clearInterval(heartbeat);heartbeat=setInterval(()=>{if(connected){send('hello');if(leader)broadcastStage(true)}},12000);
+}catch(e){joinInProgress=false;connected=false;status('Bağlantı başarısız: '+e.message);if(channel){sb.removeChannel(channel);channel=null}setUI();}}
+async function leave(){manualLeave=true;clearInterval(heartbeat);clearTimeout(reconnectTimer);if(connected)await send('bye');connected=false;for(const p of peers.values())closePeer(p);peers.clear();if(channel){const ch=channel;channel=null;await sb.removeChannel(ch).catch(()=>{})}if(localStream){localStream.getTracks().forEach(t=>t.stop());localStream=null}micMode='off';$p('p3Mode').value='off';pttDown=false;applyMic();setUI();status('Bağlantı kesildi.');}
+$p('p3Create').onclick=()=>connect(true);$p('p3Join').onclick=()=>connect(false);$p('p3Leave').onclick=leave;
+$p('p3Mode').onchange=async e=>{const next=e.target.value;if(next!=='off'){try{await ensureMic()}catch(err){status('Mikrofon izni alınamadı: '+err.message);e.target.value='off';micMode='off';applyMic();return}}micMode=next;pttDown=false;applyMic();setUI();send('mode',{mode:micMode})};
+$p('p3Mute').onclick=()=>{$p('p3Mode').value='off';$p('p3Mode').dispatchEvent(new Event('change'))};
+const talk=$p('p3TalkButton');const talkDown=e=>{if(micMode!=='ptt')return;e.preventDefault();pttDown=true;applyMic();if(e.pointerId!==undefined)talk.setPointerCapture?.(e.pointerId)};const talkUp=()=>{pttDown=false;applyMic()};talk.addEventListener('pointerdown',talkDown);['pointerup','pointercancel','lostpointercapture','blur'].forEach(type=>talk.addEventListener(type,talkUp));talk.addEventListener('keydown',e=>{if(e.code==='Space'||e.code==='Enter')talkDown(e)});talk.addEventListener('keyup',talkUp);
+const originalRenderStage=renderStage;renderStage=function(...args){const result=originalRenderStage.apply(this,args);broadcastStage();return result};
+const originalRenderReps=renderReps;renderReps=function(...args){const result=originalRenderReps.apply(this,args);if(leader&&connected)broadcastStage();return result};
+// Kısa süreli ağ kopmalarında Supabase kanalını yeniden kur; WebRTC eşlerini sıfırla.
+window.addEventListener('online',()=>{if(!connected&&!manualLeave&&room){clearTimeout(reconnectTimer);reconnectTimer=setTimeout(()=>connect(leader),1500)}});
+window.addEventListener('offline',()=>{if(connected)status('📶 İnternet bağlantısı kesildi. Yeniden bağlanma beklenecek.')});
+window.addEventListener('pagehide',()=>{if(localStream)localStream.getTracks().forEach(t=>t.stop())});
+setUI();
+})();
+</script>
+</body>
 </html>
