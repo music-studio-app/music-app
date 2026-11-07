@@ -645,7 +645,62 @@ main>section .primary{background:linear-gradient(120deg,#fbd071,#d99729);color:#
 .nav{display:none}
 @media(max-width:900px){body .shell{padding:15px 16px 95px 194px}.eae-unified-sidebar{width:180px;padding:15px 9px}.eae-unified-logo strong{font-size:38px}.eae-unified-links button{font-size:12px;padding:12px 9px}#reps .rep-page-head h2{font-size:22px}#reps .rep-head-tools input{width:min(28vw,260px)}}
 @media(max-width:700px){body .shell{padding:12px 12px calc(100px + env(safe-area-inset-bottom))}.eae-unified-sidebar{display:none}.nav{display:flex;background:#121c2b;border-top:1px solid #886839}.nav button.active{color:#ffca63;background:#2b251f}#reps .rep-page-head{display:block}#reps .rep-page-head h2{font-size:23px;margin-bottom:12px}#reps .rep-head-tools input{width:100%}#reps .rep-create{padding:15px}#reps .rep-create h3{font-size:18px}#reps .rep-create p{font-size:12px}#reps .rep-create-form input{flex-basis:100%}#reps .rep-create-form button{width:100%}#reps .rep-card-top{gap:10px}#reps .rep-card-buttons{width:100%}#reps .rep-card-name h3{font-size:18px}#reps .rep-actions button{font-size:11px}#reps .reorder-item .detail-btn{display:none}main>section .section h2{font-size:20px}}
-</style></head>
+</style>
+<style id="eae-premium-unified-final">
+/* Tek tema motoru: 17 temanın hepsi aynı sahne tasarım dilini kullanır. */
+body{--eae-gold:var(--accent);--eae-gold-soft:var(--accent);--eae-edge:var(--line);--eae-surface:var(--panel);background:radial-gradient(ellipse at 80% 0%,var(--panel),var(--bg) 70%);color:var(--text);font-size:14px}
+body[data-theme="dark"]{--bg:#07111d;--panel:#122235;--text:#f6f4ee;--muted:#b0c0d0;--accent:#f4bd55;--line:#52647b;color-scheme:dark}
+body[data-theme="navy"]{--bg:#08182a;--panel:#152b43;--text:#f5f5f0;--muted:#b0c1d3;--accent:#f2c16a;--line:#4d6883;color-scheme:dark}
+body[data-theme="light"]{--bg:#f5f1e9;--panel:#fffdf8;--text:#273341;--muted:#647080;--accent:#a66d18;--line:#c9bca7;color-scheme:light}
+body[data-theme="cream"]{--bg:#f5ecdc;--panel:#fff8eb;--text:#32291e;--muted:#746451;--accent:#a46d1e;--line:#d4bc96;color-scheme:light}
+/* Diğer PRO temaların renkleri korunur, ancak altın/metal vurgular aynı görsel sistemdedir. */
+body:not([data-theme="dark"]):not([data-theme="navy"]):not([data-theme="light"]):not([data-theme="cream"]){--eae-gold:var(--accent);--eae-gold-soft:var(--accent);--eae-edge:var(--line);--eae-surface:var(--panel)}
+body .shell{max-width:none;margin:0;padding:16px 22px 35px 258px;min-width:0}
+.shell>.top{padding:3px 0 10px;margin:0 0 10px;border-bottom:1px solid var(--line)}
+.shell>.top .brand{font-size:18px}.shell>.top .sub{font-size:11px}
+.shell .section{margin:14px 0 10px}.shell .section h2{font-size:22px}
+.shell .card,.shell .tile,.shell .category-menu button,.shell .region-menu button{background:var(--panel);color:var(--text);border:1px solid var(--line);border-radius:13px;box-shadow:none;padding:13px}
+.shell .card{margin:9px 0}.shell .tile{min-height:75px}
+.shell .field{background:var(--bg);color:var(--text);border:1px solid var(--line);border-radius:11px;padding:10px 12px}
+.shell .primary{background:linear-gradient(180deg,#ffd578,#e7a12f);color:#19120a;border:1px solid #dba041;border-radius:11px;padding:10px 14px}
+.shell .secondary,.shell .chip{background:var(--panel);color:var(--text);border:1px solid var(--line);border-radius:11px;padding:9px 11px}
+.shell button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.eae-unified-sidebar{background:linear-gradient(180deg,#07101a,#090e15 75%,#24190e);border-right:1px solid #856a3c}
+.eae-unified-links button.active{background:linear-gradient(110deg,#ffd36e,#dd982a);color:#181109}
+/* Yönetici istatistiklerinin önceki neon gölgelerini nötrleştir. */
+#home [class*="stat-card"],#home [class*="metric-card"],#admin [class*="stat-card"],#admin [class*="metric-card"]{background:var(--panel)!important;color:var(--text)!important;border:1px solid var(--line)!important;box-shadow:none!important}
+#home [class*="stat-card"] *,#home [class*="metric-card"] *,#admin [class*="stat-card"] *,#admin [class*="metric-card"] *{text-shadow:none!important}
+#home .hero{background:linear-gradient(115deg,var(--panel),var(--bg))!important;border:1px solid var(--line);padding:18px;margin:13px 0}
+#home .hero h1{font-size:clamp(23px,3vw,34px)}
+#home .hero em,#home .hero-kicker{color:var(--accent)!important}
+#home .quick-grid .tile{background:var(--panel)!important;color:var(--text)!important;border:1px solid var(--line)!important;box-shadow:none!important;min-height:110px}
+#home .quick-grid .tile-art{max-height:75px;overflow:hidden;opacity:.6}
+#songs .category-menu button{min-height:75px;padding:12px}
+#songs .song-discovery-actions button{min-height:39px;font-size:12px}
+#tools .card,#admin .card{background:var(--panel);border-color:var(--line)}
+/* Repertuvar ekranı ortak sol menüyü kullanır, ikinci menü tekrar görünmez. */
+#reps .rep-layout{display:block;min-height:0;background:transparent}
+#reps .rep-sidebar{display:none!important}
+#reps .rep-main{padding:0}
+#reps .rep-page-head{margin:0 0 15px}
+#reps .rep-page-head h2{font-size:24px}
+#reps .rep-create{padding:18px;margin:0 0 16px;border-radius:16px}
+#reps .rep-create-title{margin-bottom:12px}
+#reps .rep-create h3{font-size:21px}
+#reps .rep-create p{font-size:13px}
+#reps .rep-create-form input,#reps .rep-create-form button{height:46px}
+#reps .rep-card{padding:14px;margin:12px 0;border-radius:16px}
+#reps .rep-cover{width:62px;height:62px;font-size:37px}
+#reps .rep-card-name h3{font-size:21px}
+#reps .rep-card-buttons button{height:42px;font-size:13px}
+#reps .rep-actions{padding:11px 0}
+#reps .reorder-item{padding:7px;margin:5px 0}
+/* Sahne sözlerinin kişisel font ayarı hiçbir zaman sabit boyutla ezilmez. */
+#stage .stage .lyrics{font-size:var(--stage-font-size,20px)}
+@media(max-width:900px){body .shell{padding:14px 15px 30px 194px}}
+@media(max-width:700px){body .shell{padding:12px 12px calc(100px + env(safe-area-inset-bottom))}.eae-unified-sidebar{display:none}.nav{display:flex;background:var(--panel);border-color:var(--line)}.nav button.active{color:var(--accent);background:var(--bg)}#reps .rep-page-head h2{font-size:21px}#reps .rep-create{padding:14px}#reps .rep-create h3{font-size:18px}#reps .rep-create p{font-size:12px}#reps .rep-create-form input{flex-basis:100%}#reps .rep-create-form button{width:100%}#reps .rep-card-top{gap:10px}#reps .rep-card-buttons{width:100%}#reps .rep-actions button{font-size:11px}#reps .reorder-item .detail-btn{display:none}}
+</style>
+</head>
 <body data-theme="dark">
 <div class="shell"><aside class="eae-unified-sidebar" aria-label="EAE ana menü"><div class="eae-unified-logo"><strong>EAE<span>♪</span></strong><small>Sahne <b>Repertuvarı</b></small></div><div class="eae-unified-links"><button data-go="home">⌂ &nbsp; Ana Sayfa</button><button data-go="reps">♫ &nbsp; Repertuvarlarım</button><button data-go="songs">▤ &nbsp; Şarkı Kütüphanesi</button><button data-go="stage">▶ &nbsp; Sahne Modu</button><button data-go="tools">♩ &nbsp; Müzik Araçları</button><button data-go="admin">⚙ &nbsp; Yönetici Paneli</button></div><div class="eae-unified-sidefoot">♪ EAE Müzik Arşivi</div></aside>
 <header class="top"><div><div class="brand" id="brandHome" role="button" tabindex="0">♫ EAE</div><div class="sub">Müzik senin, sahne senin.</div></div><button class="chip" id="themeQuick" aria-label="Temayı değiştir">◐ Tema</button></header>
