@@ -550,6 +550,12 @@ body:has(#home:not(.hidden)){background:radial-gradient(ellipse at 55% -10%,#2d0
 #stage .stage-line[data-color="2"]{color:#7be0b2}
 #stage .stage-line[data-color="3"]{color:#87bbff}
 #stage .stage-line[data-color="4"]{color:#ff8dbb}
+/* EAE Paket 1.1: tema duyarlı, yüksek kontrastlı sahne işaretleri */
+body[data-theme="light"] #stage .stage-line[data-color="1"],body[data-theme="cream"] #stage .stage-line[data-color="1"],body[data-theme="ice"] #stage .stage-line[data-color="1"],body[data-theme="piano"] #stage .stage-line[data-color="1"]{color:#975000}
+body[data-theme="light"] #stage .stage-line[data-color="2"],body[data-theme="cream"] #stage .stage-line[data-color="2"],body[data-theme="ice"] #stage .stage-line[data-color="2"],body[data-theme="piano"] #stage .stage-line[data-color="2"]{color:#086b38}
+body[data-theme="light"] #stage .stage-line[data-color="3"],body[data-theme="cream"] #stage .stage-line[data-color="3"],body[data-theme="ice"] #stage .stage-line[data-color="3"],body[data-theme="piano"] #stage .stage-line[data-color="3"]{color:#164cba}
+body[data-theme="light"] #stage .stage-line[data-color="4"],body[data-theme="cream"] #stage .stage-line[data-color="4"],body[data-theme="ice"] #stage .stage-line[data-color="4"],body[data-theme="piano"] #stage .stage-line[data-color="4"]{color:#ad1554}
+#stage .stage-line.stage-selected{outline:2px solid var(--accent);outline-offset:1px;background:color-mix(in srgb,var(--accent) 12%,transparent)}
 #stage .stage-line[data-bold="1"]{font-weight:850}
 #stage .stage-line.stage-selected{background:rgba(140,140,180,.18);outline:1px dashed var(--accent)}
 #stage.stage-fullscreen-fallback{position:fixed;inset:0;z-index:10000;background:var(--bg);overflow:auto;padding:16px;box-sizing:border-box}
