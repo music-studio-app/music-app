@@ -1076,10 +1076,10 @@ function stageCaptureSelection(){
 }
 $('stageBody').addEventListener('mouseup',stageCaptureSelection);
 $('stageBody').addEventListener('touchend',()=>setTimeout(stageCaptureSelection,0));
-document.addEventListener('selectionchange',()=>{const sel=window.getSelection();if(sel&&!sel.isCollapsed&&$('stageBody').contains(sel.anchorNode))stageCaptureSelection()});
+document.addEventListener('selectionchange',()=>{const sel=window.getSelection();if(sel&&!sel.isCollapsed&&$('stageBody').contains(sel.anchorNode)&&$('stageColorPalette').classList.contains('hidden'))stageCaptureSelection()});
 ['stageColor','stageBold'].forEach(id=>$(id).addEventListener('mousedown',e=>e.preventDefault()));
 function stageMarkLine(kind,colorValue){
- stageCaptureSelection();
+ // Palette interactions must not overwrite the selection captured before opening.
  const {rep,song}=stageActiveSong();if(!song){return}
  const selected=stageTextSelection.length?stageTextSelection:null;
  if(!selected&&stageSelectedLine<0){alert('Önce bir kelimeyi seç veya bir söz satırına dokun.');return}
@@ -1109,7 +1109,7 @@ function stageDrawLines(){
  const marks=stageReadMarks()[stageMarkIdentity(rep,song)]||{};el.replaceChildren();
  text.split('\n').forEach((line,i)=>{
   const span=document.createElement('span');span.className='stage-line'+(i===stageSelectedLine?' stage-selected':'');
-  const mark=marks[i]||{};span.dataset.color=String(mark.color||0);if(typeof mark.color==='string'&&/^#[0-9a-fA-F]{6}$/.test(mark.color))span.style.color=mark.color;span.dataset.bold=String(mark.bold||0);
+  const mark=marks[i]||{};span.dataset.color=String(mark.color||0);if(typeof mark.color==='string'&&/^#[0-9a-fA-F]{6}$/.test(mark.color))span.style.setProperty('color',mark.color,'important');span.dataset.bold=String(mark.bold||0);
   span.tabIndex=0;span.title='Kelime seç veya satıra dokun';
   const ranges=(mark.ranges||[]).filter(r=>r.end>r.start).sort((a,b)=>a.start-b.start);
   let pos=0;
@@ -1128,8 +1128,8 @@ function stageDrawLines(){
 }
 const stagePalette=$('stageColorPalette');
 const stageSwatches=['#ffffff','#ffca59','#ff8dbb','#ff5555','#ff9933','#fff36b','#7be0b2','#29d9cb','#87bbff','#4e85ff','#c69cff','#b9b9b9'];
-stageSwatches.forEach(hex=>{const b=document.createElement('button');b.type='button';b.className='stage-color-swatch';b.style.background=hex;b.title=hex;b.setAttribute('aria-label','Renk '+hex);b.addEventListener('mousedown',e=>e.preventDefault());b.onclick=()=>{stageMarkLine('color',hex);stagePalette.classList.add('hidden');$('stageColor').setAttribute('aria-expanded','false')};$('stageColorSwatches').append(b)});
-$('stageColor').onclick=()=>{const opening=stagePalette.classList.contains('hidden');stagePalette.classList.toggle('hidden',!opening);$('stageColor').setAttribute('aria-expanded',String(opening))};
+stageSwatches.forEach(hex=>{const b=document.createElement('button');b.type='button';b.className='stage-color-swatch';b.style.background=hex;b.title=hex;b.setAttribute('aria-label','Renk '+hex);b.addEventListener('mousedown',e=>e.preventDefault());b.addEventListener('touchstart',e=>e.stopPropagation(),{passive:true});b.onclick=()=>{stageMarkLine('color',hex);stagePalette.classList.add('hidden');$('stageColor').setAttribute('aria-expanded','false')};$('stageColorSwatches').append(b)});
+$('stageColor').onclick=()=>{stageCaptureSelection();const opening=stagePalette.classList.contains('hidden');stagePalette.classList.toggle('hidden',!opening);$('stageColor').setAttribute('aria-expanded',String(opening))};
 $('stageCustomColor').addEventListener('change',e=>{stageMarkLine('color',e.target.value);stagePalette.classList.add('hidden');$('stageColor').setAttribute('aria-expanded','false')});
 $('stageClearColor').onclick=()=>{stageMarkLine('color',0);stagePalette.classList.add('hidden');$('stageColor').setAttribute('aria-expanded','false')};
 document.addEventListener('click',e=>{if(!stagePalette.contains(e.target)&&!$('stageColor').contains(e.target)){stagePalette.classList.add('hidden');$('stageColor').setAttribute('aria-expanded','false')}});
