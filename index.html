@@ -1054,6 +1054,8 @@ function stageReadMarks(){try{return JSON.parse(localStorage.getItem(stageColorK
 function stageActiveSong(){const rep=reps.find(r=>r.id===currentRep)||reps[0];const song=songs.find(x=>x.id===rep?.songIds[stageIndex]);return {rep,song}}
 // Seçili metnin satır içindeki başlangıç/bitiş konumlarını sakla; araç çubuğu odağı seçimi bozmasın.
 let stageTextSelection=[];
+let stagePendingSelection=[];
+let stagePendingLine=-1;
 function stageCaptureSelection(){
  const sel=window.getSelection();if(!sel||sel.isCollapsed||!sel.rangeCount)return;
  const range=sel.getRangeAt(0),body=$('stageBody');
@@ -1072,7 +1074,7 @@ function stageCaptureSelection(){
    if(end>start)chosen.push({line:i,start,end});
   }catch(e){}
  });
- if(chosen.length){stageTextSelection=chosen;stageSelectedLine=chosen[0].line}
+ if(chosen.length){stageTextSelection=chosen;stagePendingSelection=chosen.map(x=>({...x}));stageSelectedLine=chosen[0].line;stagePendingLine=chosen[0].line}
 }
 $('stageBody').addEventListener('mouseup',stageCaptureSelection);
 $('stageBody').addEventListener('touchend',()=>setTimeout(stageCaptureSelection,0));
@@ -1081,7 +1083,8 @@ document.addEventListener('selectionchange',()=>{const sel=window.getSelection()
 function stageMarkLine(kind,colorValue){
  // Palette interactions must not overwrite the selection captured before opening.
  const {rep,song}=stageActiveSong();if(!song){return}
- const selected=stageTextSelection.length?stageTextSelection:null;
+ const selected=stagePendingSelection.length?stagePendingSelection:(stageTextSelection.length?stageTextSelection:null);
+ if(stageSelectedLine<0&&stagePendingLine>=0)stageSelectedLine=stagePendingLine;
  if(!selected&&stageSelectedLine<0){alert('Önce bir kelimeyi seç veya bir söz satırına dokun.');return}
  const key=stageMarkIdentity(rep,song),all=stageReadMarks(),marks=all[key]||{};
  if(selected){
@@ -1100,7 +1103,7 @@ function stageMarkLine(kind,colorValue){
  }
  all[key]=marks;
  try{localStorage.setItem(stageColorKey,JSON.stringify(all))}catch{alert('İşaret kaydedilemedi: depolama dolu olabilir.');return}
- stageTextSelection=[];window.getSelection()?.removeAllRanges();stageDrawLines();
+ stageTextSelection=[];stagePendingSelection=[];stagePendingLine=-1;window.getSelection()?.removeAllRanges();stageDrawLines();
 }
 function stageDrawLines(){
  const el=$('stageBody'),{rep,song}=stageActiveSong();if(!song)return;
@@ -1121,15 +1124,16 @@ function stageDrawLines(){
   }
   if(pos<line.length)span.append(document.createTextNode(line.slice(pos)));
   if(!line.length)span.textContent='\u00a0';
-  span.addEventListener('click',()=>{if(!window.getSelection()?.isCollapsed)return;stageTextSelection=[];stageSelectedLine=i;stageDrawLines()});
-  span.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();stageTextSelection=[];stageSelectedLine=i;stageDrawLines()}});
+  span.addEventListener('pointerdown',()=>{stagePendingLine=i;stageSelectedLine=i});
+  span.addEventListener('click',()=>{if(!window.getSelection()?.isCollapsed)return;stageTextSelection=[];stagePendingSelection=[];stageSelectedLine=i;stagePendingLine=i;stageDrawLines()});
+  span.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();stageTextSelection=[];stagePendingSelection=[];stageSelectedLine=i;stagePendingLine=i;stageDrawLines()}});
   el.append(span);
  });
 }
 const stagePalette=$('stageColorPalette');
 const stageSwatches=['#ffffff','#ffca59','#ff8dbb','#ff5555','#ff9933','#fff36b','#7be0b2','#29d9cb','#87bbff','#4e85ff','#c69cff','#b9b9b9'];
-stageSwatches.forEach(hex=>{const b=document.createElement('button');b.type='button';b.className='stage-color-swatch';b.style.background=hex;b.title=hex;b.setAttribute('aria-label','Renk '+hex);b.addEventListener('mousedown',e=>e.preventDefault());b.addEventListener('touchstart',e=>e.stopPropagation(),{passive:true});b.onclick=()=>{stageMarkLine('color',hex);stagePalette.classList.add('hidden');$('stageColor').setAttribute('aria-expanded','false')};$('stageColorSwatches').append(b)});
-$('stageColor').onclick=()=>{stageCaptureSelection();const opening=stagePalette.classList.contains('hidden');stagePalette.classList.toggle('hidden',!opening);$('stageColor').setAttribute('aria-expanded',String(opening))};
+stageSwatches.forEach(hex=>{const b=document.createElement('button');b.type='button';b.className='stage-color-swatch';b.style.background=hex;b.title=hex;b.setAttribute('aria-label','Renk '+hex);b.addEventListener('mousedown',e=>{e.preventDefault();stageCaptureSelection()});b.addEventListener('touchstart',e=>e.stopPropagation(),{passive:true});b.onclick=()=>{if(stageSelectedLine<0&&stagePendingLine>=0)stageSelectedLine=stagePendingLine;stageMarkLine('color',hex);stagePalette.classList.add('hidden');$('stageColor').setAttribute('aria-expanded','false')};$('stageColorSwatches').append(b)});
+$('stageColor').onclick=()=>{stageCaptureSelection();if(stageSelectedLine<0&&stagePendingLine>=0)stageSelectedLine=stagePendingLine;const opening=stagePalette.classList.contains('hidden');stagePalette.classList.toggle('hidden',!opening);$('stageColor').setAttribute('aria-expanded',String(opening))};
 $('stageCustomColor').addEventListener('change',e=>{stageMarkLine('color',e.target.value);stagePalette.classList.add('hidden');$('stageColor').setAttribute('aria-expanded','false')});
 $('stageClearColor').onclick=()=>{stageMarkLine('color',0);stagePalette.classList.add('hidden');$('stageColor').setAttribute('aria-expanded','false')};
 document.addEventListener('click',e=>{if(!stagePalette.contains(e.target)&&!$('stageColor').contains(e.target)){stagePalette.classList.add('hidden');$('stageColor').setAttribute('aria-expanded','false')}});
