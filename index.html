@@ -1052,58 +1052,23 @@ const stageColorKey='eae_stage_line_marks_v1';
 function stageMarkIdentity(rep,song){return String(rep?.id||'')+'::'+String(song?.id||'')}
 function stageReadMarks(){try{return JSON.parse(localStorage.getItem(stageColorKey)||'{}')||{}}catch{return {}}}
 function stageActiveSong(){const rep=reps.find(r=>r.id===currentRep)||reps[0];const song=songs.find(x=>x.id===rep?.songIds[stageIndex]);return {rep,song}}
-// Seçili metnin satır içindeki başlangıç/bitiş konumlarını sakla; araç çubuğu odağı seçimi bozmasın.
-let stageTextSelection=[];
-let stagePendingSelection=[];
+// Satır bazlı işaretleme: kelime/harf seçimleri uygulanmaz.
 let stagePendingLine=-1;
-function stageCaptureSelection(){
- const sel=window.getSelection();if(!sel||sel.isCollapsed||!sel.rangeCount)return;
- const range=sel.getRangeAt(0),body=$('stageBody');
- if(!body.contains(range.commonAncestorContainer))return;
- const chosen=[];
- body.querySelectorAll('.stage-line').forEach((line,i)=>{
-  try{
-   if(!range.intersectsNode(line))return;
-   const full=document.createRange();full.selectNodeContents(line);
-   const segment=range.cloneRange();
-   if(range.compareBoundaryPoints(Range.START_TO_START,full)<0)segment.setStart(full.startContainer,full.startOffset);
-   if(range.compareBoundaryPoints(Range.END_TO_END,full)>0)segment.setEnd(full.endContainer,full.endOffset);
-   const prefix=document.createRange();prefix.selectNodeContents(line);
-   prefix.setEnd(segment.startContainer,segment.startOffset);
-   const start=prefix.toString().length,end=start+segment.toString().length;
-   if(end>start)chosen.push({line:i,start,end});
-  }catch(e){}
- });
- if(chosen.length){stageTextSelection=chosen;stagePendingSelection=chosen.map(x=>({...x}));stageSelectedLine=chosen[0].line;stagePendingLine=chosen[0].line}
-}
-$('stageBody').addEventListener('mouseup',stageCaptureSelection);
-$('stageBody').addEventListener('touchend',()=>setTimeout(stageCaptureSelection,0));
-document.addEventListener('selectionchange',()=>{const sel=window.getSelection();if(sel&&!sel.isCollapsed&&$('stageBody').contains(sel.anchorNode)&&$('stageColorPalette').classList.contains('hidden'))stageCaptureSelection()});
 ['stageColor','stageBold'].forEach(id=>$(id).addEventListener('mousedown',e=>e.preventDefault()));
 function stageMarkLine(kind,colorValue){
  // Palette interactions must not overwrite the selection captured before opening.
  const {rep,song}=stageActiveSong();if(!song){return}
- const selected=stagePendingSelection.length?stagePendingSelection:(stageTextSelection.length?stageTextSelection:null);
  if(stageSelectedLine<0&&stagePendingLine>=0)stageSelectedLine=stagePendingLine;
- if(!selected&&stageSelectedLine<0){alert('Önce bir kelimeyi seç veya bir söz satırına dokun.');return}
+ if(stageSelectedLine<0){alert('Önce bir söz satırına dokun.');return}
  const key=stageMarkIdentity(rep,song),all=stageReadMarks(),marks=all[key]||{};
- if(selected){
-  selected.forEach(({line,start,end})=>{
-   const mark=marks[line]||{};const ranges=mark.ranges||[];
-   // Aynı aralığa tekrar basıldığında renk sıradaki renge geçer; kalınlık açılıp kapanır.
-   let item=ranges.find(x=>x.start===start&&x.end===end);
-   if(!item){item={start,end,color:0,bold:0};ranges.push(item)}
-   if(kind==='color')item.color=colorValue;else item.bold=item.bold?0:1;
-   mark.ranges=ranges;marks[line]=mark;
-  });
- }else{
-  const mark=marks[stageSelectedLine]||{};
-  if(kind==='color')mark.color=colorValue;else mark.bold=mark.bold?0:1;
-  marks[stageSelectedLine]=mark;
- }
+ const mark=marks[stageSelectedLine]||{};
+ if(kind==='color')mark.color=colorValue;else mark.bold=mark.bold?0:1;
+ // Önceki kelime/harf işaretleri satır rengini örtmesin.
+ delete mark.ranges;
+ marks[stageSelectedLine]=mark;
  all[key]=marks;
  try{localStorage.setItem(stageColorKey,JSON.stringify(all))}catch{alert('İşaret kaydedilemedi: depolama dolu olabilir.');return}
- stageTextSelection=[];stagePendingSelection=[];stagePendingLine=-1;window.getSelection()?.removeAllRanges();stageDrawLines();
+ stagePendingLine=stageSelectedLine;window.getSelection()?.removeAllRanges();stageDrawLines();
 }
 function stageDrawLines(){
  const el=$('stageBody'),{rep,song}=stageActiveSong();if(!song)return;
@@ -1113,27 +1078,18 @@ function stageDrawLines(){
  text.split('\n').forEach((line,i)=>{
   const span=document.createElement('span');span.className='stage-line'+(i===stageSelectedLine?' stage-selected':'');
   const mark=marks[i]||{};span.dataset.color=String(mark.color||0);if(typeof mark.color==='string'&&/^#[0-9a-fA-F]{6}$/.test(mark.color))span.style.setProperty('color',mark.color,'important');span.dataset.bold=String(mark.bold||0);
-  span.tabIndex=0;span.title='Kelime seç veya satıra dokun';
-  const ranges=(mark.ranges||[]).filter(r=>r.end>r.start).sort((a,b)=>a.start-b.start);
-  let pos=0;
-  for(const r of ranges){
-   const start=Math.max(pos,Math.min(line.length,r.start)),end=Math.max(start,Math.min(line.length,r.end));
-   if(start>pos)span.append(document.createTextNode(line.slice(pos,start)));
-   if(end>start){const part=document.createElement('span');part.className='stage-word-mark';part.dataset.color=String(r.color||0);if(typeof r.color==='string'&&/^#[0-9a-fA-F]{6}$/.test(r.color))part.style.setProperty('color',r.color,'important');part.dataset.bold=String(r.bold||0);part.textContent=line.slice(start,end);span.append(part)}
-   pos=end;
-  }
-  if(pos<line.length)span.append(document.createTextNode(line.slice(pos)));
-  if(!line.length)span.textContent='\u00a0';
+  span.tabIndex=0;span.title='Satıra dokunarak seç';
+  span.textContent=line||'\u00a0';
   span.addEventListener('pointerdown',()=>{stagePendingLine=i;stageSelectedLine=i});
-  span.addEventListener('click',()=>{if(!window.getSelection()?.isCollapsed)return;stageTextSelection=[];stagePendingSelection=[];stageSelectedLine=i;stagePendingLine=i;stageDrawLines()});
-  span.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();stageTextSelection=[];stagePendingSelection=[];stageSelectedLine=i;stagePendingLine=i;stageDrawLines()}});
+  span.addEventListener('click',()=>{stageSelectedLine=i;stagePendingLine=i;stageDrawLines()});
+  span.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();stageSelectedLine=i;stagePendingLine=i;stageDrawLines()}});
   el.append(span);
  });
 }
 const stagePalette=$('stageColorPalette');
 const stageSwatches=['#ffffff','#ffca59','#ff8dbb','#ff5555','#ff9933','#fff36b','#7be0b2','#29d9cb','#87bbff','#4e85ff','#c69cff','#b9b9b9'];
-stageSwatches.forEach(hex=>{const b=document.createElement('button');b.type='button';b.className='stage-color-swatch';b.style.background=hex;b.title=hex;b.setAttribute('aria-label','Renk '+hex);b.addEventListener('mousedown',e=>{e.preventDefault();stageCaptureSelection()});b.addEventListener('touchstart',e=>e.stopPropagation(),{passive:true});b.onclick=()=>{if(stageSelectedLine<0&&stagePendingLine>=0)stageSelectedLine=stagePendingLine;stageMarkLine('color',hex);stagePalette.classList.add('hidden');$('stageColor').setAttribute('aria-expanded','false')};$('stageColorSwatches').append(b)});
-$('stageColor').onclick=()=>{stageCaptureSelection();if(stageSelectedLine<0&&stagePendingLine>=0)stageSelectedLine=stagePendingLine;const opening=stagePalette.classList.contains('hidden');stagePalette.classList.toggle('hidden',!opening);$('stageColor').setAttribute('aria-expanded',String(opening))};
+stageSwatches.forEach(hex=>{const b=document.createElement('button');b.type='button';b.className='stage-color-swatch';b.style.background=hex;b.title=hex;b.setAttribute('aria-label','Renk '+hex);b.addEventListener('mousedown',e=>e.preventDefault());b.addEventListener('touchstart',e=>e.stopPropagation(),{passive:true});b.onclick=()=>{if(stageSelectedLine<0&&stagePendingLine>=0)stageSelectedLine=stagePendingLine;stageMarkLine('color',hex);stagePalette.classList.add('hidden');$('stageColor').setAttribute('aria-expanded','false')};$('stageColorSwatches').append(b)});
+$('stageColor').onclick=()=>{if(stageSelectedLine<0&&stagePendingLine>=0)stageSelectedLine=stagePendingLine;const opening=stagePalette.classList.contains('hidden');stagePalette.classList.toggle('hidden',!opening);$('stageColor').setAttribute('aria-expanded',String(opening))};
 $('stageCustomColor').addEventListener('change',e=>{stageMarkLine('color',e.target.value);stagePalette.classList.add('hidden');$('stageColor').setAttribute('aria-expanded','false')});
 $('stageClearColor').onclick=()=>{stageMarkLine('color',0);stagePalette.classList.add('hidden');$('stageColor').setAttribute('aria-expanded','false')};
 document.addEventListener('click',e=>{if(!stagePalette.contains(e.target)&&!$('stageColor').contains(e.target)){stagePalette.classList.add('hidden');$('stageColor').setAttribute('aria-expanded','false')}});
