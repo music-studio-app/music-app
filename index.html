@@ -1,9 +1,10 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="tr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#101827">
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport"/>
+<meta content="#101827" name="theme-color"/>
 <title>EAE • Müzik ve Repertuvar</title>
 <style>
 :root{font-family:system-ui,-apple-system,Segoe UI,sans-serif;color-scheme:dark;--bg:#101827;--panel:#1b273a;--text:#f7fafc;--muted:#aab8cc;--accent:#51dfb5;--line:#33445b}
@@ -626,210 +627,134 @@ body[data-theme="light"] #stage .stage-line[data-color="4"],body[data-theme="cre
 .p3-remote-audio{display:none}#p3TalkButton:active{background:#9b742e}#p3TalkButton[aria-pressed="true"]{background:#a17c37;color:#fff}
 @media(max-width:500px){.p3-panel{padding:13px}.p3-actions button{flex:1 1 43%}}
 </style>
-<style id="eae-unified-compact-theme">
-/* Paket 3 — bütün sayfalarda kompakt, birleşik sahne tasarımı */
-body{--eae-gold:#f4bc51;--eae-gold-soft:#ffdc95;--eae-edge:#8c6a36;--eae-surface:#101b29;--eae-ink:#070d15;--accent:var(--eae-gold);background:radial-gradient(ellipse at 75% 0%,#13283d,var(--bg) 68%);font-size:14px}
-body[data-theme="dark"],body[data-theme="navy"]{--bg:#07111d;--panel:#111f2e;--text:#f5f1e8;--muted:#abb9c9;--line:#41516a;--accent:#f4bc51;color-scheme:dark}
-body[data-theme="light"],body[data-theme="cream"]{--bg:#f6f0e5;--panel:#fffaf2;--text:#302417;--muted:#776754;--line:#c8b79e;--accent:#a16a19;--eae-gold:#b47a22;--eae-gold-soft:#6c430d;--eae-edge:#c7a477;--eae-surface:#fffaf2;--eae-ink:#f2e9d9;color-scheme:light}
-body .shell{max-width:none;margin:0;padding:18px 24px 110px 260px;min-height:100dvh}
-.eae-unified-sidebar{position:fixed;inset:0 auto 0 0;width:236px;z-index:7;display:flex;flex-direction:column;background:linear-gradient(180deg,#070e17,#080d14 75%,#21180f);border-right:1px solid #6e5433;padding:22px 12px 16px;color:#f7f4ef}
-.eae-unified-logo{text-align:center;padding:4px 0 30px}.eae-unified-logo strong{display:block;font-weight:950;font-size:49px;font-style:italic;letter-spacing:-4px;color:#f8f5ee;text-shadow:2px 3px 3px #000,0 0 16px #f1ad4a77}.eae-unified-logo strong span{color:#f4bc51;font-size:35px;vertical-align:top}.eae-unified-logo small{font-weight:800;font-style:italic;font-size:13px}.eae-unified-logo small b{color:#f4bc51}
-.eae-unified-links{display:grid;gap:7px}.eae-unified-links button{display:block;width:100%;border:0;border-radius:12px;background:transparent;color:#f2f2f4;text-align:left;padding:13px 12px;font-weight:750;font-size:14px}.eae-unified-links button.active,.eae-unified-links button:hover{background:linear-gradient(110deg,#ffd16b,#dd952a);color:#1b1409;box-shadow:0 0 15px #e8aa4650}.eae-unified-sidefoot{margin-top:auto;text-align:center;color:#b9a78e;font-size:12px}
-.shell>.top{padding:3px 0 13px;margin-bottom:12px;border-bottom:1px solid var(--line)}.shell>.top .brand{font-size:19px}.shell>.top .sub{font-size:11px}
-main>section:not(.hidden){max-width:1320px;margin:0 auto}main>section .section{margin:16px 0 12px}main>section .section h2{font-size:23px;font-weight:850;letter-spacing:-.3px}main>section .card{padding:15px;border:1px solid var(--line);border-radius:15px;box-shadow:0 8px 20px #0002}main>section .card h3{font-size:17px}main>section .card p{font-size:13px}
-main>section .primary{background:linear-gradient(120deg,#fbd071,#d99729);color:#18130b;border:1px solid #f6d98e;border-radius:12px;padding:10px 15px;font-size:14px}main>section .secondary{border-radius:11px;padding:9px 11px;font-size:13px}main>section .field{padding:10px 12px;font-size:14px;border-radius:11px}main>section .tile{min-height:78px;padding:14px}main>section .hero{margin:16px 0;padding:19px;border:1px solid var(--eae-edge);border-radius:17px}main>section .hero h1{font-size:clamp(23px,3vw,36px)}
-#reps .rep-layout{display:block;min-height:0;background:transparent}#reps .rep-sidebar{display:none}#reps .rep-main{padding:0;min-width:0}#reps .rep-page-head{margin:0 0 18px}#reps .rep-page-head h2{font-size:28px;color:var(--text)}#reps .rep-head-tools input{height:43px;width:min(30vw,320px);border-radius:14px}#reps .rep-head-tools button{height:42px;min-width:42px;font-size:20px}#reps .rep-create{padding:20px 22px;margin-bottom:20px;border-radius:17px}#reps .rep-create-title{gap:15px;margin-bottom:15px}#reps .rep-plus{width:52px;height:52px;font-size:36px;border-radius:14px}#reps .rep-create h3{font-size:22px}#reps .rep-create p{font-size:14px}#reps .rep-create-form input{height:47px;border-radius:13px;font-size:14px}#reps .rep-create-form button{height:47px;min-width:125px;font-size:15px;border-radius:13px}#reps .rep-card{padding:15px 18px;margin:15px 0;border-radius:17px}#reps .rep-cover{width:72px;height:72px;font-size:42px;border-radius:13px}#reps .rep-card-name h3{font-size:21px;margin-bottom:7px}#reps .rep-card-name p{font-size:13px}#reps .rep-card-buttons button{height:43px;border-radius:12px;font-size:14px}#reps .rep-actions{padding:11px 0;gap:8px}#reps .rep-actions button{font-size:12px;padding:9px 12px;border-radius:11px}#reps .reorder-item{padding:6px 9px;margin:5px 0;border-radius:12px}#reps .reorder-item .song-label{font-size:14px}#reps .rep-song-icon{width:39px;height:39px;font-size:22px;border-radius:10px}#reps .reorder-item button{padding:7px 9px;font-size:12px;border-radius:9px}
-/* Şarkı sözleri sahne performansında büyük ve okunabilir kalır. */
-#stage .stage .lyrics{font-size:var(--stage-font-size,20px)}#stage .stage h1{font-size:clamp(24px,3vw,40px)}#stage .stage-toolbar{flex-wrap:wrap;gap:6px}#stage .stage-toolbar button{font-size:12px;padding:8px}
-#songs .song,#admin .card,#tools .card{background:var(--panel);border-color:var(--line)}
-.nav{display:none}
-@media(max-width:900px){body .shell{padding:15px 16px 95px 194px}.eae-unified-sidebar{width:180px;padding:15px 9px}.eae-unified-logo strong{font-size:38px}.eae-unified-links button{font-size:12px;padding:12px 9px}#reps .rep-page-head h2{font-size:22px}#reps .rep-head-tools input{width:min(28vw,260px)}}
-@media(max-width:700px){body .shell{padding:12px 12px calc(100px + env(safe-area-inset-bottom))}.eae-unified-sidebar{display:none}.nav{display:flex;background:#121c2b;border-top:1px solid #886839}.nav button.active{color:#ffca63;background:#2b251f}#reps .rep-page-head{display:block}#reps .rep-page-head h2{font-size:23px;margin-bottom:12px}#reps .rep-head-tools input{width:100%}#reps .rep-create{padding:15px}#reps .rep-create h3{font-size:18px}#reps .rep-create p{font-size:12px}#reps .rep-create-form input{flex-basis:100%}#reps .rep-create-form button{width:100%}#reps .rep-card-top{gap:10px}#reps .rep-card-buttons{width:100%}#reps .rep-card-name h3{font-size:18px}#reps .rep-actions button{font-size:11px}#reps .reorder-item .detail-btn{display:none}main>section .section h2{font-size:20px}}
-</style>
-<style id="eae-premium-unified-final">
-/* Tek tema motoru: 17 temanın hepsi aynı sahne tasarım dilini kullanır. */
-body{--eae-gold:var(--accent);--eae-gold-soft:var(--accent);--eae-edge:var(--line);--eae-surface:var(--panel);background:radial-gradient(ellipse at 80% 0%,var(--panel),var(--bg) 70%);color:var(--text);font-size:14px}
-body[data-theme="dark"]{--bg:#07111d;--panel:#122235;--text:#f6f4ee;--muted:#b0c0d0;--accent:#f4bd55;--line:#52647b;color-scheme:dark}
-body[data-theme="navy"]{--bg:#08182a;--panel:#152b43;--text:#f5f5f0;--muted:#b0c1d3;--accent:#f2c16a;--line:#4d6883;color-scheme:dark}
-body[data-theme="light"]{--bg:#f5f1e9;--panel:#fffdf8;--text:#273341;--muted:#647080;--accent:#a66d18;--line:#c9bca7;color-scheme:light}
-body[data-theme="cream"]{--bg:#f5ecdc;--panel:#fff8eb;--text:#32291e;--muted:#746451;--accent:#a46d1e;--line:#d4bc96;color-scheme:light}
-/* Diğer PRO temaların renkleri korunur, ancak altın/metal vurgular aynı görsel sistemdedir. */
-body:not([data-theme="dark"]):not([data-theme="navy"]):not([data-theme="light"]):not([data-theme="cream"]){--eae-gold:var(--accent);--eae-gold-soft:var(--accent);--eae-edge:var(--line);--eae-surface:var(--panel)}
-body .shell{max-width:none;margin:0;padding:16px 22px 35px 258px;min-width:0}
-.shell>.top{padding:3px 0 10px;margin:0 0 10px;border-bottom:1px solid var(--line)}
-.shell>.top .brand{font-size:18px}.shell>.top .sub{font-size:11px}
-.shell .section{margin:14px 0 10px}.shell .section h2{font-size:22px}
-.shell .card,.shell .tile,.shell .category-menu button,.shell .region-menu button{background:var(--panel);color:var(--text);border:1px solid var(--line);border-radius:13px;box-shadow:none;padding:13px}
-.shell .card{margin:9px 0}.shell .tile{min-height:75px}
-.shell .field{background:var(--bg);color:var(--text);border:1px solid var(--line);border-radius:11px;padding:10px 12px}
-.shell .primary{background:linear-gradient(180deg,#ffd578,#e7a12f);color:#19120a;border:1px solid #dba041;border-radius:11px;padding:10px 14px}
-.shell .secondary,.shell .chip{background:var(--panel);color:var(--text);border:1px solid var(--line);border-radius:11px;padding:9px 11px}
-.shell button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
-.eae-unified-sidebar{background:linear-gradient(180deg,#07101a,#090e15 75%,#24190e);border-right:1px solid #856a3c}
-.eae-unified-links button.active{background:linear-gradient(110deg,#ffd36e,#dd982a);color:#181109}
-/* Yönetici istatistiklerinin önceki neon gölgelerini nötrleştir. */
-#home [class*="stat-card"],#home [class*="metric-card"],#admin [class*="stat-card"],#admin [class*="metric-card"]{background:var(--panel)!important;color:var(--text)!important;border:1px solid var(--line)!important;box-shadow:none!important}
-#home [class*="stat-card"] *,#home [class*="metric-card"] *,#admin [class*="stat-card"] *,#admin [class*="metric-card"] *{text-shadow:none!important}
-#home .hero{background:linear-gradient(115deg,var(--panel),var(--bg))!important;border:1px solid var(--line);padding:18px;margin:13px 0}
-#home .hero h1{font-size:clamp(23px,3vw,34px)}
-#home .hero em,#home .hero-kicker{color:var(--accent)!important}
-#home .quick-grid .tile{background:var(--panel)!important;color:var(--text)!important;border:1px solid var(--line)!important;box-shadow:none!important;min-height:110px}
-#home .quick-grid .tile-art{max-height:75px;overflow:hidden;opacity:.6}
-#songs .category-menu button{min-height:75px;padding:12px}
-#songs .song-discovery-actions button{min-height:39px;font-size:12px}
-#tools .card,#admin .card{background:var(--panel);border-color:var(--line)}
-/* Repertuvar ekranı ortak sol menüyü kullanır, ikinci menü tekrar görünmez. */
-#reps .rep-layout{display:block;min-height:0;background:transparent}
-#reps .rep-sidebar{display:none!important}
-#reps .rep-main{padding:0}
-#reps .rep-page-head{margin:0 0 15px}
-#reps .rep-page-head h2{font-size:24px}
-#reps .rep-create{padding:18px;margin:0 0 16px;border-radius:16px}
-#reps .rep-create-title{margin-bottom:12px}
-#reps .rep-create h3{font-size:21px}
-#reps .rep-create p{font-size:13px}
-#reps .rep-create-form input,#reps .rep-create-form button{height:46px}
-#reps .rep-card{padding:14px;margin:12px 0;border-radius:16px}
-#reps .rep-cover{width:62px;height:62px;font-size:37px}
-#reps .rep-card-name h3{font-size:21px}
-#reps .rep-card-buttons button{height:42px;font-size:13px}
-#reps .rep-actions{padding:11px 0}
-#reps .reorder-item{padding:7px;margin:5px 0}
-/* Sahne sözlerinin kişisel font ayarı hiçbir zaman sabit boyutla ezilmez. */
-#stage .stage .lyrics{font-size:var(--stage-font-size,20px)}
-@media(max-width:900px){body .shell{padding:14px 15px 30px 194px}}
-@media(max-width:700px){body .shell{padding:12px 12px calc(100px + env(safe-area-inset-bottom))}.eae-unified-sidebar{display:none}.nav{display:flex;background:var(--panel);border-color:var(--line)}.nav button.active{color:var(--accent);background:var(--bg)}#reps .rep-page-head h2{font-size:21px}#reps .rep-create{padding:14px}#reps .rep-create h3{font-size:18px}#reps .rep-create p{font-size:12px}#reps .rep-create-form input{flex-basis:100%}#reps .rep-create-form button{width:100%}#reps .rep-card-top{gap:10px}#reps .rep-card-buttons{width:100%}#reps .rep-actions button{font-size:11px}#reps .reorder-item .detail-btn{display:none}}
-</style>
 
-<style id="eae-four-screen-gold-fix">
-/* Dört eksik ekrana ortak siyah–altın tasarım: yalnız sunum, ID/JS değişmez. */
-body{--eae-page:#08111c;--eae-card:#122235;--eae-card-deep:#0d1a29;--eae-stroke:#6e5838;--eae-highlight:#f4bd55;--eae-copy:#f3f1eb;--eae-dim:#a8b7c8}
-#songs,#stage,#tools,#admin{color:var(--eae-copy)}
-#songs .section,#tools .section,#admin .section{border-bottom:1px solid var(--eae-stroke);padding:4px 0 13px;margin-bottom:15px}
-#songs .section h2,#tools .section h2,#admin .section h2{color:var(--eae-copy);font-size:clamp(21px,2.3vw,27px);letter-spacing:-.4px}
-#songs .section h2::first-letter,#tools .section h2::first-letter,#admin .section h2::first-letter{color:var(--eae-highlight)}
-#songs .field,#tools .field,#admin .field,#stage .field,
-#stage textarea,#admin input,#admin select,#admin textarea{background:var(--eae-card-deep)!important;color:var(--eae-copy)!important;border:1px solid #526177!important;border-radius:11px!important;box-shadow:none!important}
-#songs button,#stage button,#tools button,#admin button{transition:background .15s,border-color .15s,transform .15s}
-#songs .secondary,#stage .secondary,#tools .secondary,#admin .secondary,
-#songs .category-menu button,#songs .region-menu button,
-#songs .regional-alphabet button,#songs .regional-track,
-#tools .tuner-grid button,#adminPanel button:not(.primary){
-background:linear-gradient(155deg,#192c40,#101d2c)!important;color:#e8edf3!important;border:1px solid #5d6570!important;box-shadow:none!important;border-radius:11px!important}
-#songs .primary,#stage .primary,#tools .primary,#admin .primary,
-#songs .category-menu button.active,#songs .region-menu button.active,
-#songs .regional-alphabet button.active,#tools button.active{
-background:linear-gradient(180deg,#ffd57b,#e7a632)!important;color:#211608!important;border:1px solid #d9a64e!important;box-shadow:0 3px 12px #b77b2628!important}
-#songs button:hover,#stage button:hover,#tools button:hover,#admin button:hover{border-color:var(--eae-highlight)!important}
-#songs .category-menu,#songs .region-menu{gap:10px!important}
-#songs .category-menu button,#songs .region-menu button{min-height:74px!important;padding:12px 14px!important;font-size:13px!important;text-align:left}
-#songs .song-discovery-actions{display:flex!important;gap:9px!important;flex-wrap:wrap;margin:10px 0!important}
-#songs .song-discovery-actions button{flex:0 1 auto!important;min-height:40px!important;padding:9px 14px!important;font-size:12px!important}
-#songs #search{width:100%;max-width:100%;min-height:46px}
-#songs .yt-import,#songs .regional-browser,#songs .regional-entry,#songs .regional-dialog-inner,
-#songs #songList>div,#songs #songList article,#songs details{
-background:var(--eae-card)!important;border:1px solid var(--eae-stroke)!important;border-radius:13px!important;color:var(--eae-copy)!important;box-shadow:none!important}
-#songs .regional-browser{padding:14px!important;margin:13px 0!important}
-#songs .regional-entry summary,#songs .regional-track{color:var(--eae-copy)!important}
-#songs .regional-entry[open] summary{background:#23364a!important}
-#songs .regional-dialog{background:#000b!important}
-#stage>.stage{background:linear-gradient(155deg,#101f30,#0a1522)!important;border:1px solid var(--eae-stroke)!important;border-radius:18px!important;box-shadow:none!important;padding:clamp(14px,2vw,24px)!important;color:var(--eae-copy)!important}
-#stage #stageTitle{color:#f8f3e9!important;font-size:clamp(24px,3vw,37px)!important;letter-spacing:-.5px}
-#stage #stagePosition,#stage #stageMeta{color:#d7b476!important}
-#stage .stage-toolbar{display:flex;flex-wrap:wrap;gap:7px!important;padding:11px 0!important;border-bottom:1px solid #4b4e4f}
-#stage .stage-toolbar button,#stage .controls button{padding:8px 11px!important;font-size:12px!important;min-height:37px!important}
-#stage #stageBody{background:transparent!important;color:inherit;line-height:1.6}
-#stage .stage-next-preview{background:#101e2c!important;border:1px solid #685335!important;color:#e4dfd5!important;border-radius:12px!important}
-#stage .stage-color-palette,#stage #stageLyricsEditor{background:#14263a!important;border:1px solid var(--eae-stroke)!important;border-radius:12px!important;padding:12px!important}
-#tools>.card,#tools .card,#tools .tuner-readout,#tools .tuner-options,
-#adminPanel .card,#adminPanel .tile,#adminPanel [class*="panel"],#adminPanel [class*="stat"],#adminPanel [class*="box"],
-#adminPanel table,#adminPanel details{
-background:linear-gradient(145deg,#14263a,#0e1a29)!important;color:var(--eae-copy)!important;border:1px solid var(--eae-stroke)!important;border-radius:14px!important;box-shadow:none!important}
-#tools>.card{padding:17px!important;margin:11px 0!important}
-#tools .card h3,#adminPanel h2,#adminPanel h3,#adminPanel h4{color:#f4bd55!important}
-#tools .tuner-options{padding:11px!important;gap:10px!important}
-#tools .tuner-readout{padding:15px!important;margin:12px 0!important}
-#tools .tuner-meter{background:#0a1420!important;border:1px solid #665334!important}
-#tools .tuner-needle{background:#f4bd55!important}
-#adminPanel{color:var(--eae-copy)!important}
-#adminPanel>div,#adminPanel>section{margin-bottom:12px}
-#adminPanel .card,#adminPanel .tile{padding:14px!important}
-#adminPanel th{background:#1d3043!important;color:#f4bd55!important}
-#adminPanel td{border-color:#4c5562!important}
-#adminPanel .muted,#tools .muted,#songs .muted{color:var(--eae-dim)!important}
-#adminPanel [style*="background:linear-gradient"],#adminPanel [style*="background: linear-gradient"]{background:linear-gradient(145deg,#14263a,#0e1a29)!important}
-@media(max-width:700px){
- #songs .song-discovery-actions{display:grid!important;grid-template-columns:1fr}
- #songs .song-discovery-actions button{width:100%}
- #stage>.stage{padding:12px!important}
- #stage .stage-toolbar button{font-size:11px!important;padding:7px 9px!important}
- #tools>.card{padding:12px!important}
- #adminPanel{overflow-wrap:anywhere}
- #adminPanel table{display:block;overflow-x:auto}
-}
-</style>
-<style id="eae-home-clean-final">
-/* Yönetici ana sayfası: işlevleri koruyarak görsel fazlalıkları temizle */
-@media(min-width:701px){.shell>.top{display:none!important}}
-#accountBar{display:flex;align-items:center;gap:7px;margin:6px 0 15px!important;min-height:36px}
-#accountBar .chip,#accountBar button{font-size:11px!important;padding:7px 10px!important;min-height:32px!important;border-radius:9px!important}
-#home .admin-dashboard{margin:8px 0 12px!important}
-#home .admin-heading{margin-bottom:8px!important}
-#home .admin-heading h2{font-size:clamp(20px,2vw,25px)!important;letter-spacing:-.5px!important;margin:0!important;color:#f2eee6!important}
-#home .admin-heading p{font-size:11px!important;margin:4px 0!important;color:#a8b7c8!important}
-#home #refreshAdminHome{padding:7px 11px!important;font-size:11px!important}
-#home .admin-stats{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:9px!important;margin:10px 0 14px!important}
-#home .admin-stat,#home .admin-stat:nth-child(n){position:relative!important;min-height:94px!important;padding:12px 14px!important;border-radius:12px!important;border:1px solid #6c593c!important;background:linear-gradient(145deg,#142436,#0e1a29)!important;color:#f3efe7!important;box-shadow:none!important;outline:none!important;display:flex!important;flex-direction:column!important;justify-content:center!important;gap:4px!important}
-#home .admin-stat span{font-size:16px!important;line-height:1!important;filter:grayscale(.35)!important}
-#home .admin-stat b{font-size:27px!important;line-height:1.1!important;margin:0!important;color:#f4c36b!important;text-shadow:none!important}
-#home .admin-stat small{font-size:11px!important;color:#b9c2cb!important}
-#home .admin-stat.active{border-color:#e6ae4d!important;box-shadow:inset 0 0 0 1px #e6ae4d!important}
-#home .admin-stat:hover{border-color:#e6ae4d!important;transform:translateY(-1px)}
-#home .hero{min-height:155px!important;padding:18px 22px!important;margin:12px 0 16px!important;border:1px solid #6c593c!important;border-radius:15px!important;background:linear-gradient(115deg,#15273a,#0c1827)!important;box-shadow:none!important}
-#home .hero-content{max-width:75%!important}
-#home .hero-kicker{font-size:10px!important;margin-bottom:7px!important;color:#f4bd55!important;letter-spacing:1.5px!important}
-#home .hero h1{font-size:clamp(22px,2.8vw,30px)!important;line-height:1.15!important;margin:0 0 6px!important}
-#home .hero h1 em{color:#f4bd55!important}
-#home .hero p{font-size:12px!important;line-height:1.45!important;margin:0 0 11px!important;max-width:510px!important}
-#home .hero .primary{font-size:12px!important;padding:9px 13px!important;background:linear-gradient(120deg,#ffd16f,#e6a63a)!important;color:#1b1309!important;box-shadow:none!important}
-#home .hero-visual{width:33%!important;opacity:.26!important;filter:saturate(.45)!important}
-#home .quick-title{margin:12px 0 8px!important}
+
+
+<style id="eae-one-premium-layout">
+/* EAE Paket 3 / ortak premium sistem / ana DOM ve JS korunur */
+:root{--eae-ink:#0a121e;--eae-surface:#142335;--eae-surface2:#101c2b;--eae-gold:#f4bd55;--eae-edge:#6e5939;--eae-fg:#f4f3ef;--eae-sub:#b5c2cc}
+body[data-theme="dark"],body[data-theme="navy"]{--bg:#09111d;--panel:#132337;--text:#f4f3ef;--muted:#b5c2cc;--accent:#f4bd55;--line:#5d5c57;color-scheme:dark}
+body{background:#09111d!important;color:#f4f3ef!important;font-size:13px!important}
+body .shell{max-width:none!important;min-width:0!important;margin:0!important;padding:13px 22px 45px 304px!important}
+.shell > .top{display:none!important}
+.shell .section{margin:15px 0 11px!important;gap:12px!important;flex-wrap:wrap!important}
+.shell .section h2{font-size:21px!important;line-height:1.25!important;letter-spacing:-.35px!important;color:var(--eae-fg)!important}
+.shell .section p,.shell .notice,.shell .muted{color:var(--eae-sub)!important;font-size:12px!important}
+.shell .card,.shell .tile{background:linear-gradient(145deg,var(--eae-surface),var(--eae-surface2))!important;border:1px solid var(--eae-edge)!important;border-radius:13px!important;color:var(--eae-fg)!important;box-shadow:none!important}
+.shell input.field,.shell select.field,.shell textarea.field,.shell .field{background:#0c1a29!important;color:#f3f2ee!important;border:1px solid #617082!important;box-shadow:none!important;border-radius:10px!important;padding:10px 12px!important;min-height:39px}
+.shell button.primary,.shell .primary{background:linear-gradient(145deg,#ffd77c,#e8aa3a)!important;color:#20160a!important;border:1px solid #d3a251!important;border-radius:10px!important;box-shadow:none!important;font-size:12px!important;padding:9px 13px!important;font-weight:750!important}
+.shell button.secondary,.shell .secondary,.shell .chip{background:#192c40!important;color:#f2f2ee!important;border:1px solid #56697b!important;border-radius:10px!important;box-shadow:none!important;font-size:12px!important;padding:9px 12px!important}
+.shell button:focus-visible{outline:2px solid var(--eae-gold)!important;outline-offset:2px}
+.eae-unified-sidebar{background:linear-gradient(180deg,#070f17,#0b141e 75%,#21190e)!important;border-right:1px solid #8c6e3b!important}
+.eae-unified-links button.active{background:linear-gradient(120deg,#ffd478,#e1a033)!important;color:#1c1309!important}
+/* Ana sayfa — kart başlığı, ikon ve açıklamayı ayrı satırda tut; dev SVG dekoru gizle */
+#accountBar{display:flex!important;align-items:center!important;gap:7px!important;flex-wrap:wrap!important;margin:5px 0 12px!important}
+#accountBar button,#accountBar .chip{min-height:32px!important;font-size:11px!important;padding:7px 10px!important}
+#home .admin-heading{margin:6px 0 10px!important}
+#home .admin-heading h2{font-size:22px!important;color:#f4f3ef!important;margin:0!important}
+#home .admin-heading p{font-size:12px!important;color:var(--eae-sub)!important}
+#home .admin-stats{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:10px!important;margin:10px 0 12px!important}
+#home .admin-stat,#home .admin-stat:nth-child(n){background:linear-gradient(140deg,#15283b,#0d1a29)!important;border:1px solid var(--eae-edge)!important;border-radius:12px!important;box-shadow:none!important;outline:0!important;color:var(--eae-fg)!important;min-height:86px!important;padding:11px 13px!important;display:flex!important;flex-direction:column!important;justify-content:center!important;align-items:flex-start!important;gap:3px!important;transform:none!important}
+#home .admin-stat b{font-size:25px!important;color:var(--eae-gold)!important;margin:0!important;text-shadow:none!important}
+#home .admin-stat small{color:var(--eae-sub)!important;font-size:11px!important}
+#home .admin-stat.active{border-color:var(--eae-gold)!important}
+#home .admin-stat span{font-size:15px!important;filter:grayscale(.7)!important}
+#home .hero{min-height:0!important;margin:11px 0 15px!important;padding:17px 20px!important;border:1px solid var(--eae-edge)!important;border-radius:14px!important;background:linear-gradient(110deg,#182b3d,#0d1928)!important;box-shadow:none!important}
+#home .hero-content{max-width:76%!important}
+#home .hero-kicker{font-size:10px!important;letter-spacing:1.4px!important;color:var(--eae-gold)!important;margin:0 0 7px!important}
+#home .hero h1{font-size:clamp(21px,2.6vw,29px)!important;line-height:1.1!important;margin:0 0 7px!important}
+#home .hero h1 em{color:var(--eae-gold)!important}
+#home .hero p{font-size:12px!important;line-height:1.45!important;margin:0 0 9px!important}
+#home .hero-visual{opacity:.16!important;filter:grayscale(1)!important}
+#home .quick-title{display:flex!important;align-items:center!important;justify-content:space-between!important;margin:10px 0!important}
 #home .quick-title h2{font-size:18px!important}
 #home .quick-title p{font-size:11px!important}
-#home .quick-grid .tile{min-height:96px!important;padding:12px!important;border:1px solid #65563e!important;background:linear-gradient(145deg,#152639,#101b2b)!important;box-shadow:none!important}
-#home .quick-grid .tile-art{display:none!important}
-@media(max-width:900px){#home .admin-stats{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
-@media(max-width:700px){.shell>.top{display:flex!important;padding:4px 0!important}.shell>.top .brand{font-size:16px!important}.shell>.top .sub{display:none!important}#home .admin-stats{grid-template-columns:repeat(2,minmax(0,1fr))!important}#home .admin-stat{min-height:84px!important}#home .hero{min-height:0!important;padding:15px!important}#home .hero-content{max-width:100%!important}#home .hero-visual{display:none!important}#accountBar{flex-wrap:wrap}}
+#home .quick-grid{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:11px!important;align-items:stretch!important}
+#home .quick-grid .tile,#home .quick-grid .tile:nth-child(n){position:relative!important;display:grid!important;grid-template-columns:32px minmax(0,1fr)!important;grid-template-rows:auto auto!important;column-gap:11px!important;row-gap:2px!important;align-items:center!important;align-content:center!important;justify-content:stretch!important;min-height:81px!important;height:auto!important;padding:13px 15px!important;margin:0!important;overflow:hidden!important;background:linear-gradient(135deg,#15283b,#0e1b2a)!important;background-image:linear-gradient(135deg,#15283b,#0e1b2a)!important;color:#f4f3ee!important;border:1px solid var(--eae-edge)!important;border-radius:12px!important;box-shadow:none!important;transform:none!important;text-align:left!important;gap:2px 11px!important}
+#home .quick-grid .tile .tile-art{display:none!important}
+#home .quick-grid .tile .tile-icon{grid-column:1!important;grid-row:1 / span 2!important;display:grid!important;place-items:center!important;margin:0!important;width:30px!important;height:30px!important;min-width:30px!important;border:1px solid #ad894c!important;border-radius:9px!important;background:#263449!important;color:var(--eae-gold)!important;font-size:17px!important;line-height:1!important;position:static!important;transform:none!important;box-shadow:none!important}
+#home .quick-grid .tile strong{grid-column:2!important;grid-row:1!important;display:block!important;position:static!important;font-size:14px!important;line-height:1.25!important;font-weight:750!important;color:#f6f4ee!important;margin:0!important;white-space:normal!important;text-shadow:none!important;transform:none!important}
+#home .quick-grid .tile span:not(.tile-icon):not(.tile-art){grid-column:2!important;grid-row:2!important;display:block!important;position:static!important;margin:0!important;font-size:11px!important;line-height:1.25!important;color:var(--eae-sub)!important;transform:none!important}
+#home .quick-grid .tile > i{display:none!important}
+#home .quick-grid .tile:before,#home .quick-grid .tile:after{display:none!important}
+#home .quick-grid .tile:hover{border-color:#f4bd55!important;background:#1e3144!important}
+/* Repertuvar: aynı genel kenar menüsü, tek kart sistemi */
+#reps .rep-layout{display:block!important;min-height:0!important;background:none!important}
+#reps .rep-sidebar{display:none!important}
+#reps .rep-main{padding:0!important;max-width:none!important}
+#reps .rep-page-head{margin-bottom:12px!important}
+#reps .rep-page-head h2{font-size:24px!important;color:#f4f3ee!important}
+#reps .rep-create{margin:0 0 14px!important;padding:16px!important;border-radius:14px!important;background:linear-gradient(145deg,#162739,#0c1b2b)!important;border:1px solid var(--eae-edge)!important;box-shadow:none!important}
+#reps .rep-create h3{font-size:20px!important;color:#f4f3ee!important}
+#reps .rep-create p{font-size:12px!important}
+#reps .rep-create-form input,#reps .rep-create-form button{min-height:41px!important;height:auto!important}
+#reps .rep-card{background:#142538!important;border:1px solid var(--eae-edge)!important;border-radius:14px!important;box-shadow:none!important;padding:13px!important;margin:10px 0!important}
+#reps .rep-card-name h3{font-size:18px!important}
+#reps .rep-cover{width:57px!important;height:57px!important;font-size:31px!important}
+/* Şarkılar — aranabilir alan, kategori kartları ve keşif butonları */
+#songs .category-menu,#songs .region-menu{gap:9px!important}
+#songs .category-menu button,#songs .region-menu button,#songs .regional-alphabet button,#songs .regional-track{background:#15283b!important;background-image:none!important;color:#f4f3ee!important;border:1px solid var(--eae-edge)!important;border-radius:11px!important;box-shadow:none!important;font-size:12px!important;min-height:45px!important;padding:10px 12px!important}
+#songs .category-menu button.active,#songs .region-menu button.active,#songs .regional-alphabet button.active{background:linear-gradient(120deg,#ffd477,#e6a53d)!important;color:#1b140a!important}
+#songs .song-discovery-actions{display:flex!important;flex-wrap:wrap!important;gap:8px!important;margin:9px 0!important}
+#songs .song-discovery-actions button{width:auto!important;flex:0 1 auto!important;min-height:36px!important;min-width:0!important;padding:8px 11px!important;font-size:11px!important;background:#192c40!important;border:1px solid var(--eae-edge)!important;color:#f5f2eb!important}
+#songs #search{width:100%!important;min-height:44px!important}
+#songs #songList > div,#songs #songList article,#songs .regional-browser,#songs .regional-entry,#songs .regional-dialog-inner,#songs .yt-import{background:#142438!important;color:#f4f3ee!important;border:1px solid var(--eae-edge)!important;border-radius:12px!important;box-shadow:none!important}
+#songs .regional-browser{margin:12px 0!important;padding:12px!important}
+#songs .regional-entry summary{color:#eee8d9!important;padding:10px!important}
+#songs .regional-entry[open] summary{background:#26364a!important}
+/* Sahne: kişisel yazı/söz ayarlarını değiştirmeden çevreleyen kontroller */
+#stage > .stage{background:#101e2f!important;border:1px solid var(--eae-edge)!important;border-radius:15px!important;box-shadow:none!important;padding:16px!important;color:#f5f4ee!important}
+#stage #stageTitle{font-size:clamp(22px,2.6vw,32px)!important;color:#f4f3ee!important}
+#stage #stagePosition,#stage #stageMeta{color:#d7b16a!important}
+#stage .stage-toolbar{display:flex!important;flex-wrap:wrap!important;gap:7px!important;margin:9px 0!important;border-bottom:1px solid var(--eae-edge)!important;padding-bottom:9px!important}
+#stage .stage-toolbar button,#stage .controls button{font-size:11px!important;min-height:35px!important;padding:7px 10px!important}
+#stage .stage-next-preview,#stage .stage-color-palette,#stage #stageLyricsEditor{background:#17283b!important;color:#f2ede3!important;border:1px solid var(--eae-edge)!important;border-radius:11px!important}
+/* Müzik araçları */
+#tools > .card,#tools .tuner-readout,#tools .tuner-options,#tools .tuner-grid button{background:#142539!important;background-image:none!important;color:#f4f3ee!important;border:1px solid var(--eae-edge)!important;border-radius:12px!important;box-shadow:none!important}
+#tools > .card{padding:15px!important;margin:10px 0!important}
+#tools .card h3{color:var(--eae-gold)!important;font-size:17px!important}
+#tools .tuner-options,#tools .tuner-readout{padding:12px!important}
+#tools .tuner-meter{background:#0b1726!important;border:1px solid var(--eae-edge)!important}
+/* Yönetici paneli: JS ile sonradan oluşan satır ve kartları da hedefle */
+#admin #adminPanel,#admin #adminPanel > div,#admin #adminPanel > section{color:#f4f3ee!important}
+#admin #adminPanel .card,#admin #adminPanel .tile,#admin #adminPanel .admin-user,#admin #adminPanel [class*="panel"],#admin #adminPanel [class*="stat"],#admin #adminPanel [class*="box"],#admin #adminPanel details,#admin #adminPanel table{background:#142539!important;background-image:none!important;color:#f4f3ee!important;border:1px solid var(--eae-edge)!important;border-radius:12px!important;box-shadow:none!important}
+#admin #adminPanel h2,#admin #adminPanel h3,#admin #adminPanel h4{color:var(--eae-gold)!important}
+#admin #adminPanel th{background:#213447!important;color:var(--eae-gold)!important}
+#admin #adminPanel td{border-color:#515a66!important}
+#admin #adminPanel button:not(.primary){background:#1b2e42!important;color:#f4f3ee!important;border:1px solid #66707b!important;border-radius:9px!important;box-shadow:none!important;padding:8px 10px!important;font-size:12px!important}
+#admin #adminPanel input,#admin #adminPanel select,#admin #adminPanel textarea{background:#0c1928!important;color:#f4f3ee!important;border:1px solid #617082!important;border-radius:9px!important}
+@media(min-width:701px){.shell > .top{display:none!important}}
+@media(max-width:1100px){#home .admin-stats{grid-template-columns:repeat(2,minmax(0,1fr))!important}#home .quick-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
+@media(max-width:700px){body .shell{padding:11px 12px 88px!important}.shell > .top{display:flex!important;padding:5px 0 9px!important}.shell > .top .brand{font-size:15px!important}.shell > .top .sub{display:none!important}#home .quick-grid{grid-template-columns:1fr!important}#home .admin-stats{grid-template-columns:repeat(2,minmax(0,1fr))!important}#home .hero{padding:14px!important}#home .hero-content{max-width:100%!important}#home .hero-visual{display:none!important}#songs .song-discovery-actions{display:grid!important;grid-template-columns:1fr!important}#songs .song-discovery-actions button{width:100%!important}#stage > .stage{padding:11px!important}#admin #adminPanel table{display:block!important;overflow-x:auto!important}}
 </style></head>
 <body data-theme="dark">
-<div class="shell"><aside class="eae-unified-sidebar" aria-label="EAE ana menü"><div class="eae-unified-logo"><strong>EAE<span>♪</span></strong><small>Sahne <b>Repertuvarı</b></small></div><div class="eae-unified-links"><button data-go="home">⌂ &nbsp; Ana Sayfa</button><button data-go="reps">♫ &nbsp; Repertuvarlarım</button><button data-go="songs">▤ &nbsp; Şarkı Kütüphanesi</button><button data-go="stage">▶ &nbsp; Sahne Modu</button><button data-go="tools">♩ &nbsp; Müzik Araçları</button><button data-go="admin">⚙ &nbsp; Yönetici Paneli</button></div><div class="eae-unified-sidefoot">♪ EAE Müzik Arşivi</div></aside>
-<header class="top"><div><div class="brand" id="brandHome" role="button" tabindex="0">♫ EAE</div><div class="sub">Müzik senin, sahne senin.</div></div><button class="chip" id="themeQuick" aria-label="Temayı değiştir">◐ Tema</button></header>
-<div id="accountBar" class="account-bar" aria-live="polite"></div><main>
-<section id="home"><div id="adminHome" class="admin-dashboard hidden"></div>
-<div class="hero"><div class="hero-content"><div class="hero-kicker">✦ CANLI PERFORMANS</div><h1>Sahneye<br><em>hazır mısın?</em></h1><p>Şarkılarını düzenle, repertuvarını hazırla ve sahnede tek dokunuşla aç.</p><button class="primary" data-go="reps">♫ Repertuvarlarım →</button></div><div class="hero-visual" aria-hidden="true"></div></div>
+<div class="shell"><aside aria-label="EAE ana menü" class="eae-unified-sidebar"><div class="eae-unified-logo"><strong>EAE<span>♪</span></strong><small>Sahne <b>Repertuvarı</b></small></div><div class="eae-unified-links"><button data-go="home">⌂   Ana Sayfa</button><button data-go="reps">♫   Repertuvarlarım</button><button data-go="songs">▤   Şarkı Kütüphanesi</button><button data-go="stage">▶   Sahne Modu</button><button data-go="tools">♩   Müzik Araçları</button><button data-go="admin">⚙   Yönetici Paneli</button></div><div class="eae-unified-sidefoot">♪ EAE Müzik Arşivi</div></aside>
+<header class="top"><div><div class="brand" id="brandHome" role="button" tabindex="0">♫ EAE</div><div class="sub">Müzik senin, sahne senin.</div></div><button aria-label="Temayı değiştir" class="chip" id="themeQuick">◐ Tema</button></header>
+<div aria-live="polite" class="account-bar" id="accountBar"></div><main>
+<section id="home"><div class="admin-dashboard hidden" id="adminHome"></div>
+<div class="hero"><div class="hero-content"><div class="hero-kicker">✦ CANLI PERFORMANS</div><h1>Sahneye<br/><em>hazır mısın?</em></h1><p>Şarkılarını düzenle, repertuvarını hazırla ve sahnede tek dokunuşla aç.</p><button class="primary" data-go="reps">♫ Repertuvarlarım →</button></div><div aria-hidden="true" class="hero-visual"></div></div>
 <div class="section quick-title"><h2>⚡ Hızlı erişim</h2><p>İhtiyacın olan her şey burada.</p></div>
-<div class="grid quick-grid"><button class="tile tile-songs" data-go="songs"><span class="tile-icon">♫</span><span class="tile-art"><svg viewBox="0 0 180 150" aria-hidden="true"><defs><linearGradient id="songmetal" x2="1" y2="1"><stop stop-color="#e5e8ff"/><stop offset=".55" stop-color="#818cc7"/><stop offset="1" stop-color="#373e76"/></linearGradient></defs><ellipse cx="93" cy="129" rx="68" ry="12" fill="#050916" opacity=".24"/><path d="M68 34v77a20 12 0 1 1-13-12V48l67-18v65a20 12 0 1 1-13-12V13z" fill="url(#songmetal)" stroke="#f5eaff" stroke-opacity=".55" stroke-width="2"/><path d="M67 50l55-15" stroke="#f8faff" stroke-opacity=".6" stroke-width="3"/><path d="M22 56q19-21 38-5M133 55q18-18 31-3" fill="none" stroke="#8badef" stroke-width="4" stroke-linecap="round" opacity=".55"/></svg></span><strong>Tüm Şarkılar</strong><span>Arşiv ve arama</span><i aria-hidden="true">›</i></button><button class="tile tile-reps" data-go="reps"><span class="tile-icon">▤</span><span class="tile-art"><svg viewBox="0 0 180 150" aria-hidden="true"><ellipse cx="94" cy="129" rx="67" ry="12" fill="#070513" opacity=".28"/><path d="M40 34l83-13 18 87-83 17z" fill="#3e2d69" stroke="#c7a6f3" stroke-width="3"/><path d="M31 30l84-12 17 89-84 15z" fill="#a18bca" stroke="#e9d9ff" stroke-width="3"/><path d="M42 28l79-10 16 88-79 13z" fill="#ece4f9"/><path d="M52 48l59-8M55 63l59-9M58 78l59-9M61 93l59-9" stroke="#9682b2" stroke-width="2" opacity=".6"/><path d="M82 40v38a12 8 0 1 1-8-8V49l29-7v27a12 8 0 1 1-8-8V36z" fill="#8263b4"/><path d="M40 30l17 90" stroke="#69518e" stroke-width="5"/></svg></span><strong>Repertuvarlarım</strong><span>Kendi listelerim</span><i aria-hidden="true">›</i></button><button class="tile tile-stage" data-go="stage"><span class="tile-icon">▶</span><span class="tile-art"><svg viewBox="0 0 180 150" aria-hidden="true"><defs><linearGradient id="micshine" x2="1" y2="1"><stop stop-color="#fff1df"/><stop offset=".5" stop-color="#d69b96"/><stop offset="1" stop-color="#624c68"/></linearGradient></defs><ellipse cx="94" cy="134" rx="60" ry="10" fill="#100610" opacity=".3"/><path d="M91 92l-16 43h45l-16-43" fill="#4c4359" stroke="#ddacb0" stroke-width="3"/><path d="M97 48v70" stroke="#e5c0b9" stroke-width="7" stroke-linecap="round"/><rect x="77" y="13" width="40" height="76" rx="20" fill="url(#micshine)" stroke="#ffded1" stroke-width="3"/><path d="M82 33h30M82 45h30M82 57h30M82 69h30" stroke="#6d5468" stroke-width="3" opacity=".65"/><path d="M68 65a29 29 0 0 0 58 0" fill="none" stroke="#e5b7b3" stroke-width="5"/><path d="M22 27l35 51M154 27l-35 51" stroke="#ffb2a1" stroke-width="9" opacity=".16"/></svg></span><strong>Sahne Modu</strong><span>Canlı performans</span><i aria-hidden="true">›</i></button><button class="tile tile-tools" data-go="tools"><span class="tile-icon">♩</span><span class="tile-art"><svg viewBox="0 0 180 150" aria-hidden="true"><ellipse cx="89" cy="132" rx="66" ry="10" fill="#02130c" opacity=".26"/><path d="M48 34h75l17 89H31z" fill="#275b4c" stroke="#9ee4b5" stroke-width="3"/><path d="M50 34l36-23 36 23" fill="#3b8067" stroke="#b0eacb" stroke-width="3"/><circle cx="86" cy="77" r="28" fill="#d2e9d8" stroke="#70bda1" stroke-width="5"/><path d="M86 77l18-16" stroke="#306c5b" stroke-width="4" stroke-linecap="round"/><circle cx="86" cy="77" r="5" fill="#386e5e"/><path d="M86 49v7M86 98v7M58 77h7M107 77h7" stroke="#4d8b75" stroke-width="3"/><path d="M60 118h52" stroke="#b8e8c8" stroke-width="4" stroke-linecap="round"/></svg></span><strong>Müzik Araçları</strong><span>Metronom • Akort</span><i aria-hidden="true">›</i></button><button class="tile tile-settings" id="themeTile"><span class="tile-icon">⚙</span><span class="tile-art"><svg viewBox="0 0 180 150" aria-hidden="true"><defs><linearGradient id="gearshine" x2="1" y2="1"><stop stop-color="#e2eafa"/><stop offset=".5" stop-color="#869bbd"/><stop offset="1" stop-color="#40557d"/></linearGradient></defs><ellipse cx="90" cy="130" rx="58" ry="10" fill="#05101b" opacity=".28"/><path d="M81 14h22l5 15 13 6 15-6 15 17-8 14 5 14 15 8-5 22-16 1-9 12 3 16-20 10-12-12-16 1-11 12-21-10 3-16-9-12-16-1-5-22 15-8 5-14-8-14 15-17 15 6 13-6z" fill="url(#gearshine)" stroke="#d6e9ff" stroke-width="3"/><circle cx="92" cy="76" r="28" fill="#405577" stroke="#e0edff" stroke-width="5"/><circle cx="92" cy="76" r="13" fill="#a7bad8"/></svg></span><strong>Ayarlar</strong><span>Renk temaları ve tercihler</span><i aria-hidden="true">›</i></button></div>
-
+<div class="grid quick-grid"><button class="tile tile-songs" data-go="songs"><span class="tile-icon">♫</span><span class="tile-art"><svg aria-hidden="true" viewbox="0 0 180 150"><defs><lineargradient id="songmetal" x2="1" y2="1"><stop stop-color="#e5e8ff"></stop><stop offset=".55" stop-color="#818cc7"></stop><stop offset="1" stop-color="#373e76"></stop></lineargradient></defs><ellipse cx="93" cy="129" fill="#050916" opacity=".24" rx="68" ry="12"></ellipse><path d="M68 34v77a20 12 0 1 1-13-12V48l67-18v65a20 12 0 1 1-13-12V13z" fill="url(#songmetal)" stroke="#f5eaff" stroke-opacity=".55" stroke-width="2"></path><path d="M67 50l55-15" stroke="#f8faff" stroke-opacity=".6" stroke-width="3"></path><path d="M22 56q19-21 38-5M133 55q18-18 31-3" fill="none" opacity=".55" stroke="#8badef" stroke-linecap="round" stroke-width="4"></path></svg></span><strong>Tüm Şarkılar</strong><span>Arşiv ve arama</span><i aria-hidden="true">›</i></button><button class="tile tile-reps" data-go="reps"><span class="tile-icon">▤</span><span class="tile-art"><svg aria-hidden="true" viewbox="0 0 180 150"><ellipse cx="94" cy="129" fill="#070513" opacity=".28" rx="67" ry="12"></ellipse><path d="M40 34l83-13 18 87-83 17z" fill="#3e2d69" stroke="#c7a6f3" stroke-width="3"></path><path d="M31 30l84-12 17 89-84 15z" fill="#a18bca" stroke="#e9d9ff" stroke-width="3"></path><path d="M42 28l79-10 16 88-79 13z" fill="#ece4f9"></path><path d="M52 48l59-8M55 63l59-9M58 78l59-9M61 93l59-9" opacity=".6" stroke="#9682b2" stroke-width="2"></path><path d="M82 40v38a12 8 0 1 1-8-8V49l29-7v27a12 8 0 1 1-8-8V36z" fill="#8263b4"></path><path d="M40 30l17 90" stroke="#69518e" stroke-width="5"></path></svg></span><strong>Repertuvarlarım</strong><span>Kendi listelerim</span><i aria-hidden="true">›</i></button><button class="tile tile-stage" data-go="stage"><span class="tile-icon">▶</span><span class="tile-art"><svg aria-hidden="true" viewbox="0 0 180 150"><defs><lineargradient id="micshine" x2="1" y2="1"><stop stop-color="#fff1df"></stop><stop offset=".5" stop-color="#d69b96"></stop><stop offset="1" stop-color="#624c68"></stop></lineargradient></defs><ellipse cx="94" cy="134" fill="#100610" opacity=".3" rx="60" ry="10"></ellipse><path d="M91 92l-16 43h45l-16-43" fill="#4c4359" stroke="#ddacb0" stroke-width="3"></path><path d="M97 48v70" stroke="#e5c0b9" stroke-linecap="round" stroke-width="7"></path><rect fill="url(#micshine)" height="76" rx="20" stroke="#ffded1" stroke-width="3" width="40" x="77" y="13"></rect><path d="M82 33h30M82 45h30M82 57h30M82 69h30" opacity=".65" stroke="#6d5468" stroke-width="3"></path><path d="M68 65a29 29 0 0 0 58 0" fill="none" stroke="#e5b7b3" stroke-width="5"></path><path d="M22 27l35 51M154 27l-35 51" opacity=".16" stroke="#ffb2a1" stroke-width="9"></path></svg></span><strong>Sahne Modu</strong><span>Canlı performans</span><i aria-hidden="true">›</i></button><button class="tile tile-tools" data-go="tools"><span class="tile-icon">♩</span><span class="tile-art"><svg aria-hidden="true" viewbox="0 0 180 150"><ellipse cx="89" cy="132" fill="#02130c" opacity=".26" rx="66" ry="10"></ellipse><path d="M48 34h75l17 89H31z" fill="#275b4c" stroke="#9ee4b5" stroke-width="3"></path><path d="M50 34l36-23 36 23" fill="#3b8067" stroke="#b0eacb" stroke-width="3"></path><circle cx="86" cy="77" fill="#d2e9d8" r="28" stroke="#70bda1" stroke-width="5"></circle><path d="M86 77l18-16" stroke="#306c5b" stroke-linecap="round" stroke-width="4"></path><circle cx="86" cy="77" fill="#386e5e" r="5"></circle><path d="M86 49v7M86 98v7M58 77h7M107 77h7" stroke="#4d8b75" stroke-width="3"></path><path d="M60 118h52" stroke="#b8e8c8" stroke-linecap="round" stroke-width="4"></path></svg></span><strong>Müzik Araçları</strong><span>Metronom • Akort</span><i aria-hidden="true">›</i></button><button class="tile tile-settings" id="themeTile"><span class="tile-icon">⚙</span><span class="tile-art"><svg aria-hidden="true" viewbox="0 0 180 150"><defs><lineargradient id="gearshine" x2="1" y2="1"><stop stop-color="#e2eafa"></stop><stop offset=".5" stop-color="#869bbd"></stop><stop offset="1" stop-color="#40557d"></stop></lineargradient></defs><ellipse cx="90" cy="130" fill="#05101b" opacity=".28" rx="58" ry="10"></ellipse><path d="M81 14h22l5 15 13 6 15-6 15 17-8 14 5 14 15 8-5 22-16 1-9 12 3 16-20 10-12-12-16 1-11 12-21-10 3-16-9-12-16-1-5-22 15-8 5-14-8-14 15-17 15 6 13-6z" fill="url(#gearshine)" stroke="#d6e9ff" stroke-width="3"></path><circle cx="92" cy="76" fill="#405577" r="28" stroke="#e0edff" stroke-width="5"></circle><circle cx="92" cy="76" fill="#a7bad8" r="13"></circle></svg></span><strong>Ayarlar</strong><span>Renk temaları ve tercihler</span><i aria-hidden="true">›</i></button></div>
 </section>
-<section id="songs" class="hidden"><div class="section"><h2>Tüm Şarkılar</h2><span class="muted" id="songCount"></span></div><input class="field" id="search" placeholder="Tüm arşivde şarkı, sanatçı veya söz ara…" aria-label="Şarkı ara"><div class="song-discovery-actions"><button class="secondary" id="youtubeSongSearch" type="button">▶ YouTube’da Ara</button><button class="secondary" id="aiSongSearch" type="button">✦ Arşivde yoksa yapay zekâyla ara</button></div><p id="songDiscoveryStatus" class="notice" role="status" aria-live="polite">Önce arşivimizde ara. YouTube dinlemek içindir; yapay zekâ araması güvenli sunucu bağlanınca kullanılabilir.</p><div id="categoryMenu" class="category-menu"></div><div id="regionMenu" class="region-menu hidden"></div><div id="songList"></div><details id="ytImportPanel" class="yt-import"><summary>▶ YouTube oynatma listesinden eser adayları aktar</summary><div class="yt-import-body"><p class="notice">YouTube Data API v3 anahtarı ve herkese açık oynatma listesi gerekir. API anahtarı kaydedilmez. Video başlıkları otomatik olarak doğrulanmış şarkı/söz kabul edilmez; aktarılan kayıtlar kontrol bekler.</p><label>API anahtarı (yalnızca bu işlemde kullanılır)<input id="ytApiKey" class="field" type="password" autocomplete="off" placeholder="YouTube Data API v3 anahtarı"></label><label>Oynatma listesi adresi veya kimliği<input id="ytPlaylist" class="field" placeholder="https://www.youtube.com/playlist?list=..."></label><label>Aktarılacak kategori<select id="ytCategory" class="field"></select></label><label>En fazla kaç video taransın?<input id="ytLimit" class="field" type="number" min="1" max="5000" value="500"></label><div class="actions"><button class="secondary" id="ytFetch" type="button">Listeyi tara</button><button class="primary" id="ytSave" type="button" disabled>Önizlenenleri arşive ekle</button></div><p id="ytStatus" class="notice" role="status">Henüz liste taranmadı.</p><div id="ytPreview" class="yt-preview"></div></div></details><p class="notice">Şarkı sözleri yalnızca yayınlama hakkı bulunan eserlerde gösterilir.</p></section>
-<section id="reps" class="hidden">
+<section class="hidden" id="songs"><div class="section"><h2>Tüm Şarkılar</h2><span class="muted" id="songCount"></span></div><input aria-label="Şarkı ara" class="field" id="search" placeholder="Tüm arşivde şarkı, sanatçı veya söz ara…"/><div class="song-discovery-actions"><button class="secondary" id="youtubeSongSearch" type="button">▶ YouTube’da Ara</button><button class="secondary" id="aiSongSearch" type="button">✦ Arşivde yoksa yapay zekâyla ara</button></div><p aria-live="polite" class="notice" id="songDiscoveryStatus" role="status">Önce arşivimizde ara. YouTube dinlemek içindir; yapay zekâ araması güvenli sunucu bağlanınca kullanılabilir.</p><div class="category-menu" id="categoryMenu"></div><div class="region-menu hidden" id="regionMenu"></div><div id="songList"></div><details class="yt-import" id="ytImportPanel"><summary>▶ YouTube oynatma listesinden eser adayları aktar</summary><div class="yt-import-body"><p class="notice">YouTube Data API v3 anahtarı ve herkese açık oynatma listesi gerekir. API anahtarı kaydedilmez. Video başlıkları otomatik olarak doğrulanmış şarkı/söz kabul edilmez; aktarılan kayıtlar kontrol bekler.</p><label>API anahtarı (yalnızca bu işlemde kullanılır)<input autocomplete="off" class="field" id="ytApiKey" placeholder="YouTube Data API v3 anahtarı" type="password"/></label><label>Oynatma listesi adresi veya kimliği<input class="field" id="ytPlaylist" placeholder="https://www.youtube.com/playlist?list=..."/></label><label>Aktarılacak kategori<select class="field" id="ytCategory"></select></label><label>En fazla kaç video taransın?<input class="field" id="ytLimit" max="5000" min="1" type="number" value="500"/></label><div class="actions"><button class="secondary" id="ytFetch" type="button">Listeyi tara</button><button class="primary" disabled="" id="ytSave" type="button">Önizlenenleri arşive ekle</button></div><p class="notice" id="ytStatus" role="status">Henüz liste taranmadı.</p><div class="yt-preview" id="ytPreview"></div></div></details><p class="notice">Şarkı sözleri yalnızca yayınlama hakkı bulunan eserlerde gösterilir.</p></section>
+<section class="hidden" id="reps">
 <div class="rep-layout">
-<aside class="rep-sidebar" aria-label="Repertuvar menüsü">
+<aside aria-label="Repertuvar menüsü" class="rep-sidebar">
 <div class="rep-logo"><strong>EAE<span>♪</span></strong><small>Sahne <b>Repertuvarı</b></small></div>
-<button data-go="home">⌂ &nbsp; Ana Sayfa</button>
-<button class="selected" data-go="reps">♫ &nbsp; Repertuvarlarım</button>
-<button data-go="songs">▤ &nbsp; Şarkı Kütüphanesi</button>
-<button id="repSideStage">▶ &nbsp; Sahne Modu</button>
-<button id="repSideTools">♩ &nbsp; Müzik Araçları</button>
+<button data-go="home">⌂   Ana Sayfa</button>
+<button class="selected" data-go="reps">♫   Repertuvarlarım</button>
+<button data-go="songs">▤   Şarkı Kütüphanesi</button>
+<button id="repSideStage">▶   Sahne Modu</button>
+<button id="repSideTools">♩   Müzik Araçları</button>
 <div class="rep-sidebar-art">🎙️</div>
 </aside>
 <div class="rep-main">
-<div class="rep-page-head"><h2><span>♫</span> Repertuvarlarım</h2><div class="rep-head-tools"><input id="repSearch" aria-label="Repertuvar veya şarkı ara" placeholder="⌕  Repertuvar veya şarkı ara..."><button id="repGridView" type="button" class="selected" title="Kart görünümü">▦</button><button id="repListView" type="button" title="Liste görünümü">☷</button></div></div>
-<div class="rep-create"><div class="rep-create-title"><div class="rep-plus">＋</div><div><h3>Yeni Repertuvar Oluştur</h3><p>Kendi sahne repertuvarını oluştur, şarkılarını ekle ve sırala.</p></div></div><div class="rep-create-form"><span>✎</span><input class="field" id="repName" maxlength="60" placeholder="Örn. Cumartesi Sahnesi, Düğün Repertuvarı, Ankara Oyunları..."><button class="primary" id="createRep">＋ Oluştur</button></div></div>
+<div class="rep-page-head"><h2><span>♫</span> Repertuvarlarım</h2><div class="rep-head-tools"><input aria-label="Repertuvar veya şarkı ara" id="repSearch" placeholder="⌕  Repertuvar veya şarkı ara..."/><button class="selected" id="repGridView" title="Kart görünümü" type="button">▦</button><button id="repListView" title="Liste görünümü" type="button">☷</button></div></div>
+<div class="rep-create"><div class="rep-create-title"><div class="rep-plus">＋</div><div><h3>Yeni Repertuvar Oluştur</h3><p>Kendi sahne repertuvarını oluştur, şarkılarını ekle ve sırala.</p></div></div><div class="rep-create-form"><span>✎</span><input class="field" id="repName" maxlength="60" placeholder="Örn. Cumartesi Sahnesi, Düğün Repertuvarı, Ankara Oyunları..."/><button class="primary" id="createRep">＋ Oluştur</button></div></div>
 <div id="repList"></div>
 </div></div></section>
-<section id="stage" class="hidden"><div class="stage"><div><div class="muted" id="stagePosition">Sahne modu</div><h1 id="stageTitle">Henüz şarkı seçilmedi</h1><div class="meta" id="stageMeta">—</div><div class="stage-toolbar"><button class="secondary" id="stageFullscreen" title="Tam ekran">⛶ Tam ekran</button><button class="secondary" id="stageColor" title="Renk paletini aç" aria-expanded="false">🎨 Renk</button><div id="stageColorPalette" class="stage-color-palette hidden" role="group" aria-label="Yazı renk paleti"><div class="stage-color-heading">Yazı rengini seç</div><div id="stageColorSwatches" class="stage-color-swatches"></div><label class="stage-color-custom">Özel renk <input id="stageCustomColor" type="color" value="#ffca59"></label><button type="button" class="secondary" id="stageClearColor">Rengi kaldır</button></div><button class="secondary" id="stageBold" title="Satırı kalınlaştır">𝐁 Kalın</button><button class="secondary" id="fontMinus" aria-label="Yazıyı küçült">A−</button><button class="secondary" id="fontPlus" aria-label="Yazıyı büyüt">A+</button><button class="secondary" id="stageColumns" type="button" aria-pressed="false">▥ İki sütun</button><button class="secondary" id="stageNotesToggle" type="button" aria-pressed="true">📝 Notu gizle</button><button class="secondary" id="stageDetails">✎ Bilgiler</button><button class="secondary" id="stageCommunityLyrics">+ Ortak söz ekle</button><button class="secondary" id="stageEditLyrics">✎ Sahne sözlerini düzenle</button></div><div id="stageLyricsEditor" class="hidden" style="margin:12px 0"><label for="stageLyricsInput">Bu repertuvara özel sözler (orijinal katalog kaydı değişmez)</label><textarea id="stageLyricsInput" rows="14" style="width:100%;box-sizing:border-box;margin:8px 0" placeholder="Kullanım hakkına sahip olduğun sözleri buraya yaz veya yapıştır."></textarea><div class="actions"><button class="primary" id="stageSaveLyrics">Sözleri kaydet</button><button class="secondary" id="stageCancelLyrics">Vazgeç</button><button class="secondary" id="stageResetLyrics">Kişisel sözleri sil / orijinale dön</button></div></div><div class="lyrics" id="stageBody">Repertuvarından bir şarkı seçerek başlayabilirsin.</div></div><div id="stageNextPreview" class="stage-next-preview" aria-live="polite"></div><div class="controls"><button class="secondary" id="prevSong">← Önceki</button><button class="secondary" id="nextSong">Sonraki →</button></div></div></section>
-<section id="tools" class="hidden"><div class="section"><h2>Müzik Araçları</h2></div><div class="card"><h3>♩ Metronom</h3><p>İlk çalışan sürüm: BPM seç, başlat ve durdur.</p><label for="bpm">Tempo: <strong id="bpmText">100</strong> BPM</label><input class="field" id="bpm" type="range" min="40" max="220" value="100"><button class="primary" id="metroBtn">▶ Başlat</button><p class="notice">Ses çıkması için önce butona basmalısın.</p></div><div class="card">
+<section class="hidden" id="stage"><div class="stage"><div><div class="muted" id="stagePosition">Sahne modu</div><h1 id="stageTitle">Henüz şarkı seçilmedi</h1><div class="meta" id="stageMeta">—</div><div class="stage-toolbar"><button class="secondary" id="stageFullscreen" title="Tam ekran">⛶ Tam ekran</button><button aria-expanded="false" class="secondary" id="stageColor" title="Renk paletini aç">🎨 Renk</button><div aria-label="Yazı renk paleti" class="stage-color-palette hidden" id="stageColorPalette" role="group"><div class="stage-color-heading">Yazı rengini seç</div><div class="stage-color-swatches" id="stageColorSwatches"></div><label class="stage-color-custom">Özel renk <input id="stageCustomColor" type="color" value="#ffca59"/></label><button class="secondary" id="stageClearColor" type="button">Rengi kaldır</button></div><button class="secondary" id="stageBold" title="Satırı kalınlaştır">𝐁 Kalın</button><button aria-label="Yazıyı küçült" class="secondary" id="fontMinus">A−</button><button aria-label="Yazıyı büyüt" class="secondary" id="fontPlus">A+</button><button aria-pressed="false" class="secondary" id="stageColumns" type="button">▥ İki sütun</button><button aria-pressed="true" class="secondary" id="stageNotesToggle" type="button">📝 Notu gizle</button><button class="secondary" id="stageDetails">✎ Bilgiler</button><button class="secondary" id="stageCommunityLyrics">+ Ortak söz ekle</button><button class="secondary" id="stageEditLyrics">✎ Sahne sözlerini düzenle</button></div><div class="hidden" id="stageLyricsEditor" style="margin:12px 0"><label for="stageLyricsInput">Bu repertuvara özel sözler (orijinal katalog kaydı değişmez)</label><textarea id="stageLyricsInput" placeholder="Kullanım hakkına sahip olduğun sözleri buraya yaz veya yapıştır." rows="14" style="width:100%;box-sizing:border-box;margin:8px 0"></textarea><div class="actions"><button class="primary" id="stageSaveLyrics">Sözleri kaydet</button><button class="secondary" id="stageCancelLyrics">Vazgeç</button><button class="secondary" id="stageResetLyrics">Kişisel sözleri sil / orijinale dön</button></div></div><div class="lyrics" id="stageBody">Repertuvarından bir şarkı seçerek başlayabilirsin.</div></div><div aria-live="polite" class="stage-next-preview" id="stageNextPreview"></div><div class="controls"><button class="secondary" id="prevSong">← Önceki</button><button class="secondary" id="nextSong">Sonraki →</button></div></div></section>
+<section class="hidden" id="tools"><div class="section"><h2>Müzik Araçları</h2></div><div class="card"><h3>♩ Metronom</h3><p>İlk çalışan sürüm: BPM seç, başlat ve durdur.</p><label for="bpm">Tempo: <strong id="bpmText">100</strong> BPM</label><input class="field" id="bpm" max="220" min="40" type="range" value="100"/><button class="primary" id="metroBtn">▶ Başlat</button><p class="notice">Ses çıkması için önce butona basmalısın.</p></div><div class="card">
 <h3>🎼 PRO Akort Cihazı</h3>
 <p>Kromatik nota algılama, bağlama düzenleri, cent göstergesi ve referans ses.</p>
 <label for="tunerInstrument">Enstrüman</label>
@@ -841,23 +766,23 @@ background:linear-gradient(145deg,#14263a,#0e1a29)!important;color:var(--eae-cop
 </select>
 <label for="tunerTuning">Akort düzeni</label>
 <select class="field" id="tunerTuning"></select>
-<div id="baglamaDecision" class="tuner-options">
+<div class="tuner-options" id="baglamaDecision">
 <div><label for="tunerDecision">Karar sesi (La temel alınır)</label><select class="field" id="tunerDecision"></select></div>
-<div><label for="tunerOctave">Oktav ayarı</label><select class="field" id="tunerOctave"><option value="-1">1 oktav pes</option><option value="0" selected>Normal</option><option value="1">1 oktav tiz</option></select></div>
+<div><label for="tunerOctave">Oktav ayarı</label><select class="field" id="tunerOctave"><option value="-1">1 oktav pes</option><option selected="" value="0">Normal</option><option value="1">1 oktav tiz</option></select></div>
 </div>
 <div class="tuner-options">
 <div><label for="tunerMode">Ölçüm modu</label><select class="field" id="tunerMode"><option value="auto">Otomatik • Kromatik</option><option value="manual">Manuel • Seçili nota</option></select></div>
-<div><label for="tunerA4">La4 referansı (Hz)</label><input class="field" type="number" id="tunerA4" min="415" max="466" step="1" value="440"></div>
-<div><label for="tunerSensitivity">Mikrofon hassasiyeti</label><input class="field" id="tunerSensitivity" type="range" min="1" max="10" value="5"></div>
-<div><label for="tunerTolerance">Doğru akort toleransı</label><select class="field" id="tunerTolerance"><option value="3">±3 cent</option><option value="5" selected>±5 cent</option><option value="10">±10 cent</option></select></div>
+<div><label for="tunerA4">La4 referansı (Hz)</label><input class="field" id="tunerA4" max="466" min="415" step="1" type="number" value="440"/></div>
+<div><label for="tunerSensitivity">Mikrofon hassasiyeti</label><input class="field" id="tunerSensitivity" max="10" min="1" type="range" value="5"/></div>
+<div><label for="tunerTolerance">Doğru akort toleransı</label><select class="field" id="tunerTolerance"><option value="3">±3 cent</option><option selected="" value="5">±5 cent</option><option value="10">±10 cent</option></select></div>
 </div>
 <div class="tuner-subtitle">Tel grubu veya referans notası seç:</div>
-<div id="tunerNotes" class="tuner-grid"></div>
-<div class="tuner-readout" id="tunerReadout" aria-live="polite">
+<div class="tuner-grid" id="tunerNotes"></div>
+<div aria-live="polite" class="tuner-readout" id="tunerReadout">
 <div class="muted">Algılanan nota</div>
-<div id="tunerPitch" class="tuner-pitch">—</div>
-<div id="tunerFrequency" class="muted">— Hz</div>
-<div id="tunerCents" class="tuner-cents">— cent</div>
+<div class="tuner-pitch" id="tunerPitch">—</div>
+<div class="muted" id="tunerFrequency">— Hz</div>
+<div class="tuner-cents" id="tunerCents">— cent</div>
 <div class="tuner-meter"><div class="tuner-needle" id="tunerNeedle"></div></div>
 <div class="tuner-labels"><span>♭ Pes</span><span>0</span><span>Tiz ♯</span></div>
 <h3 id="tunerStatus">Ölçüm başlatılmadı</h3>
@@ -869,24 +794,23 @@ background:linear-gradient(145deg,#14263a,#0e1a29)!important;color:var(--eae-cop
 </div>
 <p class="notice">Mikrofon için HTTPS veya localhost gerekir. Tek tel grubunu ayrı çal. Karar sesi seçimi burada La temel referansından eşit aralıklı transpozisyon yapar; bağlamadaki geleneksel karar adlandırmaları farklılık gösterebilir. Oktavı enstrümanına göre ayarla. Ölçüm sonuçlarını gerçek enstrümanla test edeceğiz.</p>
 </div></section>
-
-<section id="admin" class="hidden"><div class="section"><h2>👑 Yönetici Paneli</h2></div><div id="adminPanel"></div></section>
+<section class="hidden" id="admin"><div class="section"><h2>👑 Yönetici Paneli</h2></div><div id="adminPanel"></div></section>
 </main></div>
-<div id="themeModal" class="modal-backdrop hidden" role="presentation">
-  <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="themeModalTitle">
-    <h2 id="themeModalTitle">🎨 Görünüm Ayarları</h2>
-    <p>Rengini seç. Tercihin otomatik kaydedilir.</p>
-    <div class="theme-tabs"><button class="secondary" id="tabFree">Ücretsiz (4)</button><button class="secondary" id="tabPro">PRO (12)</button></div><div class="theme-row" id="themeChoices"></div>
-    <p class="pro-hint" id="themeProHint">4 ücretsiz tema. Ek 12 tema PRO üyelikle açılır.</p>
-    <button class="primary modal-close" id="closeTheme">Kapat</button>
-  </div>
+<div class="modal-backdrop hidden" id="themeModal" role="presentation">
+<div aria-labelledby="themeModalTitle" aria-modal="true" class="modal-box" role="dialog">
+<h2 id="themeModalTitle">🎨 Görünüm Ayarları</h2>
+<p>Rengini seç. Tercihin otomatik kaydedilir.</p>
+<div class="theme-tabs"><button class="secondary" id="tabFree">Ücretsiz (4)</button><button class="secondary" id="tabPro">PRO (12)</button></div><div class="theme-row" id="themeChoices"></div>
+<p class="pro-hint" id="themeProHint">4 ücretsiz tema. Ek 12 tema PRO üyelikle açılır.</p>
+<button class="primary modal-close" id="closeTheme">Kapat</button>
 </div>
-<div id="infoModal" class="modal-backdrop hidden" role="presentation"><div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="infoTitle"><h2 id="infoTitle">Eser Bilgileri</h2><div id="infoContent"></div><button class="primary modal-close" id="closeInfo">Kapat</button></div></div>
-<div id="communityEditorModal" class="modal-backdrop hidden" role="presentation"><div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="communityEditorTitle"><h2 id="communityEditorTitle">Ortak şarkı sözü ekle</h2><p id="communityEditorSong"></p><label for="communityEditorText">Şarkı sözleri (kıtalar arasına boş satır bırak)</label><textarea class="field" id="communityEditorText" rows="13" maxlength="20000" style="min-height:230px;white-space:pre-wrap" placeholder="Şarkı sözlerini buraya yaz..."></textarea><label style="display:flex;gap:8px;align-items:start;margin:12px 0"><input id="communityRights" type="checkbox"> Bu metni ortak katalogda yayımlama hakkım olduğunu beyan ediyorum.</label><p class="notice" id="communityEditorStatus"></p><div class="actions"><button class="primary" id="communityEditorSave">Ortak kataloğa kaydet</button><button class="secondary" id="communityEditorCancel">Vazgeç</button></div></div></div>
-<div id="lyricsModal" class="modal-backdrop hidden" role="presentation"><div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="lyricsTitle"><h2 id="lyricsTitle">Şarkı Sözleri</h2><p id="lyricsArtist"></p><div class="lyrics-heading">ŞARKI SÖZLERİ</div><div id="lyricsContent" class="song-lyrics lyrics-notice"></div><div class="actions"><button class="primary hidden" id="communityAddLyrics">+ Ortak sözleri ekle</button><button class="secondary" id="communityPersonalLyrics">Kişisel düzenle</button></div><p class="notice" id="communityLyricsHint"></p><button class="primary modal-close" id="closeLyrics">Kapat</button></div></div>
-<div id="detailModal" class="modal-backdrop hidden" role="presentation"><div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="detailTitle"><h2 id="detailTitle">Şarkı Bilgileri</h2><p id="detailContext"></p><label for="detailKey">Ton</label><input id="detailKey" class="field" maxlength="40" placeholder="Örn. La minör"><label for="detailBpm">BPM (40–220)</label><input id="detailBpm" class="field" type="number" min="40" max="220" step="1" placeholder="Örn. 100"><label for="detailNote">Kişisel sahne notu</label><textarea id="detailNote" class="field" maxlength="3000" placeholder="Sahnede hatırlamak istediğin notlar..."></textarea><p class="hint">Bu ayarlar yalnızca seçili repertuvardaki şarkıya kaydedilir.</p><div class="actions"><button class="primary" id="saveDetails">Kaydet</button><button class="secondary" id="closeDetails">Kapat</button></div></div></div>
-<div id="authGate" class="auth-gate"><div class="auth-box"><h1>♫ EAE</h1><p class="auth-status" id="authMessage">Giriş yap veya kayıt ol. Yeni hesaplar yönetici onayıyla açılır.</p><label>E-posta</label><input class="field" type="email" id="authEmail" autocomplete="email" placeholder="ornek@eposta.com"><label>Şifre</label><input class="field" type="password" id="authPassword" autocomplete="current-password" placeholder="En az 8 karakter"><label id="authNameLabel">Ad Soyad (kayıt için)</label><input class="field" id="authName" maxlength="90" placeholder="Ad Soyad"><div class="actions"><button class="primary" id="authLogin">Giriş Yap</button><button class="secondary" id="authRegister">Kayıt Ol</button></div><p class="notice">Hesabınız onaylanmadan uygulamaya erişemezsiniz.</p></div></div>
-<nav class="nav" aria-label="Alt menü"><div class="nav-inner"><button data-go="home" class="active"><span>⌂</span>Ana Sayfa</button><button data-go="songs"><span>♫</span>Şarkılar</button><button data-go="reps"><span>▤</span>Listelerim</button><button data-go="stage"><span>▶</span>Sahne</button><button data-go="tools"><span>♩</span>Araçlar</button></div></nav>
+</div>
+<div class="modal-backdrop hidden" id="infoModal" role="presentation"><div aria-labelledby="infoTitle" aria-modal="true" class="modal-box" role="dialog"><h2 id="infoTitle">Eser Bilgileri</h2><div id="infoContent"></div><button class="primary modal-close" id="closeInfo">Kapat</button></div></div>
+<div class="modal-backdrop hidden" id="communityEditorModal" role="presentation"><div aria-labelledby="communityEditorTitle" aria-modal="true" class="modal-box" role="dialog"><h2 id="communityEditorTitle">Ortak şarkı sözü ekle</h2><p id="communityEditorSong"></p><label for="communityEditorText">Şarkı sözleri (kıtalar arasına boş satır bırak)</label><textarea class="field" id="communityEditorText" maxlength="20000" placeholder="Şarkı sözlerini buraya yaz..." rows="13" style="min-height:230px;white-space:pre-wrap"></textarea><label style="display:flex;gap:8px;align-items:start;margin:12px 0"><input id="communityRights" type="checkbox"/> Bu metni ortak katalogda yayımlama hakkım olduğunu beyan ediyorum.</label><p class="notice" id="communityEditorStatus"></p><div class="actions"><button class="primary" id="communityEditorSave">Ortak kataloğa kaydet</button><button class="secondary" id="communityEditorCancel">Vazgeç</button></div></div></div>
+<div class="modal-backdrop hidden" id="lyricsModal" role="presentation"><div aria-labelledby="lyricsTitle" aria-modal="true" class="modal-box" role="dialog"><h2 id="lyricsTitle">Şarkı Sözleri</h2><p id="lyricsArtist"></p><div class="lyrics-heading">ŞARKI SÖZLERİ</div><div class="song-lyrics lyrics-notice" id="lyricsContent"></div><div class="actions"><button class="primary hidden" id="communityAddLyrics">+ Ortak sözleri ekle</button><button class="secondary" id="communityPersonalLyrics">Kişisel düzenle</button></div><p class="notice" id="communityLyricsHint"></p><button class="primary modal-close" id="closeLyrics">Kapat</button></div></div>
+<div class="modal-backdrop hidden" id="detailModal" role="presentation"><div aria-labelledby="detailTitle" aria-modal="true" class="modal-box" role="dialog"><h2 id="detailTitle">Şarkı Bilgileri</h2><p id="detailContext"></p><label for="detailKey">Ton</label><input class="field" id="detailKey" maxlength="40" placeholder="Örn. La minör"/><label for="detailBpm">BPM (40–220)</label><input class="field" id="detailBpm" max="220" min="40" placeholder="Örn. 100" step="1" type="number"/><label for="detailNote">Kişisel sahne notu</label><textarea class="field" id="detailNote" maxlength="3000" placeholder="Sahnede hatırlamak istediğin notlar..."></textarea><p class="hint">Bu ayarlar yalnızca seçili repertuvardaki şarkıya kaydedilir.</p><div class="actions"><button class="primary" id="saveDetails">Kaydet</button><button class="secondary" id="closeDetails">Kapat</button></div></div></div>
+<div class="auth-gate" id="authGate"><div class="auth-box"><h1>♫ EAE</h1><p class="auth-status" id="authMessage">Giriş yap veya kayıt ol. Yeni hesaplar yönetici onayıyla açılır.</p><label>E-posta</label><input autocomplete="email" class="field" id="authEmail" placeholder="ornek@eposta.com" type="email"/><label>Şifre</label><input autocomplete="current-password" class="field" id="authPassword" placeholder="En az 8 karakter" type="password"/><label id="authNameLabel">Ad Soyad (kayıt için)</label><input class="field" id="authName" maxlength="90" placeholder="Ad Soyad"/><div class="actions"><button class="primary" id="authLogin">Giriş Yap</button><button class="secondary" id="authRegister">Kayıt Ol</button></div><p class="notice">Hesabınız onaylanmadan uygulamaya erişemezsiniz.</p></div></div>
+<nav aria-label="Alt menü" class="nav"><div class="nav-inner"><button class="active" data-go="home"><span>⌂</span>Ana Sayfa</button><button data-go="songs"><span>♫</span>Şarkılar</button><button data-go="reps"><span>▤</span>Listelerim</button><button data-go="stage"><span>▶</span>Sahne</button><button data-go="tools"><span>♩</span>Araçlar</button></div></nav>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <script>
 "use strict";
@@ -1747,11 +1671,10 @@ function initYoutubeImport(){
 initYoutubeImport();
 
 </script>
-
 <style>
 .regional-browser{margin:22px 0;padding:18px;border:1px solid #34536b;border-radius:18px;background:#172d42}.regional-heading h3{margin:0 0 6px}.regional-alphabet{display:flex;gap:7px;flex-wrap:wrap;margin:12px 0}.regional-alphabet button{padding:7px 11px;border:1px solid #496982;border-radius:9px;background:#213b53;color:#fff;cursor:pointer}.regional-alphabet button.active{background:#2874aa}.regional-grid{columns:3 240px;column-gap:18px}.regional-entry{break-inside:avoid;margin:0 0 9px;border:1px solid #34536b;border-radius:10px;overflow:hidden}.regional-entry summary{padding:11px;color:#d9ecff;cursor:pointer;font-weight:600}.regional-entry[open] summary{background:#274762}.regional-tracks{padding:8px;max-height:380px;overflow:auto}.regional-track{width:100%;display:block;text-align:left;padding:9px;background:transparent;color:#d9eaff;border:0;border-bottom:1px solid #34536b;cursor:pointer}.regional-track:hover{background:#34536b}.regional-source{font-size:12px;opacity:.75;margin-top:10px}.regional-lyrics{white-space:pre-wrap;line-height:1.7;margin:12px 0;max-height:60vh;overflow:auto}.regional-dialog{position:fixed;inset:0;background:#000c;z-index:99999;display:flex;align-items:center;justify-content:center;padding:15px}.regional-dialog.hidden{display:none}.regional-dialog-inner{width:min(720px,100%);max-height:90vh;overflow:auto;background:#142b40;border:1px solid #52728d;border-radius:18px;padding:22px;color:white}.regional-dialog-top{display:flex;justify-content:space-between;gap:10px;align-items:start}
 </style>
-<div class="regional-dialog hidden" id="regionalDialog" role="dialog" aria-modal="true" aria-label="Türkü sözleri"><div class="regional-dialog-inner"><div class="regional-dialog-top"><h3 id="regionalLyricsTitle"></h3><button class="secondary" id="regionalClose">✕ Kapat</button></div><div id="regionalLyricsBody" class="regional-lyrics"></div><div class="regional-source" id="regionalAttribution"></div></div></div>
+<div aria-label="Türkü sözleri" aria-modal="true" class="regional-dialog hidden" id="regionalDialog" role="dialog"><div class="regional-dialog-inner"><div class="regional-dialog-top"><h3 id="regionalLyricsTitle"></h3><button class="secondary" id="regionalClose">✕ Kapat</button></div><div class="regional-lyrics" id="regionalLyricsBody"></div><div class="regional-source" id="regionalAttribution"></div></div></div>
 <script>
 /* Dış kaynaktan söz çağrısı yok: yalnızca kendi katalog verisi. */
 (()=>{
@@ -1803,8 +1726,6 @@ initYoutubeImport();
  });
 })();
 </script>
-
-
 <script>
 /* Ortak sözler: ilk kayıt kazanır; kişisel sözler mevcut repertuvar ayarlarında saklanır. */
 let communitySelectedSongId=null;
