@@ -583,7 +583,14 @@ body[data-theme="light"] #stage .stage-line[data-color="4"],body[data-theme="cre
 #stage .stage-color-custom{display:flex;align-items:center;gap:12px;margin-bottom:12px}
 #stage .stage-color-custom input{width:55px;height:36px;padding:2px;cursor:pointer}
 </style>
-</head>
+<style id="eae-stage-package-two">
+#stage .stage-note-hidden{display:none!important}
+@media(orientation:landscape) and (min-width:700px){
+ #stage #stageBody.stage-two-columns{column-count:2;column-gap:36px;column-rule:1px solid var(--line)}
+ #stage #stageBody.stage-two-columns .stage-line{break-inside:avoid}
+}
+#stage #stageBody.stage-two-columns .stage-line{overflow-wrap:break-word}
+</style></head>
 <body data-theme="dark">
 <div class="shell">
 <header class="top"><div><div class="brand" id="brandHome" role="button" tabindex="0">♫ EAE</div><div class="sub">Müzik senin, sahne senin.</div></div><button class="chip" id="themeQuick" aria-label="Temayı değiştir">◐ Tema</button></header>
@@ -596,7 +603,7 @@ body[data-theme="light"] #stage .stage-line[data-color="4"],body[data-theme="cre
 </section>
 <section id="songs" class="hidden"><div class="section"><h2>Tüm Şarkılar</h2><span class="muted" id="songCount"></span></div><input class="field" id="search" placeholder="Tüm arşivde şarkı, sanatçı veya söz ara…" aria-label="Şarkı ara"><div class="song-discovery-actions"><button class="secondary" id="youtubeSongSearch" type="button">▶ YouTube’da Ara</button><button class="secondary" id="aiSongSearch" type="button">✦ Arşivde yoksa yapay zekâyla ara</button></div><p id="songDiscoveryStatus" class="notice" role="status" aria-live="polite">Önce arşivimizde ara. YouTube dinlemek içindir; yapay zekâ araması güvenli sunucu bağlanınca kullanılabilir.</p><div id="categoryMenu" class="category-menu"></div><div id="regionMenu" class="region-menu hidden"></div><div id="songList"></div><details id="ytImportPanel" class="yt-import"><summary>▶ YouTube oynatma listesinden eser adayları aktar</summary><div class="yt-import-body"><p class="notice">YouTube Data API v3 anahtarı ve herkese açık oynatma listesi gerekir. API anahtarı kaydedilmez. Video başlıkları otomatik olarak doğrulanmış şarkı/söz kabul edilmez; aktarılan kayıtlar kontrol bekler.</p><label>API anahtarı (yalnızca bu işlemde kullanılır)<input id="ytApiKey" class="field" type="password" autocomplete="off" placeholder="YouTube Data API v3 anahtarı"></label><label>Oynatma listesi adresi veya kimliği<input id="ytPlaylist" class="field" placeholder="https://www.youtube.com/playlist?list=..."></label><label>Aktarılacak kategori<select id="ytCategory" class="field"></select></label><label>En fazla kaç video taransın?<input id="ytLimit" class="field" type="number" min="1" max="5000" value="500"></label><div class="actions"><button class="secondary" id="ytFetch" type="button">Listeyi tara</button><button class="primary" id="ytSave" type="button" disabled>Önizlenenleri arşive ekle</button></div><p id="ytStatus" class="notice" role="status">Henüz liste taranmadı.</p><div id="ytPreview" class="yt-preview"></div></div></details><p class="notice">Şarkı sözleri yalnızca yayınlama hakkı bulunan eserlerde gösterilir.</p></section>
 <section id="reps" class="hidden"><div class="section"><h2>Repertuvarlarım</h2></div><div class="card"><label for="repName">Yeni repertuvar oluştur</label><input class="field" id="repName" maxlength="60" placeholder="Örn. Cumartesi Sahnesi"><button class="primary" id="createRep">+ Oluştur</button></div><div id="repList"></div></section>
-<section id="stage" class="hidden"><div class="stage"><div><div class="muted" id="stagePosition">Sahne modu</div><h1 id="stageTitle">Henüz şarkı seçilmedi</h1><div class="meta" id="stageMeta">—</div><div class="stage-toolbar"><button class="secondary" id="stageFullscreen" title="Tam ekran">⛶ Tam ekran</button><button class="secondary" id="stageColor" title="Renk paletini aç" aria-expanded="false">🎨 Renk</button><div id="stageColorPalette" class="stage-color-palette hidden" role="group" aria-label="Yazı renk paleti"><div class="stage-color-heading">Yazı rengini seç</div><div id="stageColorSwatches" class="stage-color-swatches"></div><label class="stage-color-custom">Özel renk <input id="stageCustomColor" type="color" value="#ffca59"></label><button type="button" class="secondary" id="stageClearColor">Rengi kaldır</button></div><button class="secondary" id="stageBold" title="Satırı kalınlaştır">𝐁 Kalın</button><button class="secondary" id="fontMinus" aria-label="Yazıyı küçült">A−</button><button class="secondary" id="fontPlus" aria-label="Yazıyı büyüt">A+</button><button class="secondary" id="stageDetails">✎ Bilgiler</button><button class="secondary" id="stageCommunityLyrics">+ Ortak söz ekle</button><button class="secondary" id="stageEditLyrics">✎ Sahne sözlerini düzenle</button></div><div id="stageLyricsEditor" class="hidden" style="margin:12px 0"><label for="stageLyricsInput">Bu repertuvara özel sözler (orijinal katalog kaydı değişmez)</label><textarea id="stageLyricsInput" rows="14" style="width:100%;box-sizing:border-box;margin:8px 0" placeholder="Kullanım hakkına sahip olduğun sözleri buraya yaz veya yapıştır."></textarea><div class="actions"><button class="primary" id="stageSaveLyrics">Sözleri kaydet</button><button class="secondary" id="stageCancelLyrics">Vazgeç</button><button class="secondary" id="stageResetLyrics">Kişisel sözleri sil / orijinale dön</button></div></div><div class="lyrics" id="stageBody">Repertuvarından bir şarkı seçerek başlayabilirsin.</div></div><div id="stageNextPreview" class="stage-next-preview" aria-live="polite"></div><div class="controls"><button class="secondary" id="prevSong">← Önceki</button><button class="secondary" id="nextSong">Sonraki →</button></div></div></section>
+<section id="stage" class="hidden"><div class="stage"><div><div class="muted" id="stagePosition">Sahne modu</div><h1 id="stageTitle">Henüz şarkı seçilmedi</h1><div class="meta" id="stageMeta">—</div><div class="stage-toolbar"><button class="secondary" id="stageFullscreen" title="Tam ekran">⛶ Tam ekran</button><button class="secondary" id="stageColor" title="Renk paletini aç" aria-expanded="false">🎨 Renk</button><div id="stageColorPalette" class="stage-color-palette hidden" role="group" aria-label="Yazı renk paleti"><div class="stage-color-heading">Yazı rengini seç</div><div id="stageColorSwatches" class="stage-color-swatches"></div><label class="stage-color-custom">Özel renk <input id="stageCustomColor" type="color" value="#ffca59"></label><button type="button" class="secondary" id="stageClearColor">Rengi kaldır</button></div><button class="secondary" id="stageBold" title="Satırı kalınlaştır">𝐁 Kalın</button><button class="secondary" id="fontMinus" aria-label="Yazıyı küçült">A−</button><button class="secondary" id="fontPlus" aria-label="Yazıyı büyüt">A+</button><button class="secondary" id="stageColumns" type="button" aria-pressed="false">▥ İki sütun</button><button class="secondary" id="stageNotesToggle" type="button" aria-pressed="true">📝 Notu gizle</button><button class="secondary" id="stageDetails">✎ Bilgiler</button><button class="secondary" id="stageCommunityLyrics">+ Ortak söz ekle</button><button class="secondary" id="stageEditLyrics">✎ Sahne sözlerini düzenle</button></div><div id="stageLyricsEditor" class="hidden" style="margin:12px 0"><label for="stageLyricsInput">Bu repertuvara özel sözler (orijinal katalog kaydı değişmez)</label><textarea id="stageLyricsInput" rows="14" style="width:100%;box-sizing:border-box;margin:8px 0" placeholder="Kullanım hakkına sahip olduğun sözleri buraya yaz veya yapıştır."></textarea><div class="actions"><button class="primary" id="stageSaveLyrics">Sözleri kaydet</button><button class="secondary" id="stageCancelLyrics">Vazgeç</button><button class="secondary" id="stageResetLyrics">Kişisel sözleri sil / orijinale dön</button></div></div><div class="lyrics" id="stageBody">Repertuvarından bir şarkı seçerek başlayabilirsin.</div></div><div id="stageNextPreview" class="stage-next-preview" aria-live="polite"></div><div class="controls"><button class="secondary" id="prevSong">← Önceki</button><button class="secondary" id="nextSong">Sonraki →</button></div></div></section>
 <section id="tools" class="hidden"><div class="section"><h2>Müzik Araçları</h2></div><div class="card"><h3>♩ Metronom</h3><p>İlk çalışan sürüm: BPM seç, başlat ve durdur.</p><label for="bpm">Tempo: <strong id="bpmText">100</strong> BPM</label><input class="field" id="bpm" type="range" min="40" max="220" value="100"><button class="primary" id="metroBtn">▶ Başlat</button><p class="notice">Ses çıkması için önce butona basmalısın.</p></div><div class="card">
 <h3>🎼 PRO Akort Cihazı</h3>
 <p>Kromatik nota algılama, bağlama düzenleri, cent göstergesi ve referans ses.</p>
@@ -937,7 +944,13 @@ $("saveDetails").onclick=()=>{
 };
 $("fontMinus").onclick=()=>setStageFont(stageFont-2);
 $("fontPlus").onclick=()=>setStageFont(stageFont+2);
-function setStageFont(n){stageFont=Math.max(14,Math.min(40,n));localStorage.setItem("musicapp_stage_font_v3",JSON.stringify(stageFont));document.documentElement.style.setProperty("--stage-font-size",stageFont+"px")}
+function setStageFont(n){
+ stageFont=Math.max(14,Math.min(40,n));
+ const {rep,song}=stageActiveSong();
+ if(rep&&song){const key='eae_stage_font_by_song_v2';let all={};try{all=JSON.parse(localStorage.getItem(key)||'{}')||{}}catch{}all[stageMarkIdentity(rep,song)]=stageFont;try{localStorage.setItem(key,JSON.stringify(all))}catch{}}
+ else localStorage.setItem("musicapp_stage_font_v3",JSON.stringify(stageFont));
+ document.documentElement.style.setProperty("--stage-font-size",stageFont+"px")
+}
 $("stageDetails").onclick=()=>{const rep=reps.find(r=>r.id===currentRep)||reps[0];const id=rep?.songIds[stageIndex];if(rep&&id)openDetails(rep.id,id)};
 function moveRepSong(repId,from,to){
  const rep=reps.find(r=>r.id===repId);
@@ -1075,11 +1088,13 @@ function stageDrawLines(){
  const settings=getSongSettings(rep,song.id);
  const text=(settings.note?'SAHNE NOTU\n'+settings.note+'\n\n':'')+'ŞARKI SÖZLERİ\n'+(settings.personalLyrics?.trim()||songLyrics(song));
  const marks=stageReadMarks()[stageMarkIdentity(rep,song)]||{};el.replaceChildren();
+ const noteLineCount=settings.note?settings.note.split('\n').length+2:0;
+ const notesVisible=localStorage.getItem('eae_stage_notes_visible_v2')!=='false';
  text.split('\n').forEach((line,i)=>{
   const span=document.createElement('span');span.className='stage-line'+(i===stageSelectedLine?' stage-selected':'');
   const mark=marks[i]||{};span.dataset.color=String(mark.color||0);if(typeof mark.color==='string'&&/^#[0-9a-fA-F]{6}$/.test(mark.color))span.style.setProperty('color',mark.color,'important');span.dataset.bold=String(mark.bold||0);
   span.tabIndex=0;span.title='Satıra dokunarak seç';
-  span.textContent=line||'\u00a0';
+  span.textContent=line||'\u00a0';if(i<noteLineCount&&!notesVisible)span.classList.add('stage-note-hidden');
   span.addEventListener('pointerdown',()=>{stagePendingLine=i;stageSelectedLine=i});
   span.addEventListener('click',()=>{stageSelectedLine=i;stagePendingLine=i;stageDrawLines()});
   span.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();stageSelectedLine=i;stagePendingLine=i;stageDrawLines()}});
@@ -1094,6 +1109,9 @@ $('stageCustomColor').addEventListener('change',e=>{stageMarkLine('color',e.targ
 $('stageClearColor').onclick=()=>{stageMarkLine('color',0);stagePalette.classList.add('hidden');$('stageColor').setAttribute('aria-expanded','false')};
 document.addEventListener('click',e=>{if(!stagePalette.contains(e.target)&&!$('stageColor').contains(e.target)){stagePalette.classList.add('hidden');$('stageColor').setAttribute('aria-expanded','false')}});
 $('stageBold').onclick=()=>stageMarkLine('bold');
+$('stageColumns').onclick=()=>{const enabled=!$('stageBody').classList.contains('stage-two-columns');$('stageBody').classList.toggle('stage-two-columns',enabled);localStorage.setItem('eae_stage_two_columns_v2',String(enabled));$('stageColumns').setAttribute('aria-pressed',String(enabled));$('stageColumns').textContent=enabled?'▤ Tek sütun':'▥ İki sütun'};
+$('stageNotesToggle').onclick=()=>{const visible=localStorage.getItem('eae_stage_notes_visible_v2')==='false';localStorage.setItem('eae_stage_notes_visible_v2',String(visible));$('stageNotesToggle').setAttribute('aria-pressed',String(visible));$('stageNotesToggle').textContent=visible?'📝 Notu gizle':'📝 Notu göster';stageDrawLines()};
+
 $('stageFullscreen').onclick=async()=>{const el=$('stage');try{if(document.fullscreenElement){await document.exitFullscreen()}else if(el.requestFullscreen){await el.requestFullscreen()}else{el.classList.toggle('stage-fullscreen-fallback')}}catch{el.classList.toggle('stage-fullscreen-fallback')} $('stageFullscreen').textContent=(document.fullscreenElement||el.classList.contains('stage-fullscreen-fallback'))?'✕ Tam ekrandan çık':'⛶ Tam ekran'};
 document.addEventListener('fullscreenchange',()=>{$('stageFullscreen').textContent=document.fullscreenElement?'✕ Tam ekrandan çık':'⛶ Tam ekran'});
 function renderStage(){
@@ -1107,7 +1125,20 @@ function renderStage(){
  $("stageTitle").textContent=s?.title||"Henüz şarkı seçilmedi";
  $("stageMeta").textContent=s?"Ton: "+(settings.key||s.key)+"  •  BPM: "+(settings.bpm??s.bpm??"Belirlenmedi"):"—";
  $("stageBody").textContent=s?((settings.note?"SAHNE NOTU\n"+settings.note+"\n\n":"")+"ŞARKI SÖZLERİ\n"+(settings.personalLyrics?.trim()||songLyrics(s))):"Repertuvarlarım bölümünde liste oluşturup şarkı ekle.";
- if(s)stageDrawLines();
+ if(s){
+  let fontMap={};try{fontMap=JSON.parse(localStorage.getItem('eae_stage_font_by_song_v2')||'{}')||{}}catch{}
+  const saved=fontMap[stageMarkIdentity(rep,s)];
+  stageFont=Number.isFinite(saved)?Math.max(14,Math.min(40,saved)):20;
+  document.documentElement.style.setProperty('--stage-font-size',stageFont+'px');
+  stageDrawLines();
+ }
+ const twoCols=localStorage.getItem('eae_stage_two_columns_v2')==='true';
+ $('stageBody').classList.toggle('stage-two-columns',twoCols);
+ $('stageColumns').setAttribute('aria-pressed',String(twoCols));
+ $('stageColumns').textContent=twoCols?'▤ Tek sütun':'▥ İki sütun';
+ const showNotes=localStorage.getItem('eae_stage_notes_visible_v2')!=='false';
+ $('stageNotesToggle').setAttribute('aria-pressed',String(showNotes));
+ $('stageNotesToggle').textContent=showNotes?'📝 Notu gizle':'📝 Notu göster';
  const next=songs.find(x=>x.id===ids[(stageIndex+1)%ids.length]);$("stageNextPreview").textContent=s&&ids.length>1&&next?"Sıradaki şarkı: "+next.title+(next.artist?" • "+next.artist:""):"";
  $("prevSong").disabled=!s;$("nextSong").disabled=!s;$("stageDetails").disabled=!s;$("stageCommunityLyrics").classList.toggle("hidden",!s||!!s.lyricsPublished);
 }
