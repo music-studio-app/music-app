@@ -611,6 +611,36 @@ body[data-theme="light"] #stage .stage-line[data-color="4"],body[data-theme="cre
 .p3-remote-audio{display:none}#p3TalkButton:active{background:#9b742e}#p3TalkButton[aria-pressed="true"]{background:#a17c37;color:#fff}
 @media(max-width:500px){.p3-panel{padding:13px}.p3-actions button{flex:1 1 43%}}
 </style>
+
+<style id="eae-p3-consistent-tools">
+/* Paket 3: sadece Araçlar/Telsiz bölümünde mevcut koyu lacivert kart diline uyum. */
+#tools{--eae-tools-bg:#102033;--eae-tools-border:#344c63;--eae-tools-text:#eef3f8;--eae-tools-muted:#b3c3d2;--eae-tools-accent:#d5ae6a;color:var(--eae-tools-text)}
+#tools>.card,#tools .p3-panel,#tools .tuner-readout,#tools .tuner-options{
+ background:#172b40!important;background-image:none!important;border:1px solid var(--eae-tools-border)!important;
+ border-radius:15px!important;box-shadow:none!important;color:var(--eae-tools-text)!important}
+#tools>.card,#tools .p3-panel{padding:16px!important;margin:12px 0!important}
+#tools .p3-panel{background:#172b40!important}
+#tools h2,#tools h3,#tools .p3-panel h3{color:var(--eae-tools-text)!important;text-shadow:none!important}
+#tools p,#tools .p3-panel p,#tools .p3-status,#tools .notice{color:var(--eae-tools-muted)!important}
+#tools .p3-badge{color:var(--eae-tools-accent)!important;border:1px solid #78674b!important;background:#102033!important}
+#tools .p3-panel label{color:var(--eae-tools-text)!important}
+#tools .p3-panel select,#tools .p3-panel input,#tools .field{background:#0e1b2b!important;color:#f4f6f8!important;border:1px solid #536579!important;border-radius:10px!important}
+#tools .p3-actions button,#tools .secondary,#tools .tuner-grid button{background:#22364b!important;color:#eef3f8!important;border:1px solid #536579!important;border-radius:10px!important;box-shadow:none!important}
+#tools .p3-actions button:disabled{opacity:.5!important}
+#tools .primary,#tools .p3-actions button[aria-pressed="true"]{background:#d5ae6a!important;color:#121a24!important;border:1px solid #d5ae6a!important;box-shadow:none!important}
+#tools .p3-member{background:#102033!important;border:1px solid #445a70!important;color:#eef3f8!important}
+#tools .tuner-readout{padding:14px!important}
+#tools .tuner-meter{background:#0e1b2b!important}
+#tools .tuner-needle{background:#d5ae6a!important}
+#tools input[type="range"]{accent-color:#d5ae6a}
+#tools .p3-panel .p3-actions{gap:8px!important}
+#tools .p3-panel .p3-actions button{min-height:39px!important;padding:8px 12px!important;font-size:13px!important}
+@media(max-width:600px){#tools>.card,#tools .p3-panel{padding:12px!important}#tools .p3-panel .p3-actions button{flex:1 1 42%}}
+/* Canlı ekip bilgisi, sahne içeriğiyle aynı kart dilinde; söz renkleri ve boyutları değişmez. */
+#stage .p3-panel{background:#172b40!important;background-image:none!important;color:#eef3f8!important;border:1px solid #344c63!important;box-shadow:none!important;border-radius:14px!important;padding:12px 14px!important}
+#stage .p3-panel .p3-status{color:#b3c3d2!important}
+#stage .p3-badge{color:#d5ae6a!important;border-color:#78674b!important}
+</style>
 </head>
 <body data-theme="dark">
 <div class="shell">
